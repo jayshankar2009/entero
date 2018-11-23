@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:ignore="NamespaceTypo">
+
+    <android.support.v7.widget.CardView
+
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/tendp"
+        android:layout_marginBottom="1dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        app:ignore="NamespaceTypo"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/tendp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgCircle"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+
+                    app:civ_border_width="1dp"
+
+                    app:ignore="VectorDrawableCompat" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+
+                    android:orientation="vertical"
+                    android:padding="@dimen/tendp">
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invoiceNo"
+                        android:textSize="10sp"
+                        app:fonts="Lato-Regular.ttf" />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/txtInvoiceNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invoiceNo"
+                        android:textColor="@color/colorPrimary1"
+                        android:textSize="14sp"
+                        app:fonts="Lato-Bold.ttf" />
+                </LinearLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgRupee"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_thum_rupee_red"
+                    app:civ_border_color="@color/colorPurple"
+                    app:civ_border_width="1dp"
+
+                    app:ignore="VectorDrawableCompat" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtInvoiceStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/fivedp"
+
+                    android:layout_weight="1"
+                    android:text="@string/pendingInvoice"
+                    android:textSize="10sp"
+                    app:fonts="Lato-Regular.ttf" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/fivedp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/fivedp"
+                android:paddingTop="@dimen/fivedp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/items"
+                            android:textSize="10sp"
+                            app:fonts="Lato-Regular.ttf" />
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/txtItems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="8"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:fonts="Lato-Bold.ttf" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/packets"
+                            android:textSize="10sp"
+                            app:fonts="Lato-Regular.ttf" />
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/txtPackets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="8"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:fonts="Lato-Bold.ttf" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/boxes"
+                            android:textSize="10sp"
+                            app:fonts="Lato-Regular.ttf" />
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/txtBoxes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="8"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:fonts="Lato-Bold.ttf" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtDlvryStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/fivedp"
+                    android:layout_marginLeft="@dimen/twentydp"
+                    android:layout_marginTop="@dimen/fivedp"
+                    android:layout_weight="3"
+                    android:background="@drawable/txt_drawable_grey"
+                    android:gravity="center"
+                    android:padding="@dimen/eightdp"
+                    android:text="Waiting to Delivery"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

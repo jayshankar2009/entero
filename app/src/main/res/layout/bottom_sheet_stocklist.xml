@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                >
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:text="Request Access"
+                    android:layout_margin="10dp"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/primaryBlack"
+                    android:drawableLeft="@drawable/ic_thum_lock"
+                    android:textSize="18dp"
+                    app:fonts="Lato-Semibold.ttf"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/cross_icon"
+                    android:layout_height="wrap_content"
+                    ></ImageView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:padding="5dp"
+                android:layout_height="match_parent">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="StockList Name"
+                    app:fonts="Lato-Regular.ttf"
+                    android:padding="5dp"
+                    android:textColor="@color/primaryBlack"
+                    android:textSize="12dp"
+                    />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vashu Pharma Enterprise"
+                    app:fonts="Lato-Semibold.ttf"
+                    android:padding="5dp"
+                    android:textColor="@color/textColorBlue"
+                    android:textSize="18dp"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="center_vertical"
+                    >
+
+                    <EditText android:id="@+id/et_Imei"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:hint="Do you have ERP code ?"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/edit_drawable"
+
+                        />
+                </LinearLayout>
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request purpose"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/primaryBlack"
+                    android:textSize="12dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_vertical"
+                    >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:textAllCaps="false"
+                        android:textAlignment="textStart"
+                        android:padding="5dp"
+                        android:background="@color/textColorBlue"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="  Access To product List "
+                        ></Button>
+                </LinearLayout>
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_height="wrap_content"
+                    android:text="message" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_vertical"
+                    >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:minLines="2"
+                        android:gravity="start"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/edit_drawable"
+                        />
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:textAllCaps="false"
+                    android:textAlignment="textStart"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/textColorBlue"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="  Send Request "
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>

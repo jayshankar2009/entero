@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/salesman_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/highlights"
+            android:orientation="vertical">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/text_pdc_payment_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Wellcare Medical And Gen Stores"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_pdc_payment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+                <!-- Content Layout -->
+            <LinearLayout
+                android:id="@+id/drawer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|bottom"
+                android:background="#0000ffff"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="3"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.3"
+                        android:orientation="vertical">
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cheque No:"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"/>
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/text_pdc_drawer_cheque_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2465176223"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="right"
+                        android:layout_marginRight="20dp"
+                        android:orientation="vertical">
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Payment Date"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"/>
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/text_pdc_drawer_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="24/08/2018"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/img_pdc_drawer_close"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:gravity="right"
+                        app:srcCompat="@drawable/ic_list_undeliver"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/light_grey"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bank Name : "
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/text_pdc_drawer_cheque_bank_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HDFC Bank"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Invoice Id : "
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"/>
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/text_pdc_drawer_invoice_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2465176223"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="right"
+                            app:srcCompat="@drawable/ic_list_rupee_small"/>
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/text_pdc_drawer_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Rs. 2790"
+                            android:layout_weight="1.2"
+                            android:gravity="left"
+                            android:paddingLeft="5dp"
+                            android:textStyle="bold"
+                            android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Status : "
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Pending | Due in 3 Days"
+                        android:layout_weight="1.9"
+                        android:gravity="left"
+                        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

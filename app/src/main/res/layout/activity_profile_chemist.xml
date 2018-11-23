@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/product_bottom_bar"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/stroke_color"
+                app:fonts="Lato-Regular.ttf" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/appBarLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date_Tv"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_centerVertical="true"
+            android:padding="2dp">
+
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/chemistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                app:fonts="Lato-Bold.ttf"
+                android:text="Maruti Medicos"
+                android:textColor="@color/primaryBlack"
+                android:textSize="@dimen/text_size"
+                />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/chemistName"
+                app:fonts="Lato-Regular.ttf"
+                android:text="72 Kawli wadi, R.B.S. Bole Rd."
+                android:textColor="@color/primaryBlack"
+                android:textSize="@dimen/text_size_small"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_thum_profile" />
+
+        </RelativeLayout>
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/date_Tv"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_thum_profile" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/second_layout"
+                        android:orientation="horizontal">
+
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:fonts="Lato-Regular.ttf"
+                            android:text="Customer Code"
+                            android:textColor="@color/primaryBlack"
+                            android:textSize="@dimen/text_size_small"
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        app:fonts="Lato-Bold.ttf"
+                        android:text="2548"
+                        android:textColor="@color/primaryBlack"
+                        android:textSize="@dimen/text_size"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/date_Tv"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_thum_profile_mobile" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/second_layout"
+                        android:orientation="horizontal">
+
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:fonts="Lato-Regular.ttf"
+                            android:text="phone"
+                            android:textColor="@color/primaryBlack"
+                            android:textSize="@dimen/text_size_small"
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        app:fonts="Lato-Bold.ttf"
+                        android:text="+91 9876543210"
+                        android:textColor="@color/primaryBlack"
+                        android:textSize="@dimen/text_size"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/date_Tv"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_thum_profile_email" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/second_layout"
+                        android:orientation="horizontal">
+
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:fonts="Lato-Regular.ttf"
+                            android:text="Email id"
+                            android:textColor="@color/primaryBlack"
+                            android:textSize="@dimen/text_size_small"
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        app:fonts="Lato-Bold.ttf"
+                        android:text="abcretro@gmail.com"
+                        android:textColor="@color/primaryBlack"
+                        android:textSize="@dimen/text_size"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/profile_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/date_Tv"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_thum_profile_pending" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/second_layout"
+                        android:orientation="horizontal">
+
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:fonts="Lato-Regular.ttf"
+                            android:text="Pending Payments"
+                            android:textColor="@color/primaryBlack"
+                            android:textSize="@dimen/text_size_small"
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        app:fonts="Lato-Bold.ttf"
+                        android:text="25"
+                        android:textColor="@color/primaryBlack"
+                        android:textSize="@dimen/text_size"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/profile_relative"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_drug_lisence" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/second_layout"
+                        android:orientation="horizontal">
+
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:fonts="Lato-Regular.ttf"
+                            android:text="Drug License"
+                            android:textColor="@color/primaryBlack"
+                            android:textSize="@dimen/text_size_small"
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        app:fonts="Lato-Bold.ttf"
+                        android:text="2548ERTYUI$"
+                        android:textColor="@color/primaryBlack"
+                        android:textSize="@dimen/text_size"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

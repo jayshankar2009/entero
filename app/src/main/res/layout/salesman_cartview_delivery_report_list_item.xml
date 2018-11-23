@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:layout_marginBottom="0.5dp"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="5dp"
+    app:ignore="NamespaceTypo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_delivered_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Landmark Pharma"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fourteendp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_weight="2.1" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right|center"
+                    android:layout_weight="0.3" >
+
+                <ImageView
+                    android:id="@+id/status_images"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/ic_list_undeliver"
+                    android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_delivery_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.6"
+                    android:textColor="@color/colorPenalty"
+                    app:font="Lato-Regular.ttf"
+                    android:text="Delivered"
+                    android:gravity="right"
+                    android:textSize="@dimen/twelvedp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_delivery_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:font="Lato-Regular.ttf"
+                    android:layout_gravity="center_horizontal"
+                    android:text="12:21 pm"
+                    android:textSize="@dimen/twelvedp"/>
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_delivery_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:font="Lato-Regular.ttf"
+                    android:text="Byculla"
+                    android:layout_marginLeft="@dimen/fifteendp"
+                    android:textSize="@dimen/twelvedp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+

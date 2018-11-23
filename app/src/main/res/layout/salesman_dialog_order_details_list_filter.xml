@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/btn_border_details_pending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pending Orders"
+        android:padding="10dp"
+        android:textSize="@dimen/small" />
+    <Button
+        android:id="@+id/btn_order_details_invoiced"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Invoiced Orders"
+        android:padding="10dp"
+        android:textSize="@dimen/small" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="80dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/light_grey"/>
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="OR"/>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="80dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/light_grey"/>
+    </LinearLayout>
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Date : "
+        android:padding="5dp"
+        android:textColor="@color/ordergenie_gray"  
+        android:textSize="@dimen/Extrasmall"/>
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="200dp"
+        android:hint="Start Date"
+        android:padding="5dp"
+        android:id="@+id/txt_start_date"
+        android:background="@drawable/main_linerlayout_border"
+        android:textSize="@dimen/small"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="match_parent"
+        android:text="End Date : "
+        android:padding="5dp"
+        android:textColor="@color/ordergenie_gray"
+        android:textSize="@dimen/Extrasmall"
+        android:layout_height="wrap_content" />
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="200dp"
+        android:hint="End Date"
+        android:padding="5dp"
+        android:id="@+id/txt_end_date"
+        android:background="@drawable/main_linerlayout_border"
+        android:textSize="@dimen/small"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+        <Button
+            android:id="@+id/btn_order_details_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            android:padding="10dp"
+            android:textSize="@dimen/small" />
+
+        <Button
+            android:id="@+id/btn_clear_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clear Filter"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:textSize="@dimen/small" />
+
+</LinearLayout>

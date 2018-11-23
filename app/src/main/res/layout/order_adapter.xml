@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_nav"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginBottom="@dimen/card_margin"
+        android:elevation="3dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/chemistName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="LandMark Farma"
+                    app:fonts="Lato-Regular.ttf"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/textColorBlue"
+                    android:padding="5dp"/>
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/deliveryStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="Delivered"
+                    app:fonts="Lato-Regular.ttf"
+                    android:textColor="@color/primaryBlack"
+                    android:padding="10dp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/graybg"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent"
+                            >
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:text="Order Id"
+                                app:fonts="Lato-Regular.ttf"
+                                android:textSize="@dimen/text_size_small"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:id="@+id/order_id_Tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                app:fonts="Lato-Bold.ttf"
+                                android:layout_alignParentRight="true"
+                                android:textSize="@dimen/text_size_small"
+                                android:text="301251"
+                                android:textColor="@color/textColorBlue"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            >
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:id="@+id/date_order_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:textStyle="bold"
+                                app:fonts="Lato-Bold.ttf"
+                                android:text="13/11/18"
+                                android:textColor="@color/primaryBlack"
+                                android:textSize="@dimen/text_size_small"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:id="@+id/time_order_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:textSize="@dimen/text_size_small"
+                                android:textColor="@color/primaryBlack"
+                                android:textStyle="bold"
+                                app:fonts="Lato-Bold.ttf"
+                                android:text="11:50 pm"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="match_parent"
+                        >
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="Order Amount"
+                            app:fonts="Lato-Regular.ttf"
+                            android:textColor="@color/primaryBlack"
+                            android:textSize="@dimen/text_size_small"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"/>
+
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/order_amount_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            app:fonts="Lato-Bold.ttf"
+                            android:textColor="@color/primaryBlack"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/text_size_small"
+                            android:text="Rs. 301251"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/graybg"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent"
+                            >
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:textStyle="bold"
+                                app:fonts="Lato-Bold.ttf"
+                                android:text="Invoice ID"
+                                android:textSize="@dimen/text_size_small"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:id="@+id/invoice_id_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                app:fonts="Lato-Bold.ttf"
+                                android:layout_alignParentRight="true"
+                                android:textSize="@dimen/text_size_small"
+                                android:text="U000123654"
+                                android:textColor="@color/color_green"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            >
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:id="@+id/date_invoice_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:textStyle="bold"
+                                app:fonts="Lato-Bold.ttf"
+                                android:text="13/11/18"
+                                android:textColor="@color/primaryBlack"
+                                android:textSize="@dimen/text_size_small"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+
+                            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                                android:id="@+id/time_invoice_tv"
+                                android:layout_width="wrap_content"
+                                app:fonts="Lato-Regular.ttf"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/primaryBlack"
+                                android:textSize="@dimen/text_size_small"
+                                android:text="11:50 pm"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="match_parent"
+                        >
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="Order Amount"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/primaryBlack"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"/>
+
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/invoice_amount_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            app:fonts="Lato-Bold.ttf"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/primaryBlack"
+                            android:text="Rs. 301251"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>

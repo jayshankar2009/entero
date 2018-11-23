@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include
+        layout="@layout/salesman_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:padding="@dimen/thirtydp"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:background="@color/colorcredit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:textSize="@dimen/small"
+            android:layout_weight="0.6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+               android:id="@+id/txtCustId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fonts="Lato-Regular.ttf"
+                android:text="55791"
+                android:textColor="@android:color/black"
+
+                />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/txtDistrName"
+                android:textSize="@dimen/small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:fonts="Lato-Bold.ttf"
+                android:textColor="@android:color/black"
+                android:text="Wellcare Medical &amp; Gen Stores"
+                />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+              android:id="@+id/txtAddress"
+                android:textSize="@dimen/tendp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fivedp"
+                app:fonts="Lato-Bold.ttf"
+                android:text="72,kawli wadi,R.B.s Bole Rd"
+                />
+
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_marginTop="@dimen/tendp"
+                android:id="@+id/btn_view_profile"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="false"
+                android:background="@drawable/curve_blue_background"
+                android:gravity="center"
+                app:fonts="Lato-Regular.ttf"
+                android:padding="@dimen/eightdp"
+                android:text="View Profile"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="0.4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:drawableTop="@drawable/ic_end_activity"
+                    android:textSize="@dimen/fifteendp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+
+                    app:fonts="Lato-Bold.ttf"
+                    android:textColor="@android:color/black"
+                    android:text="End Activity"/>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+<RelativeLayout
+    android:id="@+id/btn_take_order"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginRight="@dimen/twentydp"
+    android:background="@color/cust_task">
+
+    <ImageView
+        android:id="@+id/imgTake"
+        android:layout_width="60dp"
+        android:src="@drawable/ic_order_white"
+       android:layout_marginLeft="@dimen/fourtydp"
+        android:layout_height="60dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+       android:layout_toRightOf="@+id/imgTake"
+        android:layout_centerVertical="true"
+        android:text="Take Order"
+        android:textSize="16sp"
+        android:layout_marginLeft="@dimen/fifteendp"
+        android:layout_marginRight="@dimen/twentydp"
+        android:drawable="@drawable/ic_order_white"
+        />
+
+</RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/btn_collectpayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="@dimen/twentydp"
+
+        android:background="@color/cust_task">
+        <ImageView
+            android:id="@+id/imgCollect"
+            android:layout_width="60dp"
+            android:src="@drawable/ic_rupee_white"
+            android:layout_marginLeft="@dimen/fourtydp"
+            android:layout_height="60dp"
+            tools:ignore="VectorDrawableCompat" />
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/imgCollect"
+            android:layout_centerVertical="true"
+            android:text="Collect Payment"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/fifteendp"
+            android:layout_marginRight="@dimen/twentydp"
+            android:drawable="@drawable/ic_order_white"
+            />
+
+    </RelativeLayout>
+
+       <!-- <android.support.v7.widget.AppCompatButton
+            android:layout_marginRight="@dimen/twentydp"
+            android:drawableLeft="@drawable/green"
+            android:background="@drawable/rounded_blueshape"
+            android:id="@+id/btn_collectpayment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:padding="12dp"
+            android:textAllCaps="false"
+            android:text="Collect Payment"
+            android:textSize="18sp" />-->
+    <RelativeLayout
+        android:id="@+id/btn_take_delivery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="@dimen/twentydp"
+
+        android:background="@color/cust_task">
+        <ImageView
+            android:id="@+id/imgDelivery"
+            android:layout_width="60dp"
+            android:src="@drawable/ic__delivery_white"
+            android:layout_marginLeft="@dimen/fourtydp"
+            android:layout_height="60dp"
+            tools:ignore="VectorDrawableCompat" />
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/imgDelivery"
+            android:layout_centerVertical="true"
+            android:text="Delivery"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/fifteendp"
+            android:layout_marginRight="@dimen/twentydp"
+            android:drawable="@drawable/ic_order_white"
+            />
+
+    </RelativeLayout>
+      <!--  <android.support.v7.widget.AppCompatButton
+            android:layout_marginRight="@dimen/twentydp"
+            android:drawableLeft="@drawable/green"
+            android:background="@drawable/rounded_blueshape"
+            android:id="@+id/btn_take_delivery"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:padding="12dp"
+            android:textAllCaps="false"
+            android:text="Delivery"
+            android:textSize="18sp" />
+-->
+
+
+
+
+
+
+
+</LinearLayout>

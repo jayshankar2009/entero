@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="0.5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardElevation="5dp"
+    app:ignore="NamespaceTypo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_outstanding_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Landmark Pharma"
+                    android:layout_weight="2"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:textColor="#00BFFF" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_total_outstanding_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:text="Rs. 4,572"
+                    android:gravity="right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:layout_marginTop="@dimen/fivedp"
+                android:orientation="horizontal">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_outstanding_order_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:text="Order Id: 388532" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_outstanding_order_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:text="Date: 12/08/2018"
+
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_outstanding_order_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="11 Items"
+                    android:layout_weight="0.7"
+                    android:textSize="12sp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:gravity="center" />
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_outstanding_order_due_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Due Date: 12/08/2018"
+                    android:textSize="12sp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_weight="1.3"
+                    android:gravity="right" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+

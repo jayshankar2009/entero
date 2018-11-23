@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/thirtydp">
+
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txt_customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/tendp"
+            android:text="Wellcare Medical &amp; Gen Stores"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:fonts="Lato-Bold.ttf" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txt_customer_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/tendp"
+            android:text="72,Kawli Wadi,R.B.s.Bole Rd"
+            android:textSize="10sp"
+            app:fonts="Lato-Regular.ttf" />
+
+
+        <LinearLayout
+            android:id="@+id/linear12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:layout_marginTop="@dimen/tendp"
+            android:orientation="horizontal"
+            android:padding="@dimen/fivedp">
+
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/fivedp"
+                android:background="@drawable/ic_thum_profile" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/tendp"
+                android:orientation="vertical">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Customer Code"
+                    android:textSize="12sp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_Customer_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="56025"
+
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_phno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:orientation="horizontal"
+            android:padding="@dimen/fivedp">
+
+
+            <ImageView
+                android:id="@+id/img_ph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/fivedp"
+                android:background="@drawable/ic_thum_profile_mobile" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/tendp"
+                android:orientation="vertical">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_ph"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:textSize="12sp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_customer_phone_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="+91-9967245130"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:orientation="horizontal"
+            android:padding="@dimen/fivedp">
+
+
+            <ImageView
+                android:id="@+id/img_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/fivedp"
+                android:background="@drawable/ic_thum_profile_email" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/tendp"
+                android:orientation="vertical">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_customer_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email Id"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_customer_email_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="@string/email_id"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_customer_update_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Update Location" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center|bottom"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="Outstanding Bill"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_customer_outstanding_bill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    app:fonts="Lato-Bold.ttf"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:background="@drawable/curve_red_background"
+                    android:text="Rs. 30,750" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+

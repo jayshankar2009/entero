@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/lnrPopup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id="@+id/lnrCancel"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/tendp"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/tendp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/cross_icon"
+            />
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txtPaymentAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:fonts="Lato-Regular.ttf"
+            android:text="Payment Amount"
+            android:textSize="18sp"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:textColor="@color/colorPrimary1"
+            />
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txtSelectAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:fonts="Lato-Regular.ttf"
+            android:text="Select Amount to Pay"
+            android:textSize="18sp"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:textColor="@android:color/black"
+            />
+
+        <EditText
+            android:id="@+id/edtAmnt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:layout_marginRight="@dimen/twentyFivedp"
+            android:padding="@dimen/twentydp"
+            android:layout_marginTop="@dimen/tendp"
+            android:background="@drawable/edit_drawable"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fifteendp"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:layout_marginRight="@dimen/twentyFivedp"
+            android:text="Proceed and Select Invoices "
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:background="@color/colorPrimary1"
+            android:padding="@dimen/twentydp"/>
+    </LinearLayout>
+
+</LinearLayout>

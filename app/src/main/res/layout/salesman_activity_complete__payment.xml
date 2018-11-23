@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+        <include
+            layout="@layout/salesman_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorcredit"
+            android:padding="@dimen/tendp"
+            android:text="Wellcare Medical &amp; Gen Stores"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fivedp"
+            android:layout_marginLeft="@dimen/twentydp"
+           android:layout_marginTop="@dimen/tendp"
+            android:text="@string/paid_ammt"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/small"
+            app:fonts="Lato-Regular.ttf" />
+
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txt_paid_amnt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/tendp"
+            android:padding="10dp"
+            android:text="Rs.5,000"
+            android:textColor="@color/colorPrimary1"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="@dimen/twentydp"
+            android:text="@string/payment_method"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/small" />
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:layout_marginRight="@dimen/twentydp"
+            android:layout_marginTop="@dimen/twentydp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_drawable"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+
+                    android:id="@+id/txtCashPayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/fivedp"
+                    android:drawableTop="@drawable/ic_card_rupee"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/twentydp"
+                    android:paddingTop="@dimen/twentydp"
+                    android:text="@string/cash_payment"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fifteendp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#EEEEEE" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtCheque"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/fivedp"
+                    android:drawableTop="@drawable/ic_card_cheque"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/twentydp"
+                    android:paddingLeft="@dimen/fifteendp"
+                    android:paddingRight="@dimen/fifteendp"
+                    android:paddingTop="@dimen/twentydp"
+                    android:text="@string/cheque_payment"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fifteendp"
+                    app:fonts="Lato-Regular.ttf" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/lnrVissible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twentydp"
+            android:layout_marginRight="@dimen/twentydp"
+            android:layout_marginTop="@dimen/tendp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fivedp"
+                android:text="@string/chequeDetails"
+                android:textColor="@color/colorBlack"
+                app:fonts="Lato-Regular.ttf" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fivedp"
+                android:text="@string/chequeNo"
+                app:fonts="Lato-Regular.ttf" />
+
+            <EditText
+                android:id="@+id/edtChequeNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tendp"
+                android:background="@drawable/edit_drawable"
+                android:padding="@dimen/tendp" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fivedp"
+                android:text="@string/paymentDate"
+                app:fonts="Lato-Regular.ttf" />
+
+            <EditText
+                android:id="@+id/edtPaymntNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tendp"
+                android:background="@drawable/edit_drawable"
+                android:padding="@dimen/tendp" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fivedp"
+                android:text="@string/bankName"
+                app:fonts="Lato-Regular.ttf" />
+
+            <EditText
+                android:id="@+id/edtBankName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tendp"
+                android:background="@drawable/edit_drawable"
+                android:padding="@dimen/tendp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_paymentcomplete"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="@dimen/twentydp"
+            android:background="@drawable/rounded_shape"
+            android:padding="12dp"
+            android:text="Complete payment"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.salesman.CollectPaymentActivity_Salesman">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:weightSum="1">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:orientation="vertical">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/otstanding_bill"
+                android:textColor="@android:color/black"
+                app:fonts="Lato-Bold.ttf" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/txt_customer_list_outstanding_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fivedp"
+                android:text="Rs.30,779"
+                android:textColor="@color/colorpink"
+                android:textSize="18sp"
+                app:fonts="Lato-Bold.ttf" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:orientation="horizontal">
+
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/txt_customer_list_pdc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:drawableTop="@drawable/ic_thum_pdc"
+                android:gravity="center"
+                android:text="PDC"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/tendp"
+                app:fonts="Lato-Regular.ttf" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/txt_customer_list_CreditNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fivedp"
+                android:layout_weight="0.2"
+                android:drawableTop="@drawable/ic_thum_cradit_note"
+                android:gravity="center"
+                android:text="Credit Note"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/tendp"
+                app:fonts="Lato-Regular.ttf" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_customer_list_pending_bill"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/fifteendp"
+        android:background="@color/colorcredit"
+        android:padding="@dimen/fivedp"
+        android:scrollbars="vertical" />
+
+
+</LinearLayout>

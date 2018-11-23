@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.app.entero.direct">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/entero_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.activity.main.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.salesman.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.main.HomeActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Home Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.activity.main.LoginActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Login Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.activity.main.ChemistLoginActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Login Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.activity.main.ProfessionalDetailActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Login Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+
+        <activity
+            android:name=".ui.activity.main.OTPActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="OTP Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.chemist.OffersActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Home Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.activity.chemist.TakeOrderActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Home Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.chemist.ProductsActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Home Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.chemist.OrderDeatilsChemistActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Home Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.activity.chemist.NotificationActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Notifications"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.activity.chemist.ProfileActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Notifications"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <!--<activity
+            android:name=".ui.activity.salesman.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".ui.activity.salesman.OutstandingsActivity_Salesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.salesman.AllOrderActivity_Salesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.salesman.TakeOrderActivity_Salesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.salesman.OrderDetailsActivity_Saleesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".ui.activity.salesman.ReportsActivity_Salesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".ui.activity.salesman.DailyCollectionReportActivity_Salesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.salesman.DeliveryReportActivity_Salesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activity.salesman.SummaryReportActivity_Salesman"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <!--
+        Harish
+        -->
+        <activity
+            android:name=".ui.activity.salesman.Payment_SuccessActivity_Salesman"
+            android:screenOrientation="portrait" />
+
+        <!-- PAYMENT SUCCESS SCREEN WITH ACTIVITY -->
+
+        <activity
+            android:name=".ui.activity.salesman.Complete_PaymentActivity_Salesman"
+            android:screenOrientation="portrait" />
+
+        <!-- COMPLETE PAYMENT SCREEN WITH ACTIVITY -->
+
+        <activity
+            android:name=".ui.activity.salesman.Customer_TastActivity_Salesman"
+            android:screenOrientation="portrait" />
+
+        <!-- CUSTOMER TASK SCREEN WITH ACTIVITY -->
+
+        <activity
+            android:name=".ui.activity.salesman.Visit_PlanActivity_Salesman"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.salesman.CollectPaymentActivity_Salesman"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.salesman.ProfileActivity_Salesman"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.salesman.AddCreditNotesActivity_Salesman"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.salesman.CreditNotesActivity_Salesman"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.salesman.PDCPaymentActivity_Salesman"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.salesman.DeliveryActivity_Salesman"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.salesman.CustomTaskDeliveryDetailsActivity_Salesman"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.salesman.Product_Search_Activity_Salesman"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.salesman.CustomerListDetailsActivity_Salesman"
+            android:screenOrientation="portrait"  />
+
+        <activity
+            android:name=".ui.activity.salesman.CustomTaskDeliverDetailStatusActivity_Salesman"
+            android:screenOrientation="portrait"  />
+
+        <activity
+            android:name=".ui.activity.salesman.TakeOrderActivityResult_Salesman"
+            android:screenOrientation="portrait"  />
+    </application>
+
+</manifest>

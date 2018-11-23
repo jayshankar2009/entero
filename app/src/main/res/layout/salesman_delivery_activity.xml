@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include
+        layout="@layout/salesman_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fifteendp"
+        android:textSize="16sp"
+        app:fonts="Lato-Bold.ttf"
+        android:textColor="@android:color/black"
+        android:background="@color/colorcredit"
+        android:text="WellCare Medical &amp; Gen Stores"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/delivRecy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/fivedp"/>
+</LinearLayout>

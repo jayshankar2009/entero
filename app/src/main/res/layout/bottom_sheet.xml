@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_gravity="center_vertical"
+        >
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        >
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            app:fonts="Lato-Semibold.ttf"
+            android:text="Crocin pain relief Tablet"
+            android:textColor="@color/textColorBlue"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:gravity="right"
+            android:padding="5dp"
+            android:layout_gravity="right|end"
+            android:src="@drawable/cross_icon"
+            android:layout_height="wrap_content"
+            ></ImageView>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        >
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Product Id : "
+            app:fonts="Lato-Regular.ttf"
+            android:textColor="@color/light_grey"
+            android:textSize="12dp"
+             />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="789546"
+            app:fonts="Lato-Regular.ttf"
+            android:textColor="@color/primaryBlack"
+            android:textSize="12dp"
+            />
+
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:gravity="right"
+            app:fonts="Lato-Regular.ttf"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content"
+            android:text="Pack : "
+            android:textColor="@color/light_grey"
+            ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:gravity="right"
+            app:fonts="Lato-Regular.ttf"
+            android:layout_height="wrap_content"
+            android:text="1 strip of 15 tablets"
+            android:textColor="@color/primaryBlack"
+            ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        >
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Mfg : "
+            app:fonts="Lato-Regular.ttf"
+            android:textColor="@color/light_grey"
+            android:textSize="12dp"
+            />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:gravity="right"
+            app:fonts="Lato-Regular.ttf"
+            android:layout_height="wrap_content"
+            android:text="torrent pharmaceuticals ltd."
+            android:textColor="@color/primaryBlack"
+            ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/rectanglular_background"
+            android:orientation="horizontal"
+            >
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MRP : "
+                app:fonts="Lato-Regular.ttf"
+                android:layout_gravity="center"
+                android:textColor="@color/light_grey"
+                android:textSize="12dp"
+                />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs 98.00"
+                app:fonts="Lato-Semibold.ttf"
+                android:layout_gravity="center"
+                android:textColor="@color/stroke_color"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/rectanglular_background"
+            android:orientation="horizontal"
+            >
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sale Rate : "
+                app:fonts="Lato-Regular.ttf"
+                android:layout_gravity="center"
+                android:textColor="@color/light_grey"
+                android:textSize="12dp"
+                />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs 98.00"
+                app:fonts="Lato-Semibold.ttf"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPenalty"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

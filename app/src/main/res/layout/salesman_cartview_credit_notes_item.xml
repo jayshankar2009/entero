@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/eightdp"
+        android:orientation="horizontal">
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txt_credit_note_no"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/fivedp"
+            android:layout_weight="2.2"
+            android:gravity="left"
+            android:text="1"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:fonts="Lato_Regular.ttf" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txt_credit_note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="left"
+            android:text="Two bottales was damaized of Asthalin cough syrup(100 mg)."
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:fonts="Lato_Regular.ttf" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txt_credit_note_amount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2"
+
+            android:gravity="left"
+            android:text="Rs. 1000"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:fonts="Lato_Regular.ttf" />
+
+    </LinearLayout>
+
+</LinearLayout>

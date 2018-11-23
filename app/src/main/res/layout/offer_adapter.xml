@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_nav"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:src="@drawable/nav_products" />
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/img_icon"
+        android:layout_toLeftOf="@+id/addToCart"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="4"
+            android:orientation="horizontal">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/tab_Tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginLeft="20dp"
+                app:fonts="Lato-Regular.ttf"
+                android:text="@string/app_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size"
+                />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal">
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/count_Tv"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="X4"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
+                    app:fonts="Lato-Regular.ttf" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/des_Tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_weight="1"
+                    android:text="@string/app_name"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp" />
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal">
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/distributor_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:maxLines="1"
+                        android:layout_weight="1"
+                        android:text="@string/app_name"
+                        android:textColor="@color/light_grey"
+                        android:textSize="12sp"
+                        android:visibility="visible"
+                        app:fonts="Lato-Regular.ttf" />
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/addToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:background="@color/graybg"
+            android:layout_alignParentRight="true"
+            android:visibility="visible"
+            android:src="@drawable/ic_thum_cart_offer" />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

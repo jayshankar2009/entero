@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <LinearLayout
+        android:background="@color/colorcredit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/salesman_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/baseLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorcredit"
+            android:padding="10dp">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wellcare Medical &amp; Gen Stores"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+
+
+
+        </LinearLayout>
+
+       <LinearLayout
+           android:gravity="center"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+
+           <ImageView
+               android:layout_width="170dp"
+               android:layout_height="90dp"
+               android:layout_marginBottom="20dp"
+               app:srcCompat="@drawable/ic_thum_success"/>
+
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:drawablePadding="@dimen/Normal"
+            android:layout_width="match_parent"
+            android:text="Payment has been done successfully!"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/green"
+            android:textSize="@dimen/text_size_medium"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
+
+       </LinearLayout>
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/salesman_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/highlights"
+        android:orientation="vertical">
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/text_cust_task_delivery_detail_status_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Wellcare Medical And Gen Stores"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black"
+            app:fonts="Lato_Bold.ttf" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- things to scroll -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Invoice No."
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    app:fonts="Lato_Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_cust_task_delivery_detail_status_invoice_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="U0018336961"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/colorPrimary1"
+                    app:fonts="Lato_Bold.ttf" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/light_grey"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Items"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        app:fonts="Lato_Regular.ttf" />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/text_cust_task_delivery_detail_status_items_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="8"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@android:color/black"
+                        app:fonts="Lato_Bold.ttf" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Packets"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        app:fonts="Lato_Regular.ttf" />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/text_cust_task_delivery_detail_status_packets_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="3"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@android:color/black"
+                        app:fonts="Lato_Bold.ttf" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
+
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Boxes"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        app:fonts="Lato_Regular.ttf" />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/text_cust_task_delivery_detail_status_boxes_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@android:color/black"
+                        app:fonts="Lato_Bold.ttf" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.6"
+                    android:gravity="center|right"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_cust_task_delivery_detail_status_view_invoice"
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/curve_border_background"
+                        android:gravity="center"
+                        android:text="View Invoice"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/color_green" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Delivered To"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/black"
+                app:fonts="Lato_Regular.ttf" />
+
+            <RadioGroup
+                android:id="@+id/radio_group_delivered_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RadioButton
+                    android:id="@+id/radio_chemist"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Chemist" />
+
+                <RadioButton
+                    android:id="@+id/radio_owner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Owner" />
+
+                <RadioButton
+                    android:id="@+id/radio_others"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="others" />
+
+            </RadioGroup>
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Delivery Information"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/black"
+                app:fonts="Lato_Regular.ttf" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ly_cust_task_delivery_detail_status_take_selfie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:id="@+id/customer_task_delivery_details_selfie"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="26dp"
+                    app:srcCompat="@drawable/ic_thum_add"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="26dp" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Take Selfie"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    app:fonts="Lato_Bold.ttf" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/horizontal_recycler_view_take_selfie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/curve_border_background"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/ly_cust_task_delivery_detail_status_take_signature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary1"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:id="@+id/customer_task_delivery_details_signature"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="26dp"
+                    app:srcCompat="@drawable/ic_thum_add"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="26dp" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Take Signature"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    app:fonts="Lato_Bold.ttf" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/horizontal_recycler_view_take_signature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/curve_border_background"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_cust_task_delivery_detail_status_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_green"
+                android:gravity="center"
+                android:text="Delivery"
+                android:layout_marginTop="15dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
+
+           </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

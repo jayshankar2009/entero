@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:id="@+id/appBarLayout"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+            <android.support.v7.widget.Toolbar
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:local="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:background="@color/white"
+                local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                local:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <ImageView
+                    android:id="@+id/img_title"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_entero_logo"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/img_add_order"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:src="@drawable/add_order"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/textColorBlue" />
+
+
+                <ImageView
+                    android:id="@+id/imgFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_nav_filter"
+                    android:layout_margin="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_nav_search"
+                    android:layout_margin="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/addToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:src="@drawable/create_new_order"
+                    />
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/appBarLayout"
+            android:layout_above="@+id/appBarLayoutBottom"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/appBarLayoutBottom"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="start"
+                app:tabIndicatorColor="@drawable/navigation_selector"
+                app:itemIconTint="@drawable/navigation_selector"
+                app:labelVisibilityMode="labeled"
+                app:itemTextAppearanceActive="@style/TabTextStyle"
+                app:itemTextAppearanceInactive="@style/TabTextStyle"
+                app:itemTextColor="@drawable/navigation_selector"
+                app:menu="@menu/menu_navigation"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

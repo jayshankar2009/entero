@@ -1,0 +1,180 @@
+<resources>
+    <string name="app_name">Entero Direct</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="Imei">IMEI</string>
+    <string name="enterOtp">Enter OTP</string>
+    <string name="login">Login</string>
+    <string name="permission_necessary">Permission necessary</string>
+    <string name="external_storage_permission">External storage permission is necessary</string>
+
+    <!--BottomNavigationItem-->
+    <string name="home">Home</string>
+    <string name="product">Products</string>
+    <string name="stocklist">Stockist</string>
+    <string name="orders">Orders</string>
+    <string name="outstanding">Outstanding</string>
+
+
+    <!--Navigation Start-->
+    <string-array name="nav_title">
+        <item>Home</item>
+        <item>Products</item>
+        <item>Stockist</item>
+        <item>Orders</item>
+        <item>Outstanding</item>
+        <item>Notifications</item>
+        <item>Profile</item>
+        <item>Logout</item>
+
+    </string-array>
+
+    <integer-array name="nav_icons">
+        <item>@drawable/nav_home</item>
+        <item>@drawable/nav_products</item>
+        <item>@drawable/nav_customers</item>
+        <item>@drawable/nav_orders</item>
+        <item>@drawable/outstanding_icon</item>
+        <item>@drawable/ic_nav_notification</item>
+        <item>@drawable/ic_profile_left_menu</item>
+        <item>@drawable/ic_logout</item>
+    </integer-array>
+
+    <string name="offers">Offers</string>
+    <string name="products">Products</string>
+    <string name="order_detail">Order Detail</string>
+
+
+    <string name="outstangings">Outstandings</string>
+    <string name="allorder">All Order</string>
+    <string name="orderdetails">Order Details</string>
+    <string name="dailycollection">Daily Collection</string>
+    <string name="deliveryreport">Delivery Report</string>
+    <string name="summaryreport">Summary Report</string>
+    <string name="reports">Reports</string>
+    <string name="visit_paln">Visit Plan</string>
+    <string name="credit_ammt">Credit Ammount</string>
+    <string name="card">Credit / Debit Card</string>
+    <string name="payment_method">Choose Payment Method</string>
+    <string name="paid_ammt">Paid Ammount</string>
+    <string name="net">Net Banking</string>
+    <string name="cash_payment">Cash Payment</string>
+    <string name="cheque_payment">Cheque Payment</string>
+    <string name="email_id">badgujar.harish9@gmail.comt</string>
+    <string name="otstanding_bill">Outstanding Bill Amount</string>
+    <string name="order_bottom">Wellcare Medical Gen Stores</string>
+    <string name="take_order">Tap Search Icon on the top right to search \n your product and add to cart</string>
+    <string name="credit_note_sent">Credit note has been submited successfully!</string>
+    <string name="pdcPayment">PDC</string>
+    <string name="invoiceNo">Invoice No.</string>
+    <string name="pendingInvoice">Pending Invoice</string>
+    <string name="items">Items</string>
+    <string name="delivery">Delivery</string>
+    <string name="packets">Packets</string>
+    <string name="boxes">Boxes</string>
+    <string name="low">Low</string>
+    <string name="moderate">Moderate</string>
+    <string name="penalty">In-Penalty</string>
+    <string name="noStock">No Stock</string>
+
+
+    <!--rating dialog-->
+    <string name="rate_us">Rate Us</string>
+    <string name="rating_message">Please let us know, how can we improve ourselves?</string>
+    <string name="rating_play_store_redirect_message_line_1">Awesome! Thank you for the 5 stars.</string>
+    <string name="rating_play_store_redirect_message_line_2">Please help others, in knowing some good things about this app.</string>
+    <string name="rating_play_store_text">Rate us on Play Store</string>
+    <string name="rating_not_provided_error">Please provide us stars.</string>
+    <string name="rating_thanks">Thank you!</string>
+
+    <!--play store-->
+    <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="app_market_link">"market://details?id="</string>
+
+    <!--button-->
+    <string name="later">Later</string>
+    <string name="submit">Submit</string>
+
+    <!--feed-->
+    <string name="title">My Feed</string>
+    <string name="open_source">Open Source</string>
+    <string name="blog">Blog</string>
+
+    <!--empty state-->
+    <string name="empty_screen">We do not have anything\nhere right now.</string>
+    <string name="please_retry">Please Retry</string>
+    <string name="retry">Retry</string>
+
+
+    <!--Drawer Menus-->
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="feed">My Feed</string>
+
+    <!--App Message-->
+    <string name="api_retry_error">Please retry!</string>
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="connection_error">Internet connection lost!</string>
+
+    <!--Login-->
+    <string name="login_dummy">Login Dummy</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <!--Login Validation-->
+    <string name="empty_email">Please provide a user name.</string>
+    <string name="invalid_email">Please provide a valid email.</string>
+    <string name="empty_password">Please provide a non empty password.</string>
+
+    <!--about fragment-->
+    <string name="project_info">This sample app implements MVP architecture using Dagger2, GreenDao, RxJava, FastAndroidNetworking and PlaceholderView</string>
+    <string name="link_mvp_blog">1. https://blog.mindorks.com</string>
+    <string name="link_mvp_repo">2. https://github.com/MindorksOpenSource/android-mvp-architecture</string>
+    <string name="link_mindorks_blog">3. https://blog.mindorks.com</string>
+    <string name="link_mindorks_repo">4. https://github.com/MindorksOpenSource</string>
+    <string name="version">"version"</string>
+
+    <string name="paymentCollection">Payment Collection</string>
+    <string name="cstmrVist">Customer Visit</string>
+    <string name="seeAll">See All</string>
+    <string name="otherAct">Other Actions</string>
+
+
+    <!--Navigation Start-->
+    <string-array name="sales_nav_title">
+        <item>Home</item>
+        <item>Products</item>
+        <item>Customers</item>
+        <item>Orders</item>
+        <item>Notifications</item>
+
+    </string-array>
+
+    <integer-array name="sales_nav_icons">
+        <item>@drawable/nav_home</item>
+        <item>@drawable/nav_products</item>
+        <item>@drawable/nav_customers</item>
+        <item>@drawable/nav_orders</item>
+        <item>@drawable/ic_nav_notification</item>
+    </integer-array>
+
+    <string name="outStanding">OutStanding</string>
+    <string name="allOrder">All Order</string>
+    <string name="viewReport">View Report</string>
+    <string name="productname">Search By Product Name</string>
+    <string name="mnfName">Search By Manufacture Name</string>
+    <string name="customers">Customers</string>
+    <string name="notification">Notification</string>
+    <string name="customer_list">Customer List</string>
+    <string name="customer_profile">Profile</string>
+    <string name="customer_orders">Orders</string>
+    <string name="customer_pending_bill">Pending Bills</string>
+
+    <string name="chequeDetails">CHEQUE DETAILS</string>
+    <string name="chequeNo">Cheque No</string>
+    <string name="paymentDate">Payment Date</string>
+    <string name="bankName">Bank Name</string>
+
+</resources>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/tools">
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        card_view:cardBackgroundColor="@color/graybg"
+
+        card_view:cardElevation="5dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:id="@+id/lnrMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/tendp"
+                android:orientation="horizontal">
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtPrdctName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/tendp"
+                    android:textSize="12sp"
+                    android:text="Crocine"
+                    android:layout_gravity="left"
+
+                    />
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtManfcr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_marginRight="@dimen/tendp"
+                    android:textSize="12sp"
+                    android:text="Cipla Inc."
+                   android:gravity="right"
+
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/fivedp"
+                android:layout_marginRight="@dimen/fivedp"
+                android:background="@android:color/darker_gray"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fivedp"
+
+                android:layout_marginLeft="@dimen/tendp"
+                android:layout_marginRight="@dimen/tendp"
+                android:layout_marginTop="@dimen/tendp"
+                android:orientation="horizontal">
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtPackSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:text="Pack Size: 12"
+                    android:gravity="left"
+                    app:fonts="Lato-Regular.ttf"/>
+<View
+    android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/fivedp"
+    android:background="@android:color/darker_gray"/>
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtPtr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="PTR: Rs.12"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    app:fonts="Lato-Regular.ttf"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/fivedp"
+                    android:background="@android:color/darker_gray"/>
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txtMRP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:gravity="right"
+                    android:layout_marginRight="@dimen/fivedp"
+                    android:layout_weight="1"
+                    android:text="MRP: Rs.12"
+                    app:fonts="Lato-Regular.ttf"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/salesman_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/highlights"
+            android:orientation="vertical">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/text_add_credit_note_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Wellcare Medical And Gen Stores"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Bill Id"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txt_add_credit_note_select_bill_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/curve_border_background" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Credit Amount"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txt_add_credit_note_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/curve_border_background" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txt_add_credit_notes"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:padding="5dp"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:background="@drawable/curve_border_background" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_add_credit_notes_submit"
+            android:layout_width="match_parent"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:background="@color/submit"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

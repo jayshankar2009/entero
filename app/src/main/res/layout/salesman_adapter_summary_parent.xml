@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/rltMain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/heading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:background="@color/white"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:weightSum="4"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.1"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/tx_cust_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:focusable="false"
+            android:text="56143"
+            app:fonts="Lato-Regular.ttf"
+            android:textSize="12sp" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/tx_cust_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:focusable="false"
+            android:text="Wellcare Medical Stores"
+            app:fonts="Lato-Regular.ttf"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center|right"
+            android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            app:srcCompat="@drawable/ic_list_rupee_small"/>
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/tx_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:focusable="false"
+            android:text="Rs. 30779"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:fonts="Lato-Bold.ttf"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:id="@+id/due_indicator"
+            android:layout_weight="0.4"
+            android:layout_height="match_parent"
+            android:padding="6dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/lnrVisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:visibility="visible"
+        android:weightSum="3"
+        android:layout_below="@+id/heading_layout"
+        android:orientation="horizontal">
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/tx_orderNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:ellipsize="end"
+            android:text="Order"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            app:fonts="Lato-Regular.ttf"
+            android:textSize="@dimen/small" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/tx_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Date"
+            android:layout_weight="1.2"
+            android:layout_marginLeft="10dp"
+            app:fonts="Lato-Regular.ttf"
+            android:textSize="@dimen/small" />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/tx_amt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:ellipsize="end"
+            android:text="Amount"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingRight="20dp"
+            app:fonts="Lato-Regular.ttf"
+            android:textSize="@dimen/small" />
+
+    </LinearLayout>
+
+</RelativeLayout>

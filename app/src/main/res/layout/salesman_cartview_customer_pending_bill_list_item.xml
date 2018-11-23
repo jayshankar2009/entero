@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/tendp"
+    android:elevation="@dimen/fivedp"
+    app:ignore="NamespaceTypo"
+    card_view:cardBackgroundColor="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/tendp"
+            android:paddingLeft="@dimen/fivedp"
+            android:paddingRight="@dimen/fivedp"
+            android:paddingTop="@dimen/tendp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fivedp"
+                android:layout_weight="1.3"
+                android:orientation="vertical">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bill Id"
+                    android:textSize="@dimen/tendp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_bill_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="U0018336961"
+                    android:textColor="@color/cust_task"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bill Date"
+                    android:textSize="@dimen/tendp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_billdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="30/10/2018"
+                    android:textColor="@color/submit"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:orientation="vertical">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pending Days"
+                    android:textSize="10sp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_pending_amnt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="50"
+                    android:textColor="@color/submit"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/tendp"
+            android:weightSum="2">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:orientation="vertical">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bill Items"
+                    android:textSize="@dimen/tendp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Grand Total"
+                    android:textSize="10sp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_grandtotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rs.1926"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Discount"
+                    android:textSize="10sp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rs.28"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:gravity="top"
+                android:orientation="vertical">
+
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Final Amount"
+                    android:textSize="10sp"
+                    app:fonts="Lato-Regular.ttf" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/txt_finalamt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rs.1898"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="#B3B3B3"
+                android:padding="10dp" />
+
+
+            <LinearLayout
+                android:id="@+id/ly_hide_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/tendp"
+                android:visibility="gone"
+                android:weightSum="1">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/txt_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Status : partially Paid"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        app:fonts="Lato-Bold.ttf" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Balance Amount"
+                        android:textSize="10sp"
+                        app:fonts="Lato-Regular.ttf" />
+
+                    <TextView
+                        android:id="@+id/txt_balAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/curve_red_background"
+                        android:gravity="center"
+                        android:text="Rs.1898"
+                        android:paddingRight="15dp"
+                        android:paddingLeft="15dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
+
+

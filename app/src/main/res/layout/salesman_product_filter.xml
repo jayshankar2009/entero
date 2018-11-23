@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:id="@+id/btnSrchPrdct"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/twentydp"
+        android:layout_marginLeft="@dimen/fourtydp"
+        android:layout_marginRight="@dimen/fourtydp"
+        android:background="@color/highlights"
+        android:padding="@dimen/tendp"
+        app:fonts="Lato-Regular.ttf"
+        android:text="@string/productname"/>
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:id="@+id/btnSrchMnfact"
+        android:layout_marginTop="@dimen/tendp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="@dimen/fourtydp"
+        android:layout_marginRight="@dimen/fourtydp"
+        android:background="@color/highlights"
+        android:padding="@dimen/tendp"
+        app:fonts="Lato-Regular.ttf"
+        android:text="@string/mnfName"/>
+
+<com.app.entero.direct.utils.custom.CustomTextView_Salesman
+    android:id="@+id/txtClear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Clear"
+    android:layout_marginTop="@dimen/tendp"
+       android:gravity="center"
+    android:textColor="@android:color/black"
+    android:padding="@dimen/tendp"/>
+
+</LinearLayout>

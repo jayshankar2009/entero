@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorcredit"
+    android:orientation="vertical"
+    >
+    <include
+            layout="@layout/salesman_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/baseLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/tendp"
+            android:paddingLeft="@dimen/twentydp"
+            android:paddingTop="@dimen/tendp"
+            android:paddingRight="@dimen/tendp"
+           >
+
+            <ImageView
+                android:id="@+id/imgCalender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_card_calendar"
+                tools:ignore="VectorDrawableCompat" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+
+                android:id="@+id/txt_date"
+                android:layout_toRightOf="@+id/imgCalender"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/tendp"
+                android:layout_height="wrap_content"
+                android:text="Thu,25 Sep 2018"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:src="@drawable/ic_card_triangle"
+                android:layout_toRightOf="@+id/txt_date"
+                android:layout_marginLeft="@dimen/tendp"
+                android:layout_width="20dp"
+                android:layout_centerVertical="true"
+                android:layout_height="20dp"
+                tools:ignore="VectorDrawableCompat" />
+
+
+
+        </RelativeLayout>
+
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+
+
+
+
+</LinearLayout>

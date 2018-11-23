@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fivedp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/tendp"
+            app:civ_border_width="2dp"
+            android:padding="@dimen/threedp"
+            app:civ_border_color="@android:color/darker_gray"
+
+            android:layout_marginLeft="@dimen/fivedp"
+            android:src="@drawable/ic_thum_profile"
+
+            />
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_toRightOf="@+id/imgProfile"
+            android:textSize="16sp"
+            android:layout_marginTop="@dimen/tendp"
+            app:fonts="Lato-Bold.ttf"
+            android:layout_marginLeft="@dimen/tendp"
+            android:textColor="@android:color/black"
+            android:text="Vishal Patil"/>
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txtMobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/tendp"
+            android:layout_toRightOf="@+id/imgProfile"
+android:layout_marginTop="@dimen/fivedp"
+            android:textSize="16sp"
+            app:fonts="Lato-Bold.ttf"
+            android:layout_below="@+id/txtName"
+            android:text="+91 9879879878"/>
+    </RelativeLayout>
+   <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+    android:id="@+id/txtImeiNo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="14sp"
+       app:fonts="Lato-Regular.ttf"
+    android:text="Imei :          354321234323"
+    android:layout_marginTop="@dimen/fivedp"
+       android:layout_marginLeft="@dimen/tendp"
+    />
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/tendp"
+        android:layout_marginBottom="@dimen/fivedp"
+        android:layout_marginRight="@dimen/fivedp"
+        app:fonts="Lato-Regular.ttf"
+        android:textSize="14sp"
+        android:text="Email Id:     vishal@check.com"/>
+
+
+
+</LinearLayout>

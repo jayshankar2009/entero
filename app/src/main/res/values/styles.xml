@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppThemeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="StyledTilEditTextTheme">
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:singleLine">true</item>
+        <item name="colorControlNormal">@color/light_grey</item>
+        <item name="colorControlActivated">@color/main_text_color</item>
+        <item name="android:textColorPrimary">@color/main_text_color</item>
+        <item name="android:textColorHint">@color/text_color</item>
+    </style>
+
+    <style name="EditTextHint">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/text_color</item>
+        <item name="colorControlNormal">@color/text_color</item>
+        <item name="colorControlActivated">@color/main_text_color</item>
+        <item name="colorControlHighlight">@color/text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TabTextStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">10dp</item>
+    </style>
+
+    <color name="main_text_color">@android:color/black</color>
+
+</resources>

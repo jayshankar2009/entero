@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include
+        layout="@layout/salesman_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fifteendp"
+        android:textSize="16sp"
+        app:fonts="Lato-Bold.ttf"
+        android:textColor="@android:color/black"
+        android:background="@color/colorcredit"
+        android:text="WellCare Medical &amp; Gen Stores"/>
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="@dimen/fivedp"
+        android:weightSum="1"
+        android:layout_marginLeft="@dimen/tendp"
+android:layout_marginRight="@dimen/tendp"
+        android:orientation="horizontal"
+        android:id="@+id/radioGroup"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Name"
+            android:id="@+id/rdbProduct"
+android:layout_marginLeft="@dimen/tendp"
+            android:buttonTint="@color/colorPrimary1"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:checked="false"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manufacture Name"
+            android:id="@+id/rdbManufacture"
+            android:textColor="@android:color/black"
+            android:checked="false"
+            android:buttonTint="@color/colorPrimary1"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/tendp"
+            android:textSize="15sp"
+             />
+    </RadioGroup>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/delivRecy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/fivedp"/>
+</LinearLayout>

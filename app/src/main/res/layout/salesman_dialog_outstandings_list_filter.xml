@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Start Date : "
+        android:textColor="@color/ordergenie_gray"
+        android:textSize="@dimen/Extrasmall" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:id="@+id/txt_start_date"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_linerlayout_border"
+        android:hint="Start Date"
+        android:padding="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/small" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="End Date : "
+        android:textColor="@color/ordergenie_gray"
+        android:textSize="@dimen/Extrasmall" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:id="@+id/txt_end_date"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_linerlayout_border"
+        android:hint="End Date"
+        android:padding="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/small" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <CheckBox
+        android:id="@+id/chk_pending_invoices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Pending Invoices"
+        android:textSize="@dimen/small" />
+
+    <CheckBox
+        android:id="@+id/chk_undelivered_invoices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Undelivered"
+        android:textSize="@dimen/small" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_outstandings_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="FILTER"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/btn_clear_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Clear Filter"
+            android:textColor="@android:color/black" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

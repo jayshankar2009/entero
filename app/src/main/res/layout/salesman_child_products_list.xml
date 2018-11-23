@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+   android:padding="@dimen/eightdp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/idImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/tendp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_list_item1" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/tendp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text="Shecal - 500mg Tablet"
+        android:textColor="@color/colorPrimary1"
+        android:textSize="14sp"
+        app:fonts="Lato-Regular.ttf" />
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:id="@+id/txtQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/tendp"
+        android:text="10"
+        android:layout_gravity="center"
+        android:textSize="14sp"
+        app:fonts="Lato-Regular.ttf" />
+
+    <ImageView
+        android:id="@+id/imageCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:layout_gravity="center"
+
+        android:layout_marginLeft="@dimen/twentydp"
+        android:layout_marginRight="@dimen/tendp"
+        android:src="@drawable/drawable_low_circle" />
+</LinearLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/toplayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/btn_color">
+
+        </RelativeLayout>
+
+        <com.app.entero.direct.viewpager.WCViewPagerIndicator
+            android:id="@+id/wcviewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:indicatorSelectedColor="#10205e"
+            app:indicatorsColor="@color/white"
+            app:numberSelectedColor="#fff"
+            app:numbersColor="@color/colorBlack"
+            app:showNumbers="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/toplayout"
+        android:background="@color/light_grey">
+
+    </View>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view">
+
+        <RelativeLayout
+            android:id="@+id/poplar_heading"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/popular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:padding="10dp"
+                app:fonts="Lato-Regular.ttf"
+                android:textSize="@dimen/text_size_small"
+                android:text="POPULAR SCHEMES"
+                android:textColor="@color/colorBlack" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/view_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                app:fonts="Lato-Regular.ttf"
+                android:textSize="@dimen/text_size_small"
+                android:text="See All"
+                android:textColor="@color/colorBlack" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/second_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/poplar_heading"
+            android:background="@color/graybg">
+
+        </View>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/popular_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/second_view">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+</RelativeLayout>

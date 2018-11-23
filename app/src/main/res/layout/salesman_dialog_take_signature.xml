@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+<LinearLayout
+    android:layout_width="350dp"
+    android:layout_height="450dp"
+    android:background="@drawable/curve_border_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/canvasLL"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        android:orientation="vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/clear"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorPrimary1"
+        android:textColor="@color/white"
+        android:text="clear"/>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/save"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary1"
+        android:textColor="@color/white"
+        android:text="Done"/>
+
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

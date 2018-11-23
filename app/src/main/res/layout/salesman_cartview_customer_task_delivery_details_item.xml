@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@color/white"
+    android:layout_marginTop="1dp"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="5dp"
+    app:ignore="NamespaceTypo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/customer_task_delivery_details_product_images"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        card_view:srcCompat="@drawable/ic_list_item1"
+        android:layout_weight="0.2"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.4"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical">
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/text_customer_task_delivery_details_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crocin Pain Relief Tablet"
+            app:fonts="Lato-Bold.ttf"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/text_customer_task_delivery_details_discription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:fonts="Lato-Regular.ttf"
+            android:textSize="10sp"
+            android:text="1 Strip of 15 tablets"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    </LinearLayout>
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/text_customer_task_delivery_details_qty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:text="x 4"
+            android:textSize="10sp"
+            app:fonts="Lato-Bold.ttf"
+            android:gravity="right|center"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

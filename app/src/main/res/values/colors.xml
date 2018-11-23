@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="primaryBlack">#424242</color>
+    <color name="colorPrimaryDark">#0c0c0d</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBlack">#000000</color>
+    <color name="white">#fff</color>
+    <color name="text_color">#666666</color>
+    <color name="light_grey">#948686</color>
+    <color name="toolbar_item_color">#444444</color>
+    <color name="stroke_color">#2AAAE2</color>
+    <color name="colorPrimary1">#3784C1</color>
+    <color name="btn_color">#5a99cc</color>
+    <color name="dummy">#00000000</color>
+    <color name="graybg">#dbdee1</color>
+    <color name="product_bottom_bar">#eff4f8</color>
+    <color name="colorPurple">#f15c60</color>
+    <color name="highlights">#d4effa</color>
+    <color name="cust_task">#5F9DCE</color>
+    <color name="color_green">#228B22</color>
+    <color name="dark_orang">#ea5e23</color>
+    <color name="ordergenie_gray">#808080</color>
+    <color name="green">#367A09</color>
+    <color name="colorcredit">#DDEAF2</color>
+    <color name="waitColor">#6cb043</color>
+    <color name="submit">#03A59A</color>
+    <color name="colorpink">#ED1E79</color>
+    <color name="colorLow">#f8931f</color>
+    <color name="colorMiddum">#F0E140</color>
+    <color name="colorHigh">#5471D7</color>
+    <color name="colorModerate">#5c9acd</color>
+    <color name="colorPenalty">#23b574</color>
+    <color name="textColorBlue">#3684c1</color>
+    <color name="order_bg">#f0f4f7</color>
+    <color name="red_text_color">#f27074</color>
+
+</resources>
