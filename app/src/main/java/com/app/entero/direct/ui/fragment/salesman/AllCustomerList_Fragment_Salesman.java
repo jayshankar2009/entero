@@ -1,5 +1,6 @@
 package com.app.entero.direct.ui.fragment.salesman;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -7,23 +8,39 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.CustomerListModel;
+import com.app.entero.direct.model.SalesmanDashBoardModel;
+import com.app.entero.direct.model.Salesman_CustomerList_Model;
+import com.app.entero.direct.network.ApiConstants;
+import com.app.entero.direct.ui.activity.main.BaseActivity;
+import com.app.entero.direct.ui.activity.salesman.CustomerListDetailsActivity_Salesman;
 import com.app.entero.direct.ui.activity.salesman.MainActivity;
 import com.app.entero.direct.ui.adapter.salesman.AllCustomerList_Adapter_Salesman;
 import com.app.entero.direct.ui.adapter.salesman.Products_Adapter_Salesman;
+import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.SavePref;
 
-public class AllCustomerList_Fragment_Salesman extends Fragment {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class AllCustomerList_Fragment_Salesman extends Fragment implements OnItemRecycleClickListener {
     private MainActivity activity;
     ArrayList<CustomerListModel> arrCustomerList;
     RecyclerView recyclerView;
+    BaseActivity baseActivity;
+    LinkedHashMap<String, String> linkRequest;
     RecyclerView.LayoutManager layoutManager;
+    String strSalesmanId, strStockisId;
+    public static ArrayList<Salesman_CustomerList_Model> listCustomer;
     AllCustomerList_Adapter_Salesman allCustomerList_adapter_salesman;
     SearchView searchView;
 
@@ -42,42 +59,77 @@ public class AllCustomerList_Fragment_Salesman extends Fragment {
         setHasOptionsMenu(true);
         //       Toast.makeText(getContext(), "Toast", Toast.LENGTH_LONG).show();
         activity = ((MainActivity) getActivity());
+        baseActivity=((BaseActivity) getActivity());
         activity.initObjects();
         initview(view);
+        strStockisId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
+        strSalesmanId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getID();
         activity.imgToolbar.setVisibility(View.GONE);
         activity.txtToolbar.setVisibility(View.VISIBLE);
         activity.txtToolbar.setText("Customer List");
         activity.imgFilter.setVisibility(View.GONE);
         activity.imgSearch.setVisibility(View.VISIBLE);
+        linkRequest = new LinkedHashMap<>();
+        linkRequest.put(ApiConstants.StockistID, "1");
+        linkRequest.put(ApiConstants.SalesmanID, "2");
+        if(baseActivity.isNetworkAvailable()) {
+            callCustomerList(ApiConstants.Get_Salesman_CustomerList,linkRequest);
+        }
      //   setOnClick();
         return view;
 
     }
 
+    private void callCustomerList(String url, LinkedHashMap<String, String> linkRequest) {
+        baseActivity.isShowProgress(true);
+        baseActivity.mCompositeDisposable.add(baseActivity.getApiCallService().getSalesmanCustomerList(SavePref.getInstance(getContext()).getToken(), url, linkRequest)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleCustomerResponse, this::handleCustomerError));
+    }
+private void handleCustomerError(Throwable throwable) {
+    Log.e("CustomerList", " error: " + throwable.getMessage());
+    baseActivity.isShowProgress(false);
+}
+    private void handleCustomerResponse(Salesman_CustomerList_Model salesman_customerList_model) {
+        listCustomer = new ArrayList<>();
+        baseActivity.isShowProgress(false);
+        if(salesman_customerList_model.getStatus().equals("success")) {
+            if(salesman_customerList_model.getMessage().equals("Record found")){
+            if(salesman_customerList_model.getEntityChemistList().size()>0) {
+                for(int i =0 ;i<salesman_customerList_model.getEntityChemistList().size();i++){
+                    listCustomer.add(salesman_customerList_model.getEntityChemistList().get(i));
+
+                }
+                allCustomerList_adapter_salesman = new AllCustomerList_Adapter_Salesman(getActivity(),this, listCustomer);
+                recyclerView.setAdapter(allCustomerList_adapter_salesman);
+            }
+            }
+        }
+    }
 
 
     private void initview(View view) {
-        arrCustomerList = new ArrayList<>();
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        arrCustomerList.add(new CustomerListModel("5142", "Yash Medical Stores","Rs. 30779"));
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_customer_list);
+           recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_customer_list);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        allCustomerList_adapter_salesman = new AllCustomerList_Adapter_Salesman(getActivity(), arrCustomerList);
-        recyclerView.setAdapter(allCustomerList_adapter_salesman);
+
 
 
     }
 
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent i = new Intent(getContext(), CustomerListDetailsActivity_Salesman.class);
+        i.putExtra("position",position);
+        i.putExtra("custList",listCustomer.get(position));
 
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(i);
+
+    }
 }

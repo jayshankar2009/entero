@@ -25,11 +25,12 @@ public class SavePref {
     }
 
     public void setUserId(String userId) {
+
         editor.putString(Constants.USER_ID, userId).commit();
     }
 
     public String getUserId() {
-        return getUserDetail().getId();
+        return getUserDetail().getID();
     }
 
     public void setToken(String token) {
@@ -50,10 +51,19 @@ public class SavePref {
         else
             return new Gson().fromJson(sharedPreferences.getString(Constants.USER_DETAIL, ""), SalesmanModel.class);
     }
+    public void setValue(String key, String value) {
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public String getStringValue(String key, String defaultValue) {
+        return sharedPreferences.getString(key, defaultValue);
+    }
 
     public void logout() {
         editor.clear();
         editor.commit();
     }
+
 
 }

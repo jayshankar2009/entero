@@ -8,15 +8,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.Salesman_CustomerList_Model;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.CustomerListDetailsPagerAdapter_Salesman;
+import com.app.entero.direct.ui.fragment.salesman.AllCustomerList_Fragment_Salesman;
+
+import java.util.ArrayList;
 
 public class CustomerListDetailsActivity_Salesman extends BaseActivity {
     Toolbar mToolbar;
     ViewPager customer_details_viewpager;
     Fragment selectedFragment;
+    int position;
+ // ArrayList<Salesman_CustomerList_Model> listCustomer;
     TextView txtHeader;
 
     @Override
@@ -26,8 +33,8 @@ public class CustomerListDetailsActivity_Salesman extends BaseActivity {
         initView();
         setToolbar();
         onSetText();
-        // onClickEvent();
-        CustomerListDetailsPagerAdapter_Salesman adapter = new CustomerListDetailsPagerAdapter_Salesman(this, getSupportFragmentManager());
+        position=getIntent().getIntExtra("position",0);
+                CustomerListDetailsPagerAdapter_Salesman adapter = new CustomerListDetailsPagerAdapter_Salesman(this, position,getSupportFragmentManager());
         customer_details_viewpager.setAdapter(adapter);
 
         // Give the TabLayout the ViewPager

@@ -166,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
-                    android:text="@string/email_id"
+                    android:text=" "
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
                     app:fonts="Lato-Bold.ttf" />

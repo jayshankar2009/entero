@@ -2,6 +2,7 @@ package com.app.entero.direct.ui.activity.salesman;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,17 +26,22 @@ import java.util.Date;
 import java.util.List;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.model.Visitplanmodal;
+import com.app.entero.direct.ui.activity.chemist.TakeOrderActivity;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.Adapter_Visitplan_Salesman;
+import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 
-public class Visit_PlanActivity_Salesman extends BaseActivity implements View.OnClickListener {
+public class Visit_PlanActivity_Salesman extends BaseActivity implements View.OnClickListener,OnItemRecycleClickListener {
 
     RecyclerView recycler_vie;
     Adapter_Visitplan_Salesman mAdapter;
     Toolbar mToolbar;
     TextView txtHeader;
-    private List<Visitplanmodal> mList;
+    Bundle bundle;
+    ArrayList<SalesmanDashBoardModel> listChemist;
+   // private List<Visitplanmodal> mList;
     TextView textView_date;
     RelativeLayout baseLayout;
     SearchView searchView;
@@ -62,8 +69,8 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
 
-        prepareMovieData();
-        mAdapter = new Adapter_Visitplan_Salesman(this,mList);
+       // prepareMovieData();
+        mAdapter = new Adapter_Visitplan_Salesman(this,this,listChemist);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recycler_vie.setLayoutManager(mLayoutManager);
         recycler_vie.setItemAnimator(new DefaultItemAnimator());
@@ -98,7 +105,10 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     private void initView() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
-        mList = new ArrayList<>();
+        bundle = getIntent().getExtras();
+        listChemist= (ArrayList<SalesmanDashBoardModel>) bundle.getSerializable("array_list");
+
+       // mList = new ArrayList<>();
         recycler_vie = (RecyclerView) findViewById(R.id.recycler_view);
         textView_date = (TextView) findViewById(R.id.txt_date);
         baseLayout=(RelativeLayout)findViewById(R.id.baseLayout);
@@ -106,30 +116,7 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     }
 
 
-    private void prepareMovieData() {
-    /*    Visitplanmodal modal_visitplan = new Visitplanmodal("10001", "Wellcare Medical General medcal", "72,Kaweli wadi,R.B.s Bole Rd");
-        mList.add(modal_visitplan);
 
-        modal_visitplan = new Visitplanmodal("10002", "og Medical General medcal", "73,Kaweli wadi,R.B.s Bole Rd");
-        mList.add(modal_visitplan);*/
-
-
-
-        Visitplanmodal modal_visitplan = new Visitplanmodal("55791", "Wellcare medical Gen Stores", "2,Kaweli wadi,R.B.s Bole Rd");
-        mList.add(modal_visitplan);
-
-        modal_visitplan = new Visitplanmodal("55792", "Yash medical Gen Stores, Kids & Family", "3,Kaweli wadi,R.B.s Bole Rd");
-        mList.add(modal_visitplan);
-
-        modal_visitplan = new Visitplanmodal("55793", "Vashi medical Gen Stores", "4,Kaweli wadi,R.B.s Bole Rd");
-        mList.add(modal_visitplan);
-
-        modal_visitplan = new Visitplanmodal("55794", "Thane medical Gen Stores", "5,Kaweli wadi,R.B.s Bole Rd");
-        mList.add(modal_visitplan);
-
-
-
-    }
 
 
     @Override
@@ -197,5 +184,14 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent i = new Intent(getApplicationContext(), Customer_TastActivity_Salesman.class);
+        i.putExtra("ChemistData",listChemist.get(position));
+        startActivity(i);
+
+
     }
 }

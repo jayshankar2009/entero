@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.entero.direct.R;
 
@@ -15,6 +16,8 @@ public class CustomerProfilesFragment_Salesman extends Fragment implements View.
     TextView txt_customer_name,txt_customer_address,text_Customer_code,text_customer_phone_no,txt_customer_email,txt_customer_outstanding_bill;
     Button btn_customer_update_location;
     View rootView;
+    Bundle b;
+    int position;
     public CustomerProfilesFragment_Salesman() {
         // Required empty public constructor
     }
@@ -24,9 +27,22 @@ public class CustomerProfilesFragment_Salesman extends Fragment implements View.
         rootView = inflater.inflate(R.layout.salesman_customer_list_tab_profile, container, false);
 
         initView();
-        //onSetText();
-
+        onSetText();
+b=getArguments();
+        if (b != null) {
+           position = b.getInt("position", 2);
+        }
+        Toast.makeText(getContext(),"---"+position,Toast.LENGTH_SHORT).show();
         return rootView;
+    }
+
+    private void onSetText() {
+        txt_customer_address.setText(AllCustomerList_Fragment_Salesman.listCustomer.get(position).getAddress());
+        text_Customer_code.setText(AllCustomerList_Fragment_Salesman.listCustomer.get(position).getERPCode());
+        txt_customer_name.setText(AllCustomerList_Fragment_Salesman.listCustomer.get(position).getChemistLegalName());
+        txt_customer_email.setText(AllCustomerList_Fragment_Salesman.listCustomer.get(position).getEmail());
+        text_customer_phone_no.setText(AllCustomerList_Fragment_Salesman.listCustomer.get(position).getMobileNo());
+    txt_customer_outstanding_bill.setText(AllCustomerList_Fragment_Salesman.listCustomer.get(position).getOutstandingBal());
     }
 
     private void initView() {
@@ -37,6 +53,7 @@ public class CustomerProfilesFragment_Salesman extends Fragment implements View.
         txt_customer_email = (TextView) rootView.findViewById(R.id.txt_customer_email);
         txt_customer_outstanding_bill = (TextView) rootView.findViewById(R.id.txt_customer_outstanding_bill);
         btn_customer_update_location = (Button) rootView.findViewById(R.id.btn_customer_update_location);
+
         btn_customer_update_location.setOnClickListener(this);
     }
 
