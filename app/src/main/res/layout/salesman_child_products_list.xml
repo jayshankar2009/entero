@@ -37,13 +37,13 @@
         android:textSize="14sp"
         app:fonts="Lato-Regular.ttf" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-android:layout_gravity="center"
-
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="@dimen/twentydp"
         android:layout_marginRight="@dimen/tendp"
-        android:src="@drawable/drawable_low_circle" />
+        android:src="@drawable/drawable_low_circle"/>
+
 </LinearLayout>

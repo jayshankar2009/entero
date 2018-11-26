@@ -220,9 +220,11 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search, menu);
+        inflater.inflate(R.menu.menu_all_pending_list, menu);
+        MenuItem action_search = menu.findItem(R.id.action_search);
+        action_search.setVisible(true);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setQueryHint("Products");
+        searchView.setQueryHint("Order ");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {

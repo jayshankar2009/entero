@@ -28,6 +28,7 @@ import com.app.entero.direct.ui.activity.salesman.ReportsActivity_Salesman;
 import com.app.entero.direct.ui.activity.salesman.Visit_PlanActivity_Salesman;
 import com.app.entero.direct.ui.adapter.salesman.HomeCustomerAdapter_Salesman;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.SavePref;
 
 import java.util.ArrayList;
@@ -71,8 +72,8 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         strStockisId = savePref.getUserDetail().getSalesmanInfo().get(0).getStockistID();
         strSalesmanId = savePref.getUserDetail().getSalesmanInfo().get(0).getID();
         linkRequest = new LinkedHashMap<>();
-        linkRequest.put(ApiConstants.StockistID, "1");
-        linkRequest.put(ApiConstants.SalesmanID, "2");
+        linkRequest.put(Constants.StockistID, "1");
+        linkRequest.put(Constants.SalesmanID, "2");
         if(baseActivity.isNetworkAvailable()) {
             baseActivity.isShowProgress(true);
             callSalesmanDashBoard(ApiConstants.Get_SalesmanDashboard, linkRequest);
@@ -81,8 +82,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         }
         activity.imgToolbar.setVisibility(View.VISIBLE);
         activity.txtToolbar.setVisibility(View.GONE);
-        activity.imgFilter.setVisibility(View.GONE);
-        activity.imgSearch.setVisibility(View.GONE);
+
 
         setOnClick();
         return view;

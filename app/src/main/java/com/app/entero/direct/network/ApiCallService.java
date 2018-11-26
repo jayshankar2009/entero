@@ -2,6 +2,7 @@ package com.app.entero.direct.network;
 
 
 import com.app.entero.direct.model.LoginModel;
+import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.model.SalesmanModel;
 import com.app.entero.direct.model.Salesman_CustomerList_Model;
@@ -41,7 +42,9 @@ public interface ApiCallService {
     @POST
     @FormUrlEncoded
     Observable<Salesman_CustomerList_Model> getSalesmanCustomerList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String,String> linkedHashMap);
-
+    @POST
+    @FormUrlEncoded
+    Observable<ProductsModel> getProductList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 }
 
 

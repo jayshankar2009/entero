@@ -8,4 +8,7 @@ public class Constants {
     public static final int Deliveryboy = 4;
     public static final int Salesman = 3;
     public static final int CollectionAgent=5;
+    public static final String StockistID = "StockistID";
+    public static final String SalesmanID = "SalesmanID";
+    public static String legendType="legendType";
 }
