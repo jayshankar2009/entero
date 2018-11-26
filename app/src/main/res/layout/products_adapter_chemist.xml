@@ -61,7 +61,7 @@
             android:id="@+id/second_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/addToCart"
+            android:layout_toLeftOf="@id/ic_dot"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
@@ -78,14 +78,27 @@
             android:textColor="#000" />
 
         </RelativeLayout>
+
         <ImageView
-            android:id="@+id/addToCart"
+            android:id="@+id/ic_dot"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/addToCart"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/black_dot" />
+
+        <ImageView
+            android:id="@+id/addToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:background="@color/graybg"
+            android:layout_alignParentRight="true"
+            android:visibility="visible"
+            android:src="@drawable/ic_thum_cart_offer" />
 
 
     </RelativeLayout>

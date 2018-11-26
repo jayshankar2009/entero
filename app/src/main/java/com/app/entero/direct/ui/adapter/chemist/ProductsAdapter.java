@@ -11,8 +11,10 @@ import android.widget.RelativeLayout;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.OffersModel;
+import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -20,15 +22,15 @@ import java.util.ArrayList;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.HolderNavigation> {
 
     private Activity activity;
-    private ArrayList<OffersModel> mList;
+    private ArrayList<ProductListModel> mList;
     int selected_pos = 0;
     private OnItemRecycleClickListener onItemRecycleClickListener;
 
-    public ProductsAdapter(Activity activity, OnItemRecycleClickListener onItemRecycleClickListener, ArrayList<OffersModel> mOfferList) {
+    public ProductsAdapter(Activity activity, OnItemRecycleClickListener onItemRecycleClickListener, ArrayList<ProductListModel> mProductList) {
         this.activity = activity;
         this.onItemRecycleClickListener = onItemRecycleClickListener;
         this.selected_pos = selected_pos;
-        this.mList = mOfferList;
+        this.mList = mProductList;
     }
 
     @Override
@@ -40,10 +42,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Holder
 
     @Override
     public void onBindViewHolder(@NonNull HolderNavigation holderNavigation, int position) {
-        OffersModel mOfferModel = mList.get(position);
+        ProductListModel mOfferModel = mList.get(position);
         //holderNavigation.des_Tv.setText(mOfferModel.getTabDes());
-        holderNavigation.tab_Tv.setText(mOfferModel.getTabName());
-        holderNavigation.count_Tv.setText(mOfferModel.getQuantitly());
+        holderNavigation.tab_Tv.setText(mOfferModel.getItemname());
+        holderNavigation.count_Tv.setText(mOfferModel.getStock());
+        /*if(mOfferModel.getColorCode().equals("#f7931e")){
+            Glide.with(activity).load(R.drawable.circle_dot_yellow).fitCenter().into(holderNavigation.ic_dot);
+        }else if(mOfferModel.getColorCode().equals("#22b573")){
+            Glide.with(activity).load(R.drawable.circle_dot_green).into(holderNavigation.ic_dot);
+
+        }*/ /*else if(mOfferModel.getBoxSize().equals("f7931e")){
+
+        }else if(mOfferModel.getBoxSize().equals("f7931e")){
+
+        }else if(mOfferModel.getBoxSize().equals("f7931e")){
+
+        }*/
+
+
       //  Glide.with(activity).load(mOfferModel.getImg()).into(holderNavigation.img_icon);
         holderNavigation.ll_main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,17 +88,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Holder
 
     public class HolderNavigation extends RecyclerView.ViewHolder {
 
-        public ImageView img_icon;
+        public ImageView img_icon,ic_dot;
         private CustomTextView_Salesman tab_Tv,count_Tv;
         private RelativeLayout ll_main;
 
         public HolderNavigation(View itemView) {
             super(itemView);
             img_icon = (ImageView) itemView.findViewById(R.id.img_icon);
+            ic_dot = (ImageView) itemView.findViewById(R.id.ic_dot);
             count_Tv = (CustomTextView_Salesman) itemView.findViewById(R.id.count_Tv);
             tab_Tv = (CustomTextView_Salesman) itemView.findViewById(R.id.tab_Tv);
             //des_Tv = (TextView) itemView.findViewById(R.id.des_Tv);
             ll_main = (RelativeLayout) itemView.findViewById(R.id.ll_nav);
         }
+    }
+    public void refreshAdapter(ArrayList<ProductListModel> mProductList)
+    {
+        this.mList = mProductList;
+        notifyDataSetChanged();
+        
     }
 }

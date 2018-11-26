@@ -14,5 +14,11 @@ public class ApiConstants {
     public static final String GET_TOKEN ="auth/local";
     public static final String time = "time";
     public static final String id = "id";
+    public static final String ClientID = "ClientID";
+    public static final String GETSTOCKISTLIST ="api/customers/getStockistList";
+    public static final String GETPRODUCTLIST ="api/products/getProductlist";
+    public static final String StockistID = "StockistID";
+    public static final String legendType = "legendType";
+
 
 }

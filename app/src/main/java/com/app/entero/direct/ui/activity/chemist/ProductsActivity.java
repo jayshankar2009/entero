@@ -1,39 +1,65 @@
 package com.app.entero.direct.ui.activity.chemist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.OffersModel;
+import com.app.entero.direct.model.ProductListModel;
+import com.app.entero.direct.model.StockistModel;
+import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.chemist.ProductsAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.SimpleDividerItemDecoration;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ProductsActivity extends BaseActivity implements OnItemRecycleClickListener {
 
+    private static final String TAG = ProductsActivity.class.getName();
     private Toolbar toolbar;
     private CustomTextView_Salesman tv_title;
     private RecyclerView rv_offers;
     private ProductsAdapter mProductsAdapter;
-    private ArrayList<OffersModel> mOfferList;
+    private ArrayList<ProductListModel> mProductList;
     private Context mContext;
     private SearchView searchView;
-    BottomSheetBehavior sheetBehavior;
-    LinearLayout layoutBottomSheet;
+    private BottomSheetBehavior sheetBehavior;
+    private LinearLayout layoutBottomSheet;
+    private StockistModel mStockistModel;
+    private ProductListModel mStockListModelData;
+    private ImageView img_cross;
+    private CustomTextView_Salesman item_name_tv, product_id_tv, sale_rate_tv, mrp_tv, mfg_tv, pack_tv;
 
 
     @Override
@@ -47,7 +73,11 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
     }
 
     private void initView() {
-
+        mStockistModel = new StockistModel();
+        Intent i = getIntent();
+        if (i.hasExtra(Constants.STOCKISTDATA)) {
+            mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
+        }
         layoutBottomSheet = findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
         /**
@@ -79,106 +109,32 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
             }
         });
 
-        mOfferList = new ArrayList<>();
-        mOfferList = setOfferListData();
+        mProductList = new ArrayList<>();
+        //mOfferList = setOfferListData();
         rv_offers = (RecyclerView) findViewById(R.id.rv_navigation);
+
+        item_name_tv = (CustomTextView_Salesman) findViewById(R.id.item_name_tv);
+        product_id_tv = (CustomTextView_Salesman) findViewById(R.id.product_id_tv);
+        sale_rate_tv = (CustomTextView_Salesman) findViewById(R.id.sale_rate_tv);
+        mrp_tv = (CustomTextView_Salesman) findViewById(R.id.mrp_tv);
+        mfg_tv = (CustomTextView_Salesman) findViewById(R.id.mfg_tv);
+        pack_tv = (CustomTextView_Salesman) findViewById(R.id.pack_tv);
+        img_cross = (ImageView) findViewById(R.id.img_cross);
+
         rv_offers.setLayoutManager(new LinearLayoutManager(this));
-        mProductsAdapter = new ProductsAdapter(this,this,mOfferList);
+        mProductsAdapter = new ProductsAdapter(this, this, mProductList);
         rv_offers.setAdapter(mProductsAdapter);
         rv_offers.addItemDecoration(new SimpleDividerItemDecoration(this));
 
+
+        hashMap.put(ApiConstants.StockistID, mStockistModel.getClientID());
+        hashMap.put(ApiConstants.legendType, mStockistModel.getClientTypeID());
+        if (isNetworkAvailable()) {
+            callApi(ApiConstants.GETPRODUCTLIST, hashMap);
+        }
+
     }
 
-    private ArrayList<OffersModel> setOfferListData() {
-
-        OffersModel model = new OffersModel();
-        model.setQuantitly("4");
-        model.setTabName("Crocin pain relief Tablet");
-        model.setTabDes("1 Strip of 10 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-        model = new OffersModel();
-        model.setQuantitly("5");
-        model.setTabName("Uprise D30 100k Capsule");
-        model.setTabDes("1 Strip of 12 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-
-        model = new OffersModel();
-        model.setQuantitly("3");
-        model.setTabName("Disprin pain relief Tablet");
-        model.setTabDes("1 Strip of 20 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-
-        model = new OffersModel();
-        model.setQuantitly("4");
-        model.setTabName("Crocin pain relief Tablet");
-        model.setTabDes("1 Strip of 30 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-        model = new OffersModel();
-        model.setQuantitly("8");
-        model.setTabName("Dexorange Syrup");
-        model.setTabDes("100 ml bottle");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-        model = new OffersModel();
-        model.setQuantitly("9");
-        model.setTabName("Nerry syrup");
-        model.setTabDes("200 ml bottle");
-        model.setImg("");
-        mOfferList.add(model);
-
-        model = new OffersModel();
-        model.setQuantitly("2");
-        model.setTabName("Disprin pain relief Tablet");
-        model.setTabDes("1 Strip of 15 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-        model = new OffersModel();
-        model.setQuantitly("5");
-        model.setTabName("Uprise D30 100k Capsule");
-        model.setTabDes("1 Strip of 12 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-        model = new OffersModel();
-        model.setQuantitly("5");
-        model.setTabName("Uprise D30 100k Capsule");
-        model.setTabDes("1 Strip of 12 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-
-        model = new OffersModel();
-        model.setQuantitly("5");
-        model.setTabName("Uprise D30 100k Capsule");
-        model.setTabDes("1 Strip of 12 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-        model = new OffersModel();
-        model.setQuantitly("3");
-        model.setTabName("Disprin pain relief Tablet");
-        model.setTabDes("1 Strip of 20 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-        model = new OffersModel();
-        model.setQuantitly("3");
-        model.setTabName("Disprin pain relief Tablet");
-        model.setTabDes("1 Strip of 20 tablets");
-        model.setImg("Crocin pain relief Tablet");
-        mOfferList.add(model);
-
-
-        return mOfferList;
-    }
 
     private void setToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -201,6 +157,13 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
     public void onItemClick(View view, int position) {
 
         if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+
+            item_name_tv.setText(mStockListModelData.getProductList().get(position).getItemname());
+            product_id_tv.setText(mStockListModelData.getProductList().get(position).getProduct_ID());
+            sale_rate_tv.setText(mStockListModelData.getProductList().get(position).getRate());
+            mrp_tv.setText(mStockListModelData.getProductList().get(position).getMrp());
+            mfg_tv.setText(mStockListModelData.getProductList().get(position).getMfgName());
+            pack_tv.setText(mStockListModelData.getProductList().get(position).getPacksize());
             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -214,8 +177,8 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
         inflater.inflate(R.menu.menu_all_pending_list, menu);
 
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        /*searchView.setQueryHint("Outstandings List");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        //searchView.setQueryHint("Outstandings List");
+       /* searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
 
@@ -242,4 +205,75 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
         });*/
         return true;
     }
+
+    public void callApi(String url, LinkedHashMap<String, String> linkedHashMap) {
+        isShowProgress(true);
+        mCompositeDisposable.add(getApiCallService().getProductlist(SavePref.getInstance(this).getToken(), url, linkedHashMap)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError));
+
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e(TAG, " error: " + throwable.getMessage());
+        isShowProgress(false);
+    }
+
+    private void handleResponse(ProductListModel mStockListModel) {
+        Log.e(TAG, " res: " + mStockListModel);
+        isShowProgress(false);
+        this.mStockListModelData = mStockListModel;
+        if (mStockListModelData.getStatus().equals("success")) {
+            if (mStockListModelData.getProductList() != null && mStockListModelData.getProductList().size() > 0) {
+                mProductsAdapter.refreshAdapter(mStockListModelData.getProductList());
+            }
+        } else {
+            Toast.makeText(this, mStockListModelData.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+    private String read(Context context, String fileName) {
+        try {
+            FileInputStream fis = context.openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            return sb.toString();
+        } catch (FileNotFoundException fileNotFound) {
+            return null;
+        } catch (IOException ioException) {
+            return null;
+        }
+    }
+
+    private boolean create(Context context, String fileName, String jsonString){
+        try {
+            FileOutputStream fos = openFileOutput(fileName,Context.MODE_PRIVATE);
+            if (jsonString != null) {
+                fos.write(jsonString.getBytes());
+            }
+            fos.close();
+            return true;
+        } catch (FileNotFoundException fileNotFound) {
+            return false;
+        } catch (IOException ioException) {
+            return false;
+        }
+
+    }
+
+    public boolean isFilePresent(Context context, String fileName) {
+        String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
+        File file = new File(path);
+        return file.exists();
+    }
+
 }

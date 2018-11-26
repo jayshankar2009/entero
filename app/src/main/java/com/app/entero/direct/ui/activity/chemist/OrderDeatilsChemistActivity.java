@@ -45,8 +45,8 @@ public class OrderDeatilsChemistActivity extends BaseActivity implements OnItemR
         mOfferList = setOfferListData();
         rv_offers = (RecyclerView) findViewById(R.id.rv_navigation);
         rv_offers.setLayoutManager(new LinearLayoutManager(this));
-        mProductsAdapter = new ProductsAdapter(this,this,mOfferList);
-        rv_offers.setAdapter(mProductsAdapter);
+        //mProductsAdapter = new ProductsAdapter(this,this,mOfferList);
+       // rv_offers.setAdapter(mProductsAdapter);
         rv_offers.addItemDecoration(new SimpleDividerItemDecoration(this));
     }
 

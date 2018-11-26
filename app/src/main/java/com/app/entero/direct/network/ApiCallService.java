@@ -2,7 +2,10 @@ package com.app.entero.direct.network;
 
 
 import com.app.entero.direct.model.LoginModel;
+import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.SalesmanModel;
+import com.app.entero.direct.model.StockListModel;
+import com.app.entero.direct.model.StockistModel;
 import com.google.gson.JsonObject;
 
 import java.util.LinkedHashMap;
@@ -31,6 +34,14 @@ public interface ApiCallService {
     @POST
     @FormUrlEncoded
     Observable<Object> get_Token(@Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
+
+    @POST
+    @FormUrlEncoded
+    Observable<StockistModel> getStockistList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
+
+    @POST
+    @FormUrlEncoded
+    Observable<ProductListModel> getProductlist(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
 
 }

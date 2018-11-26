@@ -30,6 +30,7 @@
         >
 
         <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/item_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -42,6 +43,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/img_cross"
             android:layout_width="wrap_content"
             android:gravity="right"
             android:padding="5dp"
@@ -73,6 +75,7 @@
              />
 
         <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/product_id_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -94,6 +97,7 @@
             ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
 
         <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/pack_tv"
             android:layout_width="wrap_content"
             android:gravity="right"
             app:fonts="Lato-Regular.ttf"
@@ -123,6 +127,7 @@
             />
 
         <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/mfg_tv"
             android:layout_width="wrap_content"
             android:gravity="right"
             app:fonts="Lato-Regular.ttf"
@@ -142,7 +147,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
-        android:weightSum="2">
+        android:weightSum="3">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -163,6 +168,7 @@
                 />
 
             <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/mrp_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rs 98.00"
@@ -194,6 +200,7 @@
                 />
 
             <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/sale_rate_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rs 98.00"
@@ -204,6 +211,25 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/addToCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:background="@color/graybg"
+                android:layout_alignParentRight="true"
+                android:visibility="visible"
+                android:src="@drawable/ic_thum_cart_offer" />
+
+        </RelativeLayout>
+
 
 
     </LinearLayout>

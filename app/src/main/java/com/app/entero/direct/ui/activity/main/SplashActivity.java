@@ -139,7 +139,7 @@ public class SplashActivity extends BaseActivity {
         if(jsonObject.has("token"))
         {
             try {
-                SavePref.getInstance(SplashActivity.this).setToken(jsonObject.get("token").toString());
+                SavePref.getInstance(SplashActivity.this).setToken("Bearer "+jsonObject.get("token").toString());
                 Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
                 startActivity(i);
                 finish();

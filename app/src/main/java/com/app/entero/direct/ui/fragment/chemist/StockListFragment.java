@@ -17,7 +17,6 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.StockListModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.HomeActivity;
-import com.app.entero.direct.ui.adapter.chemist.StockListAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class StockListFragment extends Fragment implements OnItemRecycleClickLis
     private RecyclerView rv_stocklist;
     private ArrayList<StockListModel> mOfferList;
     private Context mContext;
-    private StockListAdapter mStockListAdapter;
     private HomeActivity activity;
     private String TAG ="SelectStockistFragment";
     public ViewPager viewPager;
@@ -108,7 +106,8 @@ public class StockListFragment extends Fragment implements OnItemRecycleClickLis
 
 
     private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getActivity().getSupportFragmentManager());
+        viewPager.setSaveFromParentEnabled(false);
+        Adapter adapter = new Adapter(getChildFragmentManager());
         MyStockListFragment fragment = new MyStockListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", 1);
