@@ -7,15 +7,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
+
+import java.util.ArrayList;
 
 public class Customer_TastActivity_Salesman extends BaseActivity implements View.OnClickListener {
 
     RelativeLayout btn_takeOrder,btn_collectpayment,btn_take_delivery;
     TextView textView_profile;
     Toolbar mToolbar;
+    Bundle bundle;
+    ArrayList<SalesmanDashBoardModel> listSalesmanData;
     TextView txtHeader;
 
     @Override
@@ -26,6 +32,9 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
         setToolbar();
         onSetText();
         onClickEvent();
+        bundle = getIntent().getExtras();
+        listSalesmanData = (ArrayList<SalesmanDashBoardModel>) bundle.getSerializable("ChemistData");
+        Toast.makeText(getApplicationContext(),"---"+listSalesmanData,Toast.LENGTH_SHORT).show();
         }
 
     private void onSetText() {

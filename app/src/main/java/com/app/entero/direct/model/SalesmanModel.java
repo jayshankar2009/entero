@@ -12,72 +12,150 @@ public class SalesmanModel implements Serializable {
     @SerializedName("status")
     @Expose
     private String status;
-
-    @SerializedName("id")
-    @Expose
-    private String id;
-
     @SerializedName("message")
     @Expose
     private String message;
 
     @SerializedName("salesmanInfo")
     @Expose
+
     private ArrayList<SalesmanModel> salesmanInfo;
 
 
     @SerializedName("_ID")
     @Expose
-    private String salemanId;
-
-
-
-    @SerializedName("ClientID")
+    private String iD;
+    @SerializedName("StockistID")
     @Expose
-    private String ClientID;
-
-
-
+    private String stockistID;
+    @SerializedName("StockistName")
+    @Expose
+    private String stockistName;
     @SerializedName("ERPSalesmanID")
     @Expose
-    private String ERPSalesmanID;
-
-
+    private String eRPSalesmanID;
     @SerializedName("IMEI")
     @Expose
-    private String IMEI;
-
-
-
+    private String iMEI;
     @SerializedName("MobileNO")
     @Expose
-    private String MobileNO;
-
-
-
+    private String mobileNO;
     @SerializedName("Email")
     @Expose
-    private String Email;
-
-
-
+    private String email;
     @SerializedName("FullName")
     @Expose
-    private String FullName;
-
-
+    private String fullName;
     @SerializedName("Role_ID")
     @Expose
-    private String Role_ID;
-
+    private String roleID;
     @SerializedName("Role_Name")
     @Expose
-    private String Role_Name;
-
-
+    private String roleName;
     @SerializedName("ProfileImage")
     @Expose
-    private String ProfileImage;
+    private String profileImage;
+    @SerializedName("legendType")
+    @Expose
+    private String legendType;
+
+    public String getID() {
+        return iD;
+    }
+
+    public void setID(String iD) {
+        this.iD = iD;
+    }
+
+    public String getStockistID() {
+        return stockistID;
+    }
+
+    public void setStockistID(String stockistID) {
+        this.stockistID = stockistID;
+    }
+
+    public String getStockistName() {
+        return stockistName;
+    }
+
+    public void setStockistName(String stockistName) {
+        this.stockistName = stockistName;
+    }
+
+    public String getERPSalesmanID() {
+        return eRPSalesmanID;
+    }
+
+    public void setERPSalesmanID(String eRPSalesmanID) {
+        this.eRPSalesmanID = eRPSalesmanID;
+    }
+
+    public String getIMEI() {
+        return iMEI;
+    }
+
+    public void setIMEI(String iMEI) {
+        this.iMEI = iMEI;
+    }
+
+    public String getMobileNO() {
+        return mobileNO;
+    }
+
+    public void setMobileNO(String mobileNO) {
+        this.mobileNO = mobileNO;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(String roleID) {
+        this.roleID = roleID;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public String getLegendType() {
+        return legendType;
+    }
+
+    public void setLegendType(String legendType) {
+        this.legendType = legendType;
+    }
+
+
 
     public String getMessage() {
         return message;
@@ -95,84 +173,14 @@ public class SalesmanModel implements Serializable {
         this.salesmanInfo = salesmanInfo;
     }
 
-    public String getSalemanId() {
-        return salemanId;
+
+
+    public String getMsg() {
+        return message;
     }
 
-    public void setSalemanId(String salemanId) {
-        this.salemanId = salemanId;
-    }
-
-    public String getClientID() {
-        return ClientID;
-    }
-
-    public void setClientID(String clientID) {
-        ClientID = clientID;
-    }
-
-    public String getERPSalesmanID() {
-        return ERPSalesmanID;
-    }
-
-    public void setERPSalesmanID(String ERPSalesmanID) {
-        this.ERPSalesmanID = ERPSalesmanID;
-    }
-
-    public String getIMEI() {
-        return IMEI;
-    }
-
-    public void setIMEI(String IMEI) {
-        this.IMEI = IMEI;
-    }
-
-    public String getMobileNO() {
-        return MobileNO;
-    }
-
-    public void setMobileNO(String mobileNO) {
-        MobileNO = mobileNO;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getFullName() {
-        return FullName;
-    }
-
-    public void setFullName(String fullName) {
-        FullName = fullName;
-    }
-
-    public String getRole_ID() {
-        return Role_ID;
-    }
-
-    public void setRole_ID(String role_ID) {
-        Role_ID = role_ID;
-    }
-
-    public String getRole_Name() {
-        return Role_Name;
-    }
-
-    public void setRole_Name(String role_Name) {
-        Role_Name = role_Name;
-    }
-
-    public String getProfileImage() {
-        return ProfileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        ProfileImage = profileImage;
+    public void setMsg(String msg) {
+        this.message = msg;
     }
 
     public String getStatus() {
@@ -181,21 +189,5 @@ public class SalesmanModel implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMsg() {
-        return message;
-    }
-
-    public void setMsg(String msg) {
-        this.message = msg;
     }
 }

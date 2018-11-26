@@ -2,7 +2,9 @@ package com.app.entero.direct.network;
 
 
 import com.app.entero.direct.model.LoginModel;
+import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.model.SalesmanModel;
+import com.app.entero.direct.model.Salesman_CustomerList_Model;
 import com.google.gson.JsonObject;
 
 import java.util.LinkedHashMap;
@@ -32,6 +34,13 @@ public interface ApiCallService {
     @FormUrlEncoded
     Observable<Object> get_Token(@Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
+    @POST
+    @FormUrlEncoded
+    Observable<SalesmanDashBoardModel> getSalesmanDashBoard(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String,String> linkedHashMap);
+
+    @POST
+    @FormUrlEncoded
+    Observable<Salesman_CustomerList_Model> getSalesmanCustomerList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String,String> linkedHashMap);
 
 }
 

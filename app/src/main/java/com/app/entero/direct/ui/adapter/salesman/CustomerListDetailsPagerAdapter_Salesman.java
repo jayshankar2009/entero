@@ -1,21 +1,27 @@
 package com.app.entero.direct.ui.adapter.salesman;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.Salesman_CustomerList_Model;
 import com.app.entero.direct.ui.fragment.salesman.CustomerOrdersFragment_Salesman;
 import com.app.entero.direct.ui.fragment.salesman.CustomerPendingBillFragment_Salesman;
 import com.app.entero.direct.ui.fragment.salesman.CustomerProfilesFragment_Salesman;
 
+import java.util.ArrayList;
+
 public class CustomerListDetailsPagerAdapter_Salesman extends FragmentPagerAdapter {
 
     private Context context;
-
-    public CustomerListDetailsPagerAdapter_Salesman(Context context, FragmentManager fm) {
+  int position;
+    Bundle bundle;
+    public CustomerListDetailsPagerAdapter_Salesman(Context context,int position, FragmentManager fm) {
         super(fm);
+        this.position = position;
         this.context = context;
     }
 
@@ -23,7 +29,12 @@ public class CustomerListDetailsPagerAdapter_Salesman extends FragmentPagerAdapt
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new CustomerProfilesFragment_Salesman();
+Fragment fragment = new CustomerProfilesFragment_Salesman();
+Bundle b = new Bundle();
+
+b.putInt("position",position);
+fragment.setArguments(b);
+            return fragment;
         } else if (position == 1){
             return new CustomerOrdersFragment_Salesman();
         } else {

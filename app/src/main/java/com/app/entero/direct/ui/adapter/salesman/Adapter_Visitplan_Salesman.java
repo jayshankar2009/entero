@@ -12,8 +12,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.model.Visitplanmodal;
 import com.app.entero.direct.ui.activity.salesman.Customer_TastActivity_Salesman;
+import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 
 
 /**
@@ -22,8 +24,9 @@ import com.app.entero.direct.ui.activity.salesman.Customer_TastActivity_Salesman
 
 public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Visitplan_Salesman.MyViewHolder> {
 
-    private List<Visitplanmodal> mList;
+    private List<SalesmanDashBoardModel> mList;
     Context context;
+    OnItemRecycleClickListener onItemRecycleClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView id, name, address;
@@ -40,7 +43,7 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
     }
 
 
-    public Adapter_Visitplan_Salesman(Context context, List<Visitplanmodal> mList) {
+    public Adapter_Visitplan_Salesman(Context context,OnItemRecycleClickListener onItemRecycleClickListener, List<SalesmanDashBoardModel> mList) {
         this.context= context;
         this.mList = mList;
     }
@@ -55,15 +58,15 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Visitplanmodal vistmodal = mList.get(position);
-        holder.id.setText(vistmodal.getId());
-        holder.name.setText(vistmodal.getName());
-        holder.address.setText(vistmodal.getAddress());
+
+     holder.id.setText(mList.get(position).getChemistErpCode());
+        holder.name.setText(mList.get(position).getChemistLegalName());
+        holder.address.setText(mList.get(position).getChemistAddress());
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, Customer_TastActivity_Salesman.class);
-                context.startActivity(i);
+
+                onItemRecycleClickListener.onItemClick(v,position);
             }
         });
     }
