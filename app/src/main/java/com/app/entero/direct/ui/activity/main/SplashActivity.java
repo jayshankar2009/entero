@@ -169,19 +169,19 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void handleResponse(SalesmanModel mSalesmanModel) {
-        Log.e(TAG, " res: " + mSalesmanModel.getSalesmanInfo().get(0).getRole_Name());
-      //  Log.e(TAG, " res: " + raw.);
+        Log.e(TAG, " res: " + mSalesmanModel.getSalesmanInfo().get(0).getRoleName());
+        //  Log.e(TAG, " res: " + raw.);
         isShowProgress(false);
         if(mSalesmanModel.getStatus().equals("success"))
         {
             SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
 
-            if(mSalesmanModel.getSalesmanInfo().get(0).getRole_Name().equals("Deliveryboy")) {
+            if(mSalesmanModel.getSalesmanInfo().get(0).getRoleName().equals("Deliveryboy")) {
                 Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }
-          else  if(mSalesmanModel.getMessage().equals("No Record found"))
+            else  if(mSalesmanModel.getMessage().equals("No Record found"))
             {
                 Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
                 startActivity(i);
@@ -190,7 +190,7 @@ public class SplashActivity extends BaseActivity {
 
             else
             {
-                if(mSalesmanModel.getRole_ID().equals("4")) {
+                if(mSalesmanModel.getRoleID().equals("4")) {
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();

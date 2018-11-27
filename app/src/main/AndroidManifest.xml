@@ -112,6 +112,18 @@
             android:screenOrientation="portrait"
             android:label="Notifications"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.chemist.TakeOrderActivity_Chemist"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Notifications"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity.chemist.ViewCartActivityChemist"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Notifications"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
         <!--<activity
             android:name=".ui.activity.salesman.MainActivity"

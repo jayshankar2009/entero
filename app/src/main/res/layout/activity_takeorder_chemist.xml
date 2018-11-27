@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.salesman.TakeOrderActivity_Salesman">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/salesman_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <RelativeLayout
+            android:id="@+id/rltMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/fiftydp"
+            android:background="@color/colorcredit"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/ly_indicator_arrow_take_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:weightSum="2"
+                android:gravity="right">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fourtydp"
+                    android:gravity="right|top"
+                    android:layout_weight="1.7"
+                    android:text="@string/take_order"
+                    android:textSize="@dimen/fourteendp"
+                    app:fonts="Lato-Bold.ttf" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="0.3"
+                    app:srcCompat="@drawable/ic_thum_arrow_pointer" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_take_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/lnrBottom"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:scrollbars="vertical"
+                android:visibility="gone" />
+
+
+            <LinearLayout
+                android:id="@+id/lnrBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <LinearLayout
+                    android:id="@+id/ly_indicater"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/highlights"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/fivedp"
+
+                    android:paddingLeft="15dp"
+                    android:paddingTop="@dimen/tendp"
+                    android:visibility="visible"
+                    android:weightSum="5">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.6"
+                        android:orientation="vertical">
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:id="@+id/text_products_count_take_order"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left|center"
+                            android:text="25773"
+                            android:textColor="@color/colorPrimary1"
+                            android:textSize="@dimen/fourteendp"
+                            app:fonts="Lato-Bold.ttf" />
+
+                        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left|center"
+                            android:text="Products"
+                            android:textSize="@dimen/twelvedp"
+                            app:fonts="Lato-Regular.ttf" />
+
+                    </LinearLayout>
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:drawableTop="@drawable/drawable_low_circle"
+                        android:gravity="center"
+                        android:text="Low"
+                        android:textSize="@dimen/twelvedp"
+                        app:fonts="Lato-Regular.ttf" />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:drawableTop="@drawable/drawable_moderate_circle"
+                        android:gravity="center"
+                        android:text="Moderate"
+                        android:textSize="@dimen/twelvedp"
+                        app:fonts="Lato-Regular.ttf" />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:drawableTop="@drawable/drawable_penalty_circle"
+                        android:gravity="center"
+                        android:text="In-Plenty"
+                        android:textSize="@dimen/twelvedp"
+                        app:fonts="Lato-Regular.ttf" />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:drawableTop="@drawable/drawable_no_stock"
+                        android:gravity="center"
+                        android:text="No Stock"
+                        android:textSize="@dimen/twelvedp"
+                        app:fonts="Lato-Regular.ttf" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--BottomSheetBehavior layout-->
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/transparent"
+        android:fitsSystemWindows="true"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_take_order_medicine_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="Crocin 120 Straberry Suspension"
+                    android:textColor="@color/colorPrimary1"
+                    android:textSize="14sp"
+                    app:fonts="Lato-Bold.ttf" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:id="@+id/take_order_drawer_close_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/cross_icon" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Button
+                    android:id="@+id/btn_take_order_add_minus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="#F0F4F7"
+                    android:text="-"
+                    android:textColor="@color/colorPrimary1"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/text_take_order_count"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/curve_white_background"
+                    android:gravity="center"
+                    android:text="1"
+                    android:focusableInTouchMode="true"
+                    android:textColor="@color/colorPrimary1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_take_order_add_plus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="#F0F4F7"
+                    android:text="+"
+                    android:textColor="@color/colorPrimary1"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_take_order_add_to_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1.5"
+                    android:background="@color/colorPrimary1"
+                    android:padding="5dp"
+                    android:text="Add To Cart"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--cart layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/cust_task"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/text_name_take_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.8"
+                android:background="@color/cust_task"
+                android:gravity="left|center"
+                android:paddingLeft="15dp"
+                android:text="@string/order_bottom"
+                android:textColor="@color/white"
+                android:textSize="@dimen/twelvedp"
+                android:textStyle="bold"
+                app:fonts="Lato-Bold.ttf" />
+
+            <RelativeLayout
+                android:id="@+id/ry_cart_take_order"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_weight="0.2"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    app:srcCompat="@drawable/ic_cart" />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_cart_count_take_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:padding="1dp"
+                    android:background="@drawable/cart_circle"
+                    android:gravity="center"
+                    android:text="09"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="visible"
+                    app:fonts="Lato_Bold.ttf" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

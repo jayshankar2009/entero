@@ -18,7 +18,11 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.OffersModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.chemist.OffersActivity;
+import com.app.entero.direct.ui.activity.chemist.TakeOrderActivity_Chemist;
 import com.app.entero.direct.ui.activity.main.HomeActivity;
+import com.app.entero.direct.ui.activity.salesman.Customer_TastActivity_Salesman;
+import com.app.entero.direct.ui.activity.salesman.DeliveryActivity_Salesman;
+import com.app.entero.direct.ui.activity.salesman.TakeOrderActivity_Salesman;
 import com.app.entero.direct.ui.adapter.chemist.MyCustomePager;
 import com.app.entero.direct.ui.adapter.chemist.OffersAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
@@ -180,7 +184,7 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
         popular_recyclerView.setAdapter(new OffersAdapter(activity, this, setOfferListData()));
         popular_recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         view_all = (CustomTextView_Salesman) view.findViewById(R.id.view_all);
-
+        activity.addToCart.setOnClickListener(this);
         inItListener();
 
     }
@@ -195,6 +199,11 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
         {
             Intent mIntent = new Intent(getActivity(), OffersActivity.class);
             startActivity(mIntent);
+        }
+        if(view == activity.addToCart)
+        {
+            Intent i4 = new Intent(getActivity(),TakeOrderActivity_Chemist.class);
+            startActivity(i4);
         }
 
     }

@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
         >
 
@@ -54,13 +54,11 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
         >
 
@@ -86,153 +84,240 @@
             />
 
 
-        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-            android:layout_width="wrap_content"
-            android:gravity="right"
-            app:fonts="Lato-Regular.ttf"
-            android:layout_marginLeft="20dp"
-            android:layout_height="wrap_content"
-            android:text="Pack : "
-            android:textColor="@color/light_grey"
-            ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
-
-        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-            android:id="@+id/pack_tv"
-            android:layout_width="wrap_content"
-            android:gravity="right"
-            app:fonts="Lato-Regular.ttf"
-            android:layout_height="wrap_content"
-            android:text="1 strip of 15 tablets"
-            android:textColor="@color/primaryBlack"
-            ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center_vertical"
-        >
-
-        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Mfg : "
-            app:fonts="Lato-Regular.ttf"
-            android:textColor="@color/light_grey"
-            android:textSize="12dp"
-            />
-
-        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-            android:id="@+id/mfg_tv"
-            android:layout_width="wrap_content"
-            android:gravity="right"
-            app:fonts="Lato-Regular.ttf"
-            android:layout_height="wrap_content"
-            android:text="torrent pharmaceuticals ltd."
-            android:textColor="@color/primaryBlack"
-            ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:weightSum="3">
-
+        android:weightSum="3"
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@drawable/rectanglular_background"
-            android:orientation="horizontal"
-            >
-
-            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="MRP : "
-                app:fonts="Lato-Regular.ttf"
-                android:layout_gravity="center"
-                android:textColor="@color/light_grey"
-                android:textSize="12dp"
-                />
-
-            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-                android:id="@+id/mrp_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs 98.00"
-                app:fonts="Lato-Semibold.ttf"
-                android:layout_gravity="center"
-                android:textColor="@color/stroke_color"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/rectanglular_background"
-            android:orientation="horizontal"
-            >
-
-            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sale Rate : "
-                app:fonts="Lato-Regular.ttf"
-                android:layout_gravity="center"
-                android:textColor="@color/light_grey"
-                android:textSize="12dp"
-                />
-
-            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-                android:id="@+id/sale_rate_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs 98.00"
-                app:fonts="Lato-Semibold.ttf"
-                android:layout_gravity="center"
-                android:textColor="@color/colorPenalty"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/addToCart"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:background="@color/graybg"
-                android:layout_alignParentRight="true"
-                android:visibility="visible"
-                android:src="@drawable/ic_thum_cart_offer" />
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                >
 
-        </RelativeLayout>
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pack : "
+                    android:textColor="@color/light_grey"
+                    ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/pack_tv"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content"
+                    android:text="1 strip of 15 tablets"
+                    android:textColor="@color/primaryBlack"
+                    ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                >
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Mfg : "
+                    app:fonts="Lato-Regular.ttf"
+                    android:textColor="@color/light_grey"
+                    android:textSize="12dp"
+                    />
+
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/mfg_tv"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_height="wrap_content"
+                    android:text="torrent pharmaceuticals ltd."
+                    android:textColor="@color/primaryBlack"
+                    ></com.app.entero.direct.utils.custom.CustomTextView_Salesman>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@drawable/rectanglular_background"
+                    android:orientation="horizontal"
+                    >
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MRP : "
+                        app:fonts="Lato-Regular.ttf"
+                        android:layout_gravity="center"
+                        android:textColor="@color/light_grey"
+                        android:textSize="12dp"
+                        />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/mrp_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs 98.00"
+                        app:fonts="Lato-Semibold.ttf"
+                        android:layout_gravity="center"
+                        android:textColor="@color/stroke_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/rectanglular_background"
+                    android:orientation="horizontal"
+                    >
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sale Rate : "
+                        app:fonts="Lato-Regular.ttf"
+                        android:layout_gravity="center"
+                        android:textColor="@color/light_grey"
+                        android:textSize="12dp"
+                        />
+
+                    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                        android:id="@+id/sale_rate_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs 98.00"
+                        app:fonts="Lato-Semibold.ttf"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorPenalty"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_margin="2dp"
+            android:layout_gravity="bottom"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Button
+                    android:id="@+id/btn_take_order_add_minus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#F0F4F7"
+                    android:text="-"
+                    android:textColor="@color/colorPrimary1"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/text_take_order_count"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/curve_white_background"
+                    android:gravity="center"
+                    android:text="1"
+                    android:focusableInTouchMode="true"
+                    android:textColor="@color/colorPrimary1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_take_order_add_plus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#F0F4F7"
+                    android:text="+"
+                    android:textColor="@color/colorPrimary1"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/btn_take_order_add_to_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:paddingTop="5dp"
+                android:text="Add To Cart"
+                app:fonts="Lato-Semibold.ttf"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_cart"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                 />
+
+        </LinearLayout>
+
 
 
 
     </LinearLayout>
+
+
 
 
 </LinearLayout>

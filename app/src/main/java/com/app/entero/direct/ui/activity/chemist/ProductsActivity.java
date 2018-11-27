@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -24,6 +26,7 @@ import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.StockistModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
+import com.app.entero.direct.ui.activity.salesman.AllOrderActivity_Salesman;
 import com.app.entero.direct.ui.adapter.chemist.ProductsAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 import com.app.entero.direct.utils.Constants;
@@ -38,13 +41,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ProductsActivity extends BaseActivity implements OnItemRecycleClickListener {
+public class ProductsActivity extends BaseActivity implements View.OnClickListener, OnItemRecycleClickListener {
 
     private static final String TAG = ProductsActivity.class.getName();
     private Toolbar toolbar;
@@ -57,10 +62,14 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
     private BottomSheetBehavior sheetBehavior;
     private LinearLayout layoutBottomSheet;
     private StockistModel mStockistModel;
+    int itemCount=1;
     private ProductListModel mStockListModelData;
-    private ImageView img_cross;
+    private ImageView img_cross,img_viewcart;
     private CustomTextView_Salesman item_name_tv, product_id_tv, sale_rate_tv, mrp_tv, mfg_tv, pack_tv;
 
+    private Button btn_take_order_add_minus,btn_take_order_add_plus;
+    private CustomTextView_Salesman btn_take_order_add_to_cart;
+    private EditText text_take_order_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +129,11 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
         mfg_tv = (CustomTextView_Salesman) findViewById(R.id.mfg_tv);
         pack_tv = (CustomTextView_Salesman) findViewById(R.id.pack_tv);
         img_cross = (ImageView) findViewById(R.id.img_cross);
-
+        btn_take_order_add_minus = (Button) findViewById(R.id.btn_take_order_add_minus);
+        text_take_order_count = (EditText) findViewById(R.id.text_take_order_count);
+        btn_take_order_add_plus = (Button) findViewById(R.id.btn_take_order_add_plus);
+        btn_take_order_add_to_cart = (CustomTextView_Salesman) findViewById(R.id.btn_take_order_add_to_cart);
+        img_viewcart = (ImageView) findViewById(R.id.img_viewcart);
         rv_offers.setLayoutManager(new LinearLayoutManager(this));
         mProductsAdapter = new ProductsAdapter(this, this, mProductList);
         rv_offers.setAdapter(mProductsAdapter);
@@ -132,7 +145,16 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
         if (isNetworkAvailable()) {
             callApi(ApiConstants.GETPRODUCTLIST, hashMap);
         }
+        inItListener();
 
+    }
+
+    private void inItListener() {
+        img_viewcart.setOnClickListener(this);
+        img_cross.setOnClickListener(this);
+        btn_take_order_add_minus.setOnClickListener(this);
+        btn_take_order_add_plus.setOnClickListener(this);
+        btn_take_order_add_to_cart.setOnClickListener(this);
     }
 
 
@@ -228,17 +250,25 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
             if (mStockListModelData.getProductList() != null && mStockListModelData.getProductList().size() > 0) {
                 mProductsAdapter.refreshAdapter(mStockListModelData.getProductList());
             }
+            if(create(this,Constants.PRODUCT_LIST,mStockListModel))
+            {
+                read(this,Constants.PRODUCT_LIST);
+            }
         } else {
             Toast.makeText(this, mStockListModelData.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
 
-
-
-    private String read(Context context, String fileName) {
+    private ProductListModel read(Context context, String fileName) {
         try {
+
             FileInputStream fis = context.openFileInput(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ProductListModel mProductListModel  = (ProductListModel) ois.readObject();
+            ois.close();
+
+          /*  FileInputStream fis = context.openFileInput(fileName);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();
@@ -246,19 +276,27 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
             while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line);
             }
-            return sb.toString();
+            return sb.toString();*/
+            return mProductListModel;
         } catch (FileNotFoundException fileNotFound) {
             return null;
         } catch (IOException ioException) {
             return null;
+        } catch (ClassNotFoundException e) {
+            return null;
         }
     }
 
-    private boolean create(Context context, String fileName, String jsonString){
+    private boolean create(Context context, String fileName, ProductListModel jsonString){
         try {
+            File file = null;
+            file = new File(getCacheDir(), "MyCache"); // Pass getFilesDir() and "MyFile" to read file
             FileOutputStream fos = openFileOutput(fileName,Context.MODE_PRIVATE);
+
             if (jsonString != null) {
-                fos.write(jsonString.getBytes());
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(jsonString);
+                oos.close();
             }
             fos.close();
             return true;
@@ -276,4 +314,35 @@ public class ProductsActivity extends BaseActivity implements OnItemRecycleClick
         return file.exists();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.img_viewcart:
+                Intent mIntent = new Intent(ProductsActivity.this, ViewCartActivityChemist.class);
+                startActivity(mIntent);
+                break;
+            case R.id.img_cross:
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                break;
+
+            case R.id.btn_take_order_add_minus:
+                if(itemCount!=1) {
+                    itemCount = Integer.parseInt(text_take_order_count.getText()+"")-1;
+                    text_take_order_count.setText(itemCount+"");
+                }
+                break;
+
+            case R.id.btn_take_order_add_plus:
+                itemCount = Integer.parseInt(text_take_order_count.getText()+"")+1;
+                text_take_order_count.setText(itemCount+"");
+                break;
+
+            case R.id.btn_take_order_add_to_cart:
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                //int productQty = Integer.parseInt(text_take_order_count.getText()+"");
+                break;
+
+        }
+
+    }
 }

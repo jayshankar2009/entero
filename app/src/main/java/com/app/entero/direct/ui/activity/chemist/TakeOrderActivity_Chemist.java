@@ -1,4 +1,4 @@
-package com.app.entero.direct.ui.activity.salesman;
+package com.app.entero.direct.ui.activity.chemist;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,32 +26,47 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import com.app.entero.direct.Helper.OutstandingsData;
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.Outstandings;
+import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
-import com.app.entero.direct.ui.adapter.salesman.TakeOrderCustomAdapter_Salesman;
+import com.app.entero.direct.ui.activity.salesman.AllOrderActivity_Salesman;
+import com.app.entero.direct.ui.adapter.chemist.TakeOrderAdapter;
+import com.app.entero.direct.ui.listener.AddCartOnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 
-public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnClickListener {
+public class TakeOrderActivity_Chemist extends BaseActivity implements View.OnClickListener, AddCartOnItemRecycleClickListener {
     Toolbar mToolbar;
     SearchView searchView;
     RelativeLayout rltMain;
     LinearLayout lnrBottom;
+    ProductListModel mProductListModel;
+    private ProductListModel productModel;
     LinearLayout ly_indicater,ly_indicator_arrow_take_order;
     RelativeLayout ry_cart_take_order;
     TextView txtHeader,text_products_count_take_order,text_name_take_order,text_cart_count_take_order,
             text_take_order_medicine_name;
     EditText text_take_order_count;
-    private static RecyclerView.Adapter adapter_take_order;
+    private static TakeOrderAdapter adapter_take_order;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recycler_view_take_order;
-    private static ArrayList<Outstandings> takeOrderData;
+    private static ArrayList<ProductListModel> takeOrderData;
     public static View.OnClickListener takeOrderOnClickListener;
     CoordinatorLayout coordinatorLayout;
-    BottomSheetBehavior behavior;
+    private BottomSheetBehavior sheetBehavior;
+    private LinearLayout layoutBottomSheet;
     ImageView take_order_drawer_close_img;
     Button btn_take_order_add_minus,btn_take_order_add_plus,btn_take_order_add_to_cart;
     int itemCount=1;
@@ -59,61 +75,38 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_takeorder_chemist);
-
-        //Toolbar with search and filter
         initView();
         setToolbar();
         onSetText();
         onClickEvent();
-          // outstandings bill list
         recycler_view_take_order.setHasFixedSize(true);
-
         recycler_view_take_order.setLayoutManager(layoutManager);
         recycler_view_take_order.setItemAnimator(new DefaultItemAnimator());
 
-
-
-
         View bottomSheet = findViewById(R.id.bottom_sheet);
-        behavior = BottomSheetBehavior.from(bottomSheet);
-        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                // React to state change
             }
-
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                // React to dragging events
             }
         });
 
         ViewTreeObserver vto = rltMain.getViewTreeObserver();
-        //   final View content = activity.findViewById(android.R.id.content).getRootView();
-        //get_stockist_legends();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 Rect r = new Rect();
                 rltMain.getWindowVisibleDisplayFrame(r);
                 int screenHeight = rltMain.getRootView().getHeight();
-
-                // r.bottom is the position above soft keypad or device button.
-                // if keypad is shown, the r.bottom is smaller than that before.
                 int keypadHeight = screenHeight - r.bottom;
-
-                //  Log.d(TAG, "keypadHeight = " + keypadHeight);
-
                 if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
-                    // keyboard is opened
-                //    lnrBottom.setVisibility(View.GONE);
                 } else {
-                    // keyboard is closed
-                   // lnrBottom.setVisibility(View.VISIBLE);
                 }
             }
         });
-
 
     }
 
@@ -126,7 +119,6 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
         take_order_drawer_close_img.setOnClickListener(this);
 
     }
-
     private void onSetText() {
         txtHeader.setText("Take Order");
     }
@@ -136,8 +128,6 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        // Back to previous activity
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +137,10 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
     }
 
     private void initView() {
+        mProductListModel = new ProductListModel();
+        productModel = new ProductListModel();
+        if(isFilePresent(this, Constants.PRODUCT_LIST))
+            mProductListModel = read(this, Constants.PRODUCT_LIST);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
         ly_indicater = (LinearLayout) findViewById(R.id.ly_indicater);
@@ -166,19 +160,13 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
         btn_take_order_add_plus = (Button) findViewById(R.id.btn_take_order_add_plus);
         btn_take_order_add_to_cart = (Button) findViewById(R.id.btn_take_order_add_to_cart);
         take_order_drawer_close_img = (ImageView) findViewById(R.id.take_order_drawer_close_img);
-
+        setDataToRecyclerView();
     }
 
     private void setDataToRecyclerView() {
-        takeOrderData = new ArrayList<Outstandings>();
-        for (int i = 0; i < OutstandingsData.nameArray.length; i++) {
-            takeOrderData.add(new Outstandings(
-                    OutstandingsData.nameArray[i],
-                    OutstandingsData.versionArray[i],
-                    OutstandingsData.id_[i]
-            ));
-        }
-        adapter_take_order = new TakeOrderCustomAdapter_Salesman(takeOrderData);
+        //isFilePresent(this, Constants.PRODUCT_LIST);
+        //read(this,Constants.PRODUCT_LIST);
+        adapter_take_order = new TakeOrderAdapter(this,this,mProductListModel.getProductList());
         recycler_view_take_order.setAdapter(adapter_take_order);
     }
 
@@ -193,7 +181,7 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
                 }
                 break;
             case R.id.take_order_drawer_close_img:
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 break;
 
             case R.id.btn_take_order_add_minus:
@@ -209,8 +197,9 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
                 break;
 
             case R.id.btn_take_order_add_to_cart:
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                //int productQty = Integer.parseInt(text_take_order_count.getText()+"");
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                int productQty = Integer.parseInt(text_take_order_count.getText()+"");
+                Log.d("productModel",""+productModel);
                 break;
 
         }
@@ -220,16 +209,15 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_all_pending_list, menu);
-        MenuItem action_search = menu.findItem(R.id.action_search);
-        action_search.setVisible(true);
+        inflater.inflate(R.menu.search, menu);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setQueryHint("Order ");
+        searchView.setQueryHint("Products");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
-                setDataToRecyclerView();
-                lnrBottom.setVisibility(View.VISIBLE);
+                //setDataToRecyclerView();
+                //lnrBottom.setVisibility(View.VISIBLE);
+                adapter_take_order.getFilter().filter(newText);
                 return false;
             }
 
@@ -273,6 +261,18 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
         }
     }
 
+    @Override
+    public void onItemClick(View view, int position,ProductListModel productListModel) {
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            this.productModel = productListModel;
+            text_take_order_medicine_name.setText(productListModel.getItemname());
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+
+    }
+
 
     private class MyOnClickListener implements View.OnClickListener {
 
@@ -290,8 +290,66 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
                 text_products_count_take_order.setVisibility(View.VISIBLE);
             }
             text_take_order_count.setText("1");
-            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
 
+    }
+
+
+    private ProductListModel read(Context context, String fileName) {
+        try {
+
+            FileInputStream fis = context.openFileInput(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ProductListModel mProductListModel  = (ProductListModel) ois.readObject();
+            ois.close();
+            return mProductListModel;
+        } catch (FileNotFoundException fileNotFound) {
+            return null;
+        } catch (IOException ioException) {
+            return null;
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    /*private String read(Context context, String fileName) {
+        try {
+            FileInputStream fis = context.openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            return sb.toString();
+        } catch (FileNotFoundException fileNotFound) {
+            return null;
+        } catch (IOException ioException) {
+            return null;
+        }
+    }*/
+
+    private boolean create(Context context, String fileName, String jsonString){
+        try {
+            FileOutputStream fos = openFileOutput(fileName,Context.MODE_PRIVATE);
+            if (jsonString != null) {
+                fos.write(jsonString.getBytes());
+            }
+            fos.close();
+            return true;
+        } catch (FileNotFoundException fileNotFound) {
+            return false;
+        } catch (IOException ioException) {
+            return false;
+        }
+
+    }
+
+    public boolean isFilePresent(Context context, String fileName) {
+        String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
+        File file = new File(path);
+        return file.exists();
     }
 }
