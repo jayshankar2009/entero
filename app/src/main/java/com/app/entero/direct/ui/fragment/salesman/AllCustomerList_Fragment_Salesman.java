@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,6 +30,7 @@ import com.app.entero.direct.ui.activity.salesman.MainActivity;
 import com.app.entero.direct.ui.adapter.salesman.AllCustomerList_Adapter_Salesman;
 import com.app.entero.direct.ui.adapter.salesman.Products_Adapter_Salesman;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.SavePref;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,6 +41,7 @@ public class AllCustomerList_Fragment_Salesman extends Fragment implements OnIte
     ArrayList<CustomerListModel> arrCustomerList;
     RecyclerView recyclerView;
     BaseActivity baseActivity;
+
     LinkedHashMap<String, String> linkRequest;
     RecyclerView.LayoutManager layoutManager;
     String strSalesmanId, strStockisId;
@@ -64,14 +69,9 @@ public class AllCustomerList_Fragment_Salesman extends Fragment implements OnIte
         initview(view);
         strStockisId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
         strSalesmanId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getID();
-        activity.imgToolbar.setVisibility(View.GONE);
-        activity.txtToolbar.setVisibility(View.VISIBLE);
-        activity.txtToolbar.setText("Customer List");
-        activity.imgFilter.setVisibility(View.GONE);
-        activity.imgSearch.setVisibility(View.VISIBLE);
         linkRequest = new LinkedHashMap<>();
-        linkRequest.put(ApiConstants.StockistID, "1");
-        linkRequest.put(ApiConstants.SalesmanID, "2");
+        linkRequest.put(Constants.StockistID, "1");
+        linkRequest.put(Constants.SalesmanID, "2");
         if(baseActivity.isNetworkAvailable()) {
             callCustomerList(ApiConstants.Get_Salesman_CustomerList,linkRequest);
         }
@@ -126,10 +126,71 @@ private void handleCustomerError(Throwable throwable) {
     public void onItemClick(View view, int position) {
         Intent i = new Intent(getContext(), CustomerListDetailsActivity_Salesman.class);
         i.putExtra("position",position);
-        i.putExtra("custList",listCustomer.get(position));
+      //  i.putExtra("custList",listCustomer.get(position));
 
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
        startActivity(i);
 
     }
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+
+        inflater = activity.getMenuInflater();
+        inflater.inflate(R.menu.menu_all_pending_list, menu);
+        activity.imgToolbar.setVisibility(View.GONE);
+        activity.txtToolbar.setVisibility(View.VISIBLE);
+        activity.txtToolbar.setText("Customer List");
+        MenuItem action_search = menu.findItem(R.id.action_search);
+        MenuItem action_filter = menu.findItem(R.id.action_filter);
+        action_search.setVisible(true);
+
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint("Customer List");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+            //    adapterProducts.getFilter().filter(newText.toLowerCase());
+                //setDataToRecyclerView();
+                allCustomerList_adapter_salesman.getFilter().filter(newText.toLowerCase());
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+
+                return false;
+            }
+        });
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_search:
+
+                return true;
+
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 }

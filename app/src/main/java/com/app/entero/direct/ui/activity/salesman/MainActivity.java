@@ -20,6 +20,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,10 +48,12 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
     public static ImageView imgToolbar;
     public static TextView txtToolbar;
     DrawerLayout drawer;
-    public static ImageView imgFilter,imgSearch;
+
+    // public static ImageView imgFilter,imgSearch;
     ActionBarDrawerToggle toggle;
     private NavigationAdapter_Salesman mNavigationAdapter;
     Fragment selectedFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +62,9 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         setToolbar();
         initView();
         setupBottomNavigation();
-       // setNavigationDrawer();
+        // setNavigationDrawer();
 
-         selectedFragment = new HomeFragment_Salesman();
+        selectedFragment = new HomeFragment_Salesman();
 
         Bundle bundle = new Bundle();
         bundle.putInt("type", 1);
@@ -73,34 +76,37 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment selectedFragment ;
+                Fragment selectedFragment;
                 Bundle bundle;
                 switch (menuItem.getItemId()) {
-                    case R.id.action_home :
+                    case R.id.action_home:
                         selectedFragment = new HomeFragment_Salesman();
+
                         bundle = new Bundle();
                         bundle.putInt("type", 1);
                         selectedFragment.setArguments(bundle);
                         replaceFragment(selectedFragment);
                         return true;
 
-                    case R.id.action_product :
+                    case R.id.action_product:
                         selectedFragment = new ProductsFragment_Salesman();
+
                         bundle = new Bundle();
-                        bundle.putInt("type",2);
+                        bundle.putInt("type", 2);
                         selectedFragment.setArguments(bundle);
                         replaceFragment(selectedFragment);
                         return true;
-                    case R.id.action_customer :
+                    case R.id.action_customer:
                         selectedFragment = new AllCustomerList_Fragment_Salesman();
+
                         bundle = new Bundle();
-                        bundle.putInt("type",3);
+                        bundle.putInt("type", 3);
                         selectedFragment.setArguments(bundle);
                         replaceFragment(selectedFragment);
                         return true;
 
-                    case R.id.action_order :
-                        Intent i = new Intent(getApplicationContext(),AllOrderActivity_Salesman.class);
+                    case R.id.action_order:
+                        Intent i = new Intent(getApplicationContext(), AllOrderActivity_Salesman.class);
                         startActivity(i);
                         return true;
                 }
@@ -114,16 +120,11 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         super.onResume();
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        invalidateOptionsMenu();
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     private void initView() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         rv_navigation = (RecyclerView) findViewById(R.id.rv_navigation);
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation) ;
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -138,7 +139,7 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
     }
 
     private void setUpDrawerToggle() {
-                toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);      //This is necessary to change the icon of the Drawer Toggle upon state change.
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.ordergenie_gray));
 
@@ -168,20 +169,16 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
     }*/
 
     private void setToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbarmain);
-        imgToolbar = (ImageView)findViewById(R.id.imgLogo);
-        txtToolbar =(TextView)findViewById(R.id.txtToolbar);
-        imgFilter=(ImageView)findViewById(R.id.imgFilter);
-        imgSearch=(ImageView)findViewById(R.id.imgSearch);
-        txtToolbar.setVisibility(View.GONE);
-        imgFilter.setVisibility(View.GONE);
-        imgSearch.setVisibility(View.GONE);
-      //  tv_title = (TextView) findViewById(R.id.tv_title);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        imgToolbar = (ImageView) findViewById(R.id.imgLogo);
+        txtToolbar = (TextView) findViewById(R.id.txtHeader);
+
+        //  tv_title = (TextView) findViewById(R.id.tv_title);
+        toolbar.setNavigationIcon(R.drawable.ic_nav_left_arrow);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-       // actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-       // getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        // getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -190,10 +187,9 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
                 finish();
-            }
-            else {
+            } else {
 
             }
         }
@@ -216,14 +212,15 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         Bundle bundle;
         Fragment selectedFragment;
         if (position == 0) {
-         selectedFragment = new HomeFragment_Salesman();
+            selectedFragment = new HomeFragment_Salesman();
             bottomNavigationView.setSelectedItemId(R.id.action_home);
+
         } else if (position == 1) {
             bottomNavigationView.setSelectedItemId(R.id.action_product);
         } else if (position == 2) {
             bottomNavigationView.setSelectedItemId(R.id.action_customer);
         } else if (position == 3) {
-            Intent i = new Intent(getApplicationContext(),AllOrderActivity_Salesman.class);
+            Intent i = new Intent(getApplicationContext(), AllOrderActivity_Salesman.class);
             startActivity(i);
         } else if (position == 4) {
 
@@ -249,15 +246,17 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
     public void setProfileData() {
 
     }
+
     public void replaceFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getName();
         FragmentManager manager = getSupportFragmentManager();
        /* boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
         if (!fragmentPopped){ //fragment not in back stack, create it.
-         */   FragmentTransaction ft = manager.beginTransaction();
-            ft.replace(R.id.container, fragment);
-         //   ft.addToBackStack(backStateName);
-            ft.commit();
+         */
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.replace(R.id.container, fragment);
+        //   ft.addToBackStack(backStateName);
+        ft.commit();
        /* }else {
             Toast.makeText(getApplicationContext(),"Fragment 2"+backStateName,Toast.LENGTH_LONG).show();
 
@@ -270,5 +269,28 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         super.onPause();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_all_pending_list, menu);
+        txtToolbar.setVisibility(View.GONE);
+        imgToolbar.setVisibility(View.VISIBLE);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_filter:
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

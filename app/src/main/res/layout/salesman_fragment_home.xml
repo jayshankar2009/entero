@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/fivedp"
-                        android:text="24"
+                        android:text=""
                         app:fonts="Lato-Bold.ttf"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -88,7 +88,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/fivedp"
                         app:fonts="Lato-Bold.ttf"
-                        android:text="08"
+                        android:text=""
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/fivedp"
-                        android:text="08"
+                        android:text=""
                         app:fonts="Lato-Bold.ttf"
                         android:textSize="16sp"
                         android:textStyle="bold" />

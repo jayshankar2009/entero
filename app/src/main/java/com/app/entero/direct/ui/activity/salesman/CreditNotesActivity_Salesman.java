@@ -7,6 +7,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +26,6 @@ public class CreditNotesActivity_Salesman extends BaseActivity implements View.O
 
     private Toolbar toolbar;
     private TextView txtToolbarHeader,text_credit_note_client_name,text_credit_note_total_amount;
-    ImageView add_credit_note_images;
     Toolbar mToolbar;
     private static RecyclerView.Adapter adapter_credit_notes_details;
     private RecyclerView.LayoutManager layoutManager;
@@ -57,7 +59,7 @@ public class CreditNotesActivity_Salesman extends BaseActivity implements View.O
     }
 
     private void onClickEvent() {
-        add_credit_note_images.setOnClickListener(this);
+
     }
 
     private void onSetText() {
@@ -81,8 +83,7 @@ public class CreditNotesActivity_Salesman extends BaseActivity implements View.O
     private void initView() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtToolbarHeader = (TextView) findViewById(R.id.txtHeader);
-        add_credit_note_images = (ImageView) findViewById(R.id.add_credit_note_images);
-        add_credit_note_images.setVisibility(View.VISIBLE);
+
         text_credit_note_client_name = (TextView) findViewById(R.id.text_credit_note_client_name);
         text_credit_note_total_amount = (TextView) findViewById(R.id.text_credit_note_total_amount);
         recycler_credit_note_list = (RecyclerView) findViewById(R.id.recycler_credit_note_list);
@@ -93,11 +94,32 @@ public class CreditNotesActivity_Salesman extends BaseActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.add_credit_note_images :
+            /*case R.id.add_credit_note_images :
                 Intent in = new Intent(CreditNotesActivity_Salesman.this, AddCreditNotesActivity_Salesman.class);
                 startActivity(in);
-                break;
+                break;*/
         }
 
     }
+    // add credit note menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_all_pending_list, menu);
+        MenuItem add_credit_note = menu.findItem(R.id.add_credit_note);
+        add_credit_note.setVisible(true);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                Intent in = new Intent(CreditNotesActivity_Salesman.this, AddCreditNotesActivity_Salesman.class);
+                startActivity(in);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

@@ -15,7 +15,7 @@
             <solid android:color="@color/colorPurple"/>
 
             <!-- Set the same value for both width and height to get a circular shape -->
-            <size android:width="@dimen/twentydp" android:height="@dimen/twentydp"/>
+            <size android:width="@dimen/fifteendp" android:height="@dimen/fifteendp"/>
         </shape>
     </item>
 </selector>

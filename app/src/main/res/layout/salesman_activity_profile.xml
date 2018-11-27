@@ -20,6 +20,7 @@
 
 
         <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txtCustName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/tendp"
@@ -29,6 +30,7 @@
             app:fonts="Lato-Bold.ttf" />
 
         <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/txtCustAddrs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/tendp"

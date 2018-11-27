@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.CustomerListModel;
 import com.app.entero.direct.model.Outstandings;
+import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.model.Salesman_CustomerList_Model;
 import com.app.entero.direct.ui.activity.salesman.AllOrderActivity_Salesman;
 import com.app.entero.direct.ui.activity.salesman.CustomTaskDeliveryDetailsActivity_Salesman;
@@ -91,6 +93,45 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
 
     }
 });
+    }
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+
+                    dataSet = dataSet;
+                } else {
+
+                    ArrayList<Salesman_CustomerList_Model> filteredList = new ArrayList<>();
+
+                    for (Salesman_CustomerList_Model productsModel : dataSet) {
+
+                        if (productsModel.getChemistLegalName().toLowerCase().contains(charString)||productsModel.getChemistID().contains(charString)) {
+
+                            filteredList.add(productsModel);
+                        }
+
+                    }
+
+                    dataSet = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = dataSet;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                dataSet = (ArrayList<Salesman_CustomerList_Model>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     @Override

@@ -17,7 +17,16 @@
         android:id="@+id/action_filter"
         android:orderInCategory="100"
         android:title=""
+        android:visible="false"
         android:icon="@drawable/ic_nav_filter"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/add_credit_note"
+        android:orderInCategory="100"
+        android:title=""
+        android:visible="false"
+        android:icon="@drawable/ic_thum_add"
         app:showAsAction="always" />
 
 

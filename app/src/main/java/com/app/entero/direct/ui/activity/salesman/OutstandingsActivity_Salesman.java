@@ -141,7 +141,10 @@ TextView txtHeader;
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_all_pending_list, menu);
-
+        MenuItem action_search = menu.findItem(R.id.action_search);
+        MenuItem action_filter = menu.findItem(R.id.action_filter);
+        action_search.setVisible(true);
+        action_filter.setVisible(true);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setQueryHint("Outstandings List");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

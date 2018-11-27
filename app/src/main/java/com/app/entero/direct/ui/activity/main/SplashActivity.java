@@ -45,7 +45,19 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initObjects();
+        if(SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo","").length()>0){
+       //  Toast.makeText(getApplicationContext(),"Check1--"+SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo",""),Toast.LENGTH_SHORT).show();
+            isShowProgress(true);
+            hashMap = new LinkedHashMap<>();
+            hashMap.put(ApiConstants.IMEIno, SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo",""));
+           // SavePref.getInstance(getApplicationContext()).setValue("ImeiNo",IMEI);
+            callIMIApi(ApiConstants.Get_SalesmandetailsByIMEI,hashMap);
+
+        }else {
+          //  Toast.makeText(getApplicationContext(),"Check2",Toast.LENGTH_SHORT).show();
+        }
         IMEI = new get_imie_number().check_imie_permission(this);
+
         intView();
 
         /*Handler handler = new Handler();
@@ -205,6 +217,7 @@ public class SplashActivity extends BaseActivity {
                         isShowProgress(true);
                         hashMap = new LinkedHashMap<>();
                         hashMap.put(ApiConstants.IMEIno, IMEI);
+                        SavePref.getInstance(getApplicationContext()).setValue("ImeiNo",IMEI);
                         callIMIApi(ApiConstants.Get_SalesmandetailsByIMEI,hashMap);
                     }
                 } else {
