@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    >
     <LinearLayout
         android:id="@+id/lnrPopup"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
         <ImageView
             android:id="@+id/lnrCancel"
@@ -58,10 +59,10 @@
             android:layout_marginRight="@dimen/twentyFivedp"
             android:text="Proceed and Select Invoices "
             android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:layout_marginBottom="30dp"
             android:background="@color/colorPrimary1"
             android:padding="@dimen/twentydp"/>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

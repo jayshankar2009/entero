@@ -80,6 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+
                 android:background="@drawable/edit_drawable"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -93,8 +94,8 @@
                     android:drawablePadding="@dimen/fivedp"
                     android:drawableTop="@drawable/ic_card_rupee"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/twentydp"
-                    android:paddingTop="@dimen/twentydp"
+                    android:paddingBottom="@dimen/tendp"
+                    android:paddingTop="@dimen/tendp"
                     android:text="@string/cash_payment"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fifteendp"
@@ -110,13 +111,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/tendp"
+                    android:paddingTop="@dimen/tendp"
                     android:drawablePadding="@dimen/fivedp"
                     android:drawableTop="@drawable/ic_card_cheque"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/twentydp"
+
                     android:paddingLeft="@dimen/fifteendp"
                     android:paddingRight="@dimen/fifteendp"
-                    android:paddingTop="@dimen/twentydp"
+
                     android:text="@string/cheque_payment"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fifteendp"

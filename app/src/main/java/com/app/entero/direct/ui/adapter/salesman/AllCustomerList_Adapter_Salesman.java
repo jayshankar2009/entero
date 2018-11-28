@@ -111,8 +111,21 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
 
                     for (Salesman_CustomerList_Model productsModel : dataSet) {
 
-                        if (productsModel.getChemistLegalName().toLowerCase().contains(charString)||productsModel.getChemistID().contains(charString)) {
-
+                        if ((productsModel.getChemistID() != null && productsModel.getChemistID().replace("-", "").replace(" ", "").replace("(", "").replace(")", "")
+                                .replace("/", "").replace("*", "").replace(":", "").replace("_", "").replace(".", "").replace("'", "").replace("`", "").replace("~", "").replace("^", "").replace("+", "").replace(",", "").replace("<","").replace(">","").toLowerCase()
+                                // .matches(constraint.toString().replace(" ","").replace("-","")
+                                .startsWith(productsModel.getChemistID().replace(" ", "").replace("-", "")
+                                        //.contains(constraint.toString().replace(" ","").replace("-","")
+                                        .replace("(", "").replace(")", "")
+                                        .replace("/", "").replace("*", "").replace(":", "").replace("_", "").replace(".", "").replace("'", "").replace("`", "").replace("~", "").replace("^", "")
+                                        .replace("+", "").replace(",", "").replace("<","").replace(">","").toLowerCase())
+                        )&&(productsModel.getChemistLegalName()!= null && productsModel.getChemistLegalName().replace("-", "").replace(" ", "").replace("(", "").replace(")", "")
+                                .replace("/", "").replace("*", "").replace(":", "").replace("_", "").replace(".", "").replace("'", "").replace("`", "").replace("~", "").replace("^", "").replace("+", "").replace(",", "").replace("<","").replace(">","").toLowerCase()
+                                .contains(productsModel.getChemistLegalName().replace(" ","").replace("-","")
+                                        .replace("(", "").replace(")", "")
+                                        .replace("/", "").replace("*", "").replace(":", "").replace("_", "").replace(".", "").replace("'", "").replace("`", "").replace("~", "").replace("^", "")
+                                        .replace("+", "").replace(",", "").replace("<","").replace(">","").toLowerCase())
+                        )){
                             filteredList.add(productsModel);
                         }
 

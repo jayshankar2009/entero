@@ -46,12 +46,13 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initObjects();
+        intView();
         if(SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo","").length()>0){
        //  Toast.makeText(getApplicationContext(),"Check1--"+SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo",""),Toast.LENGTH_SHORT).show();
             isShowProgress(true);
             hashMap = new LinkedHashMap<>();
             hashMap.put(ApiConstants.IMEIno, SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo",""));
-           // SavePref.getInstance(getApplicationContext()).setValue("ImeiNo",IMEI);
+
             callIMIApi(ApiConstants.Get_SalesmandetailsByIMEI,hashMap);
 
         }else {
@@ -59,7 +60,7 @@ public class SplashActivity extends BaseActivity {
         }
         IMEI = new get_imie_number().check_imie_permission(this);
 
-        intView();
+
 
         /*Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -99,8 +100,11 @@ public class SplashActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        callToken(ApiConstants.GET_TOKEN, hashMapCallToken);
-
+        if(isNetworkAvailable()) {
+            callToken(ApiConstants.GET_TOKEN, hashMapCallToken);
+        }else {
+            Toast.makeText(getApplicationContext(),"Please Check Your Internet Connection",Toast.LENGTH_SHORT).show();
+        }
       /*  if (isNetworkAvailable()) {
             if(!IMEI.equals(""))
             {

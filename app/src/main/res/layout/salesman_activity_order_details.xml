@@ -269,7 +269,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:orientation="vertical"
-        android:weightSum="6">
+       >
 
         <com.app.entero.direct.utils.custom.CustomTextView_Salesman
             android:layout_width="match_parent"
@@ -283,8 +283,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4.6">
+            android:layout_height="wrap_content"
+          >
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_all_order_details"
@@ -311,7 +311,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+
                 android:gravity="right"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -322,7 +322,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Total"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     app:fonts="Lato-Regular.ttf" />
 
                 <com.app.entero.direct.utils.custom.CustomTextView_Salesman
@@ -341,6 +341,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -378,6 +379,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|center"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:weightSum="2">
 

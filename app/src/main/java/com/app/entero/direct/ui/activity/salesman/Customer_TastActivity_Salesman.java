@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
+import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.SavePref;
 
 import java.util.ArrayList;
 
@@ -21,8 +23,8 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
     TextView textView_profile;
     Toolbar mToolbar;
     Bundle bundle;
-    ArrayList<SalesmanDashBoardModel> listSalesmanData;
-    TextView txtHeader;
+    SalesmanDashBoardModel listSalesmanData;
+    TextView txtHeader,txtCustId,txtDistrName,txtAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +32,20 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
         setContentView(R.layout.salesman_activity_customer__tast);
         initLayout();
         setToolbar();
+//onVisiblityMode();
         onSetText();
         onClickEvent();
-        bundle = getIntent().getExtras();
-        listSalesmanData = (ArrayList<SalesmanDashBoardModel>) bundle.getSerializable("ChemistData");
-        Toast.makeText(getApplicationContext(),"---"+listSalesmanData,Toast.LENGTH_SHORT).show();
+
+  //      Toast.makeText(getApplicationContext(),"---"+listSalesmanData,Toast.LENGTH_SHORT).show();
         }
 
     private void onSetText() {
         txtHeader.setText("Customer Task");
+    txtCustId.setText(listSalesmanData.getChemistErpCode());
+        txtAddress.setText(listSalesmanData.getChemistAddress());
+        txtDistrName.setText(listSalesmanData.getChemistLegalName());
+       /* txtAddress.setText(listSalesmanData.getChemistAddress());
+        txtDistrName.setText(listSalesmanData.getChemistLegalName());*/
     }
 
     private void setToolbar() {
@@ -63,12 +70,18 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
     }
 
     private void initLayout() {
+        bundle = getIntent().getExtras();
+        listSalesmanData = (SalesmanDashBoardModel) bundle.getSerializable("array_list");
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
         btn_takeOrder = (RelativeLayout) findViewById(R.id.btn_take_order);
         btn_collectpayment = (RelativeLayout) findViewById(R.id.btn_collectpayment);
         textView_profile = (TextView) findViewById(R.id.btn_view_profile);
         btn_take_delivery=(RelativeLayout)findViewById(R.id.btn_take_delivery);
+        txtCustId = (TextView) findViewById(R.id.txtCustId);
+        txtDistrName = (TextView) findViewById(R.id.txtDistrName);
+        txtAddress= (TextView) findViewById(R.id.txtAddress);
     }
 
     @Override
@@ -76,13 +89,18 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
         switch (v.getId()) {
             case R.id.btn_view_profile :
                 Intent i = new Intent(Customer_TastActivity_Salesman.this,ProfileActivity_Salesman.class);
+                i.putExtra("array_list",listSalesmanData);
                 startActivity(i);
                 break;
 
             case R.id.btn_collectpayment:
              //   Toast.makeText(getApplicationContext(),"Coll",Toast.LENGTH_LONG).show();
-                Intent i2 = new Intent(Customer_TastActivity_Salesman.this,CollectPaymentActivity_Salesman.class);
-                startActivity(i2);
+               // if(SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getRoleID().equals(Constants.Salesman)) {
+                    Intent i2 = new Intent(Customer_TastActivity_Salesman.this, CollectPaymentActivity_Salesman.class);
+                    startActivity(i2);
+             /*   }else {
+                    Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
+                }*/
                 break;
 
             case R.id.btn_take_order :
@@ -97,4 +115,19 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
         }
 
     }
+    /*private void onVisiblityMode() {
+
+        if(SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getRoleID().equals(String.valueOf(Constants.Deliveryboy))) {
+              btn_collectpayment.setVisibility(View.GONE);
+              btn_takeOrder.setVisibility(View.GONE);
+              btn_take_delivery.setVisibility(View.VISIBLE);
+        }
+        else if(SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getRoleID().equals(String.valueOf(Constants.CollectionAgent))){
+            btn_take_delivery.setVisibility(View.GONE);
+            btn_takeOrder.setVisibility(View.GONE);
+            btn_collectpayment.setVisibility(View.VISIBLE);
+
+
+        }
+    }*/
 }

@@ -2,11 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/colorcredit">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
         <include
             layout="@layout/salesman_toolbar"
@@ -16,19 +13,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
             android:gravity="center"
+            android:background="@color/colorcredit"
             android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_all_report"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:scrollbars="vertical" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_all_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:layout_gravity="center"
+                android:scrollbars="vertical" />
         </LinearLayout>
 
-    </LinearLayout>
+
 
 </LinearLayout>
+
+
+
+
+
+
+

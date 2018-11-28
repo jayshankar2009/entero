@@ -11,4 +11,11 @@ public class Constants {
     public static final String StockistID = "StockistID";
     public static final String SalesmanID = "SalesmanID";
     public static String legendType="legendType";
+    public static String ChemistID="ChemistID";
+    public static String salesmanId = "salesmanId";
+    public static String Transaction_No="Transaction_No";
+    public static String sDate="sDate";
+    public static String eDate="eDate";
+
+
 }

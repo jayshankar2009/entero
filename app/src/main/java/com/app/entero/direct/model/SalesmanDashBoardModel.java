@@ -124,7 +124,9 @@ public class SalesmanDashBoardModel implements Serializable{
     @Expose
     private String chemistErpCode;
 
-
+    @SerializedName("MobileNo")
+    @Expose
+    private String mobileNo;
 
     public String getStokistID() {
         return stokistID;
@@ -221,5 +223,12 @@ public class SalesmanDashBoardModel implements Serializable{
         this.entityCountSalesmanData = entityCountSalesmanData;
     }
 
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
 }
 

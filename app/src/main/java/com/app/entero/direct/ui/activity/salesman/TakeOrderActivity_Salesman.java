@@ -32,6 +32,8 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.Outstandings;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.TakeOrderCustomAdapter_Salesman;
+import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.SavePref;
 
 
 public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnClickListener {
@@ -64,7 +66,7 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
         initView();
         setToolbar();
         onSetText();
-        onClickEvent();
+           onClickEvent();
           // outstandings bill list
         recycler_view_take_order.setHasFixedSize(true);
 
@@ -116,6 +118,8 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
 
 
     }
+
+
 
     private void onClickEvent() {
         ry_cart_take_order.setOnClickListener(this);
@@ -294,4 +298,5 @@ public class TakeOrderActivity_Salesman extends BaseActivity implements View.OnC
         }
 
     }
+
 }

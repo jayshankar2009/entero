@@ -17,6 +17,7 @@ public class ApiConstants {
     public static final String Get_SalesmanDashboard="api/salesmans/Get_SalesmanDashboard";
     public static final String Get_Salesman_CustomerList="api/salesmans/app_GetChemistOutstanding";
     public static final String Get_productList = "api/products/getProductlist";
+    public static final String Get_OrdersAll = "api/orders/Get_OrdersAll";
 
 
 }
