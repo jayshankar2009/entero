@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -27,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,27 +37,35 @@ import java.util.Date;
 
 import com.app.entero.direct.Helper.OutstandingsData;
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.AllOrderModel;
 import com.app.entero.direct.model.Outstandings;
+import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.AllOrderCustomAdapter_Salesman;
+import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.SavePref;
+import com.google.gson.JsonObject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 
-public class AllOrderActivity_Salesman extends BaseActivity {
+public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRecycleClickListener {
     Toolbar mToolbar;
     SearchView searchView;
 
-    private static RecyclerView.Adapter adapter_all_order;
+    private static AllOrderCustomAdapter_Salesman adapter_all_order;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recycler_view_all_order;
-    private static ArrayList<Outstandings> allOrderData;
     public static View.OnClickListener allOrderOnClickListener;
-
-    Button btn_border_details_pending,btn_order_details_invoiced,btn_order_details_filter,btn_clear_filter;
+    ArrayList<AllOrderModel> listAllOrder;
+    private Calendar calendar;
+    Button btn_border_details_pending, btn_order_details_invoiced, btn_order_details_filter, btn_clear_filter;
     DatePickerDialog dpd_start_date, dpd_end_date;
     private Date current_date = Calendar.getInstance().getTime();
-    // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    //  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private SimpleDateFormat sdYear = new SimpleDateFormat("yyyy");
     private SimpleDateFormat sdMonth = new SimpleDateFormat("MM");
@@ -63,39 +73,71 @@ public class AllOrderActivity_Salesman extends BaseActivity {
     private int mYear, mMonth, mDay;
     private Date filter_start_date, filter_end_date;
     String date = null;
-    TextView txt_start_date,txt_end_date;
-TextView txtHeader;
+    String strStockistId, strSalesmanId;
+    String fromDate, toDate;
+    TextView txt_start_date, txt_end_date;
+    TextView txtHeader;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_activity_all_order);
+        initObjects();
         initView();
         setToolbar();
         onSetText();
         onClickEvent();
+
         recycler_view_all_order.setHasFixedSize(true);
 
         recycler_view_all_order.setLayoutManager(layoutManager);
         recycler_view_all_order.setItemAnimator(new DefaultItemAnimator());
 
-        /*LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(this, R.anim.item_animation_fall_down);
-        recycler_view_all_order.setLayoutAnimation(animation);*/
+    }
+
+    private void callAllOrder(String fromDate, String toDate) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty(Constants.StockistID, "1");
+        jsonObject.addProperty(Constants.ChemistID, "0");
+        jsonObject.addProperty(Constants.salesmanId, "4");
+        jsonObject.addProperty(Constants.Transaction_No, "0");
+        jsonObject.addProperty(Constants.sDate, fromDate);
+        jsonObject.addProperty(Constants.eDate, toDate);
+
+        mCompositeDisposable.add(getApiCallService().getAllOrder(SavePref.getInstance(getApplicationContext()).getToken(), ApiConstants.Get_OrdersAll, jsonObject)
+
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError));
 
 
-        for (int i = 0; i < OutstandingsData.nameArray.length; i++) {
-            allOrderData.add(new Outstandings(
-                    OutstandingsData.nameArray[i],
-                    OutstandingsData.versionArray[i],
-                    OutstandingsData.id_[i]
-            ));
+    }
+
+    private void handleResponse(AllOrderModel allOrderModel) {
+        listAllOrder = new ArrayList<>();
+        isShowProgress(false);
+        Log.i("Response", "" + allOrderModel.getStatus());
+        if (allOrderModel.getStatus().equals("success")) {
+            if (allOrderModel.getMessage().equals("Record found")) {
+                for (int i = 0; i < allOrderModel.getOrderData().size(); i++) {
+                    listAllOrder.add(allOrderModel.getOrderData().get(i));
+                }
+                fetchData();
+
+            }
         }
 
+    }
 
-        adapter_all_order = new AllOrderCustomAdapter_Salesman(allOrderData);
+    private void fetchData() {
+        adapter_all_order = new AllOrderCustomAdapter_Salesman(this,listAllOrder);
         recycler_view_all_order.setAdapter(adapter_all_order);
+    }
 
+    private void handleError(Throwable throwable) {
+        Log.e("All Order Error", " error: " + throwable.getMessage());
+        isShowProgress(false);
     }
 
     private void onClickEvent() {
@@ -122,11 +164,26 @@ TextView txtHeader;
     }
 
     private void initView() {
+        calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH) + 1;
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        fromDate = mYear + "-" + mMonth + "-" + mDay;
+        toDate = mYear + "-" + mMonth + "-" + mDay;
+        strStockistId = SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
+        strSalesmanId = SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getID();
+
+        Log.i("--" + strStockistId + "====" + fromDate, "----" + strSalesmanId + "--" + toDate);
+
+        if (isNetworkAvailable()) {
+            isShowProgress(true);
+            callAllOrder(fromDate, toDate);
+        }
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        txtHeader=(TextView)findViewById(R.id.txtHeader);
+        txtHeader = (TextView) findViewById(R.id.txtHeader);
         recycler_view_all_order = (RecyclerView) findViewById(R.id.recycler_view_all_order);
-        allOrderData = new ArrayList<Outstandings>();
-        allOrderOnClickListener = new MyOnClickListener(this);
+       // allOrderOnClickListener = new MyOnClickListener(this);
         layoutManager = new LinearLayoutManager(this);
     }
 
@@ -144,7 +201,12 @@ TextView txtHeader;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
-
+                if (newText == null || newText.trim().isEmpty()) {
+                   // fetchVisitPlan();
+                    fetchData();
+                    return false;
+                }
+                adapter_all_order.getFilter().filter(newText.toLowerCase());
                 return false;
             }
 
@@ -227,7 +289,28 @@ TextView txtHeader;
         dialogview.findViewById(R.id.btn_order_details_filter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                mYear = calendar.get(Calendar.YEAR);
+                mMonth = calendar.get(Calendar.MONTH) + 1;
+                mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
+                if (txt_start_date.getText().toString().trim().length() > 0) {
+                    fromDate = txt_start_date.getText().toString();
+                } else {
+                    fromDate = mYear + "-" + mMonth + "-" + mDay;
+                    // toDate = mYear + "-" + mMonth + "-" + mDay;
+
+                }
+                if (txt_end_date.getText().toString().trim().length() > 0) {
+                    toDate = txt_end_date.getText().toString();
+                } else {
+                    toDate = mYear + "-" + mMonth + "-" + mDay;
+                }
+                Log.i("--" + strStockistId + "====" + fromDate, "----" + strSalesmanId + "--" + toDate);
+                if (isNetworkAvailable()) {
+                    callAllOrder(fromDate, toDate);
+                    isShowProgress(true);
+                }
                 //filter_dialog_conditions(filter_start_date, filter_end_date, chk_pending.isChecked(), chk_completed.isChecked());
                 infoDialog.dismiss();
             }
@@ -259,11 +342,11 @@ TextView txtHeader;
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        if(date.equalsIgnoreCase("from")) {
+                        if (date.equalsIgnoreCase("from")) {
 
                             txt_start_date.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
-                        }else if(date.equalsIgnoreCase("to")){
+                        } else if (date.equalsIgnoreCase("to")) {
 
                             txt_end_date.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                         }
@@ -296,38 +379,14 @@ TextView txtHeader;
 
     }
 
-    private class MyOnClickListener implements View.OnClickListener {
+    @Override
+    public void onItemClick(View view, int position) {
+     //   Intent i = new Intent(getApplicationContext(),)
+        Intent in = new Intent(getApplicationContext(), OrderDetailsActivity_Saleesman.class);
+        in.putExtra("orderList",listAllOrder.get(position));
+        startActivity(in);
 
-        private final Context context;
-
-        private MyOnClickListener(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onClick(View v) {
-            //removeItem(v);
-            int selectedItemPosition = recycler_view_all_order.getChildPosition(v);
-            Intent in = new Intent(context, OrderDetailsActivity_Saleesman.class);
-            startActivity(in);
-        }
-
-        /*private void removeItem(View v) {
-            int selectedItemPosition = recycler_view_all_order.getChildPosition(v);
-            RecyclerView.ViewHolder viewHolder
-                    = recycler_view_all_order.findViewHolderForPosition(selectedItemPosition);
-            TextView textViewName
-                    = (TextView) viewHolder.itemView.findViewById(R.id.text_outstanding_name);
-            String selectedName = (String) textViewName.getText();
-            int selectedItemId = -1;
-            for (int i = 0; i < OutstandingsData.nameArray.length; i++) {
-                if (selectedName.equals(OutstandingsData.nameArray[i])) {
-                    selectedItemId = OutstandingsData.id_[i];
-                }
-            }
-
-            allOrderData.remove(selectedItemPosition);
-            adapter_all_order.notifyItemRemoved(selectedItemPosition);
-        }*/
     }
+
+
 }

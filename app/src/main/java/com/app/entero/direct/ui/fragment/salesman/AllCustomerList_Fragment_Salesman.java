@@ -88,7 +88,7 @@ public class AllCustomerList_Fragment_Salesman extends Fragment implements OnIte
                 .subscribe(this::handleCustomerResponse, this::handleCustomerError));
     }
 private void handleCustomerError(Throwable throwable) {
-    Log.e("CustomerList", " error: " + throwable.getMessage());
+  //  Log.e("CustomerList", " error: " + throwable.getMessage());
     baseActivity.isShowProgress(false);
 }
     private void handleCustomerResponse(Salesman_CustomerList_Model salesman_customerList_model) {

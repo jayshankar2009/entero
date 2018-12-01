@@ -71,7 +71,7 @@ public class Products_Adapter_Salesman extends RecyclerView.Adapter<Products_Ada
 
                     for (ProductsModel productsModel : data) {
 
-                        if (productsModel.getItemname().toLowerCase().contains(charString)) {
+                        if (productsModel.getItemname().toLowerCase().contains(charString) ) {
 
                             filteredList.add(productsModel);
                         }

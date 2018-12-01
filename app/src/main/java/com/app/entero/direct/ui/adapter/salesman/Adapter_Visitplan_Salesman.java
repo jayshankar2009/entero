@@ -7,11 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.model.Visitplanmodal;
 import com.app.entero.direct.ui.activity.salesman.Customer_TastActivity_Salesman;
@@ -46,6 +49,7 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
     public Adapter_Visitplan_Salesman(Context context,OnItemRecycleClickListener onItemRecycleClickListener, List<SalesmanDashBoardModel> mList) {
         this.context= context;
         this.mList = mList;
+        this.onItemRecycleClickListener = onItemRecycleClickListener;
     }
 
     @Override
@@ -71,8 +75,48 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
         });
     }
 
+
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+
+                    mList = mList;
+                } else {
+
+                    ArrayList<SalesmanDashBoardModel> filteredList = new ArrayList<>();
+
+                    for (SalesmanDashBoardModel dashBoardModel : mList) {
+
+                        if ((dashBoardModel.getChemistLegalName().toLowerCase().trim().contains(charString)) || (dashBoardModel.getChemistErpCode().trim().contains(charSequence))) {
+
+                            filteredList.add(dashBoardModel);
+                        }
+                    }
+
+                    mList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mList = (ArrayList<SalesmanDashBoardModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

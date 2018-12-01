@@ -1,6 +1,8 @@
 package com.app.entero.direct.network;
 
 
+import com.app.entero.direct.model.AllOrderModel;
+import com.app.entero.direct.model.AllOrderSecondModel;
 import com.app.entero.direct.model.LoginModel;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.ProductsModel;
@@ -13,6 +15,7 @@ import com.google.gson.JsonObject;
 import java.util.LinkedHashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -52,9 +55,16 @@ public interface ApiCallService {
     @POST
     @FormUrlEncoded
     Observable<Salesman_CustomerList_Model> getSalesmanCustomerList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String,String> linkedHashMap);
+
     @POST
     @FormUrlEncoded
     Observable<ProductsModel> getProductList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
+
+    @POST
+    Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
+    @POST
+    Observable<AllOrderSecondModel> getAllOrderSecond(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
+
 }
 
 

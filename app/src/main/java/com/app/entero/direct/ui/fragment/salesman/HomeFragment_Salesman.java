@@ -22,6 +22,7 @@ import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.activity.salesman.AllOrderActivity_Salesman;
+import com.app.entero.direct.ui.activity.salesman.Customer_TastActivity_Salesman;
 import com.app.entero.direct.ui.activity.salesman.MainActivity;
 import com.app.entero.direct.ui.activity.salesman.OutstandingsActivity_Salesman;
 import com.app.entero.direct.ui.activity.salesman.ReportsActivity_Salesman;
@@ -68,9 +69,9 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         activity = ((MainActivity) getActivity());
         activity.initObjects();
         initview(view);
-        savePref = new SavePref();
-        strStockisId = savePref.getUserDetail().getSalesmanInfo().get(0).getStockistID();
-        strSalesmanId = savePref.getUserDetail().getSalesmanInfo().get(0).getID();
+       // savePref = new SavePref();
+        strStockisId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
+        strSalesmanId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getID();
         linkRequest = new LinkedHashMap<>();
         linkRequest.put(Constants.StockistID, "1");
         linkRequest.put(Constants.SalesmanID, "2");
@@ -194,15 +195,15 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
             }else {
-
-            }
+                }
         }
-
-
     }
 
     @Override
     public void onItemClick(View view, int position) {
+        Intent i = new Intent(getContext(), Customer_TastActivity_Salesman.class);
+        i.putExtra("array_list", listDashBoard.get(position));
+        startActivity(i);
 
     }
 }

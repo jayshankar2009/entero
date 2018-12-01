@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,8 @@ public class Product_Search_Activity_Salesman extends BaseActivity implements Vi
     RecyclerView recyclerView;
     RadioButton rdbProduct,rdbManufacture;
     String setRdb;
+    Bundle bundle;
+    ArrayList<ProductsModel> allProductList;
     ArrayList<Salesman_Product_Search_Model> arrProductSearch;
     RecyclerView.LayoutManager layoutManager;
     Adapter_Product_Search_Salesman adapter_product_search_salesman;
@@ -86,6 +89,9 @@ public class Product_Search_Activity_Salesman extends BaseActivity implements Vi
 
 
     private void initView() {
+        bundle = getIntent().getExtras();
+       // allProductList= (ArrayList<ProductsModel>) bundle.getSerializable("productSearch");
+        Toast.makeText(getApplicationContext(),"List"+allProductList.size(),Toast.LENGTH_SHORT).show();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
         arrProductSearch = new ArrayList<>();

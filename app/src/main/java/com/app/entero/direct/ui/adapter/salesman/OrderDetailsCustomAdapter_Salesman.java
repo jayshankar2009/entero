@@ -10,11 +10,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.AllOrderSecondModel;
 import com.app.entero.direct.model.Outstandings;
 
 public class OrderDetailsCustomAdapter_Salesman extends RecyclerView.Adapter<OrderDetailsCustomAdapter_Salesman.MyViewHolder>{
 
-    private ArrayList<Outstandings> dataSet;
+    private ArrayList<AllOrderSecondModel> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView order_detail_product_images;
@@ -35,7 +36,7 @@ public class OrderDetailsCustomAdapter_Salesman extends RecyclerView.Adapter<Ord
         }
     }
 
-    public OrderDetailsCustomAdapter_Salesman(ArrayList<Outstandings> allOrderDetailsData) {
+    public OrderDetailsCustomAdapter_Salesman(ArrayList<AllOrderSecondModel> allOrderDetailsData) {
         this.dataSet = allOrderDetailsData;
     }
 
@@ -54,6 +55,10 @@ public class OrderDetailsCustomAdapter_Salesman extends RecyclerView.Adapter<Ord
 
         /*holder.text_outstanding_name.setText(dataSet.get(listPosition).getName());
         holder.text_total_outstanding_amount.setText(dataSet.get(listPosition).getVersion());*/
+        holder.text_order_details_name.setText(dataSet.get(listPosition).getProductDesc());
+        holder.text_order_details_amount.setText("Rs. "+dataSet.get(listPosition).getPrice());
+        holder.text_order_details_discription.setText(dataSet.get(listPosition).getPacksize());
+        holder.text_order_details_qty.setText("X"+dataSet.get(listPosition).getQty());
 
     }
 

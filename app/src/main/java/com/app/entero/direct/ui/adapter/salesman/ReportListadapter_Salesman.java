@@ -59,7 +59,8 @@ public class ReportListadapter_Salesman extends RecyclerView.Adapter<ReportLista
 
         holder.text_report_name.setText(reportsList.get(position));
         holder.report_images.setImageResource(reportImages[position]);
-
+        if(position==2)
+            holder.report_item.setBackgroundResource(R.color.submit);
         // loading album cover using Glide library
         //Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
 

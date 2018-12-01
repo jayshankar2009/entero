@@ -255,6 +255,13 @@ public class ProductsFragment_Salesman extends Fragment {
 
             }
         });
+        action_filter.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                show_Filter_dialog();
+                return false;
+            }
+        });
     }
 
     private void fetchProductList() {
@@ -271,7 +278,7 @@ public class ProductsFragment_Salesman extends Fragment {
                 return true;
 
             case R.id.action_filter:
-                show_Filter_dialog();
+
                 return true;
 
             default:
@@ -294,6 +301,7 @@ public class ProductsFragment_Salesman extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(mContext, Product_Search_Activity_Salesman.class);
                 i.putExtra("search", "Product");
+                i.putExtra("productSearch",allProductList);
                 infoDialog.dismiss();
                 startActivity(i);
             }

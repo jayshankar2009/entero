@@ -18,18 +18,15 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
-import com.app.entero.direct.model.Visitplanmodal;
-import com.app.entero.direct.ui.activity.chemist.TakeOrderActivity;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.Adapter_Visitplan_Salesman;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
@@ -41,7 +38,8 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     Toolbar mToolbar;
     TextView txtHeader;
     Bundle bundle;
-    ArrayList<SalesmanDashBoardModel> listChemist;
+  public static   ArrayList<SalesmanDashBoardModel> listChemist;
+
    // private List<Visitplanmodal> mList;
     TextView textView_date;
     RelativeLayout baseLayout;
@@ -68,13 +66,16 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
         onClickEvent();
         onSetText();
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-
-
-       // prepareMovieData();
-        mAdapter = new Adapter_Visitplan_Salesman(this,this,listChemist);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recycler_vie.setLayoutManager(mLayoutManager);
         recycler_vie.setItemAnimator(new DefaultItemAnimator());
+        fetchVisitPlan();
+        // prepareMovieData();
+
+    }
+
+    private void fetchVisitPlan() {
+        mAdapter = new Adapter_Visitplan_Salesman(this,this,listChemist);
         recycler_vie.setAdapter(mAdapter);
     }
 
@@ -128,11 +129,15 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         MenuItem action_search = menu.findItem(R.id.action_search);
         action_search.setVisible(true);
-        searchView.setQueryHint("Outstandings List");
+        searchView.setQueryHint("Customer List");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
-
+                if (newText == null || newText.trim().isEmpty()) {
+                    fetchVisitPlan();
+                    return false;
+                }
+        mAdapter.getFilter().filter(newText.toLowerCase());
                 return false;
             }
 
@@ -157,6 +162,9 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
         return true;
     }
 
+    private void fetchProductList() {
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -164,6 +172,8 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
                 break;
 
             case R.id.baseLayout:
+            //    pickUpDate();
+                break;
 
         }
     }
@@ -180,9 +190,16 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-
-                        textView_date.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
+String strDate =year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        Date date1 = null;
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+                            date1 = format.parse(strDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        //  textView_date.setText();
+textView_date.setText(dateFormat.format(date1));
 
                     }
                 }, mYear, mMonth, mDay);
@@ -192,7 +209,9 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     @Override
     public void onItemClick(View view, int position) {
         Intent i = new Intent(getApplicationContext(), Customer_TastActivity_Salesman.class);
-        i.putExtra("ChemistData",listChemist.get(position));
+      //  Log.i("ListDash",""+listChemist.get(position));
+
+        i.putExtra("array_list",listChemist.get(position));
         startActivity(i);
 
 

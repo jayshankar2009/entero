@@ -12,6 +12,9 @@ public class ApiConstants {
     public static final String type = "type";
     public static final String Get_SalesmandetailsByIMEI ="api/salesmans/Get_SalesmandetailsByIMEI";
     public static final String GET_TOKEN ="auth/local";
+
+
+
     public static final String time = "time";
     public static final String id = "id";
     public static final String ClientID = "ClientID";
@@ -25,5 +28,7 @@ public class ApiConstants {
     public static final String SalesmanID = "SalesmanID";
 
     public static final String Get_productList = "api/products/getProductlist";
+    public static final String Get_OrdersAll = "api/orders/Get_OrdersAll";
+
 
 }
