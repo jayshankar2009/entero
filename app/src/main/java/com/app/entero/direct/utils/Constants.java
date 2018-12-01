@@ -20,4 +20,5 @@ public class Constants {
     public static String eDate="eDate";
 
 
+    public static final String SCHEME_LIST = "scheme_list";
 }

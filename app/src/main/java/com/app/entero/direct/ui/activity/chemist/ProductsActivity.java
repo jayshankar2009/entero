@@ -20,7 +20,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.OrderDetailTable;
+import com.app.entero.direct.database.models.OrderDetailTableDao;
+import com.app.entero.direct.database.models.OrderTableMaster;
+import com.app.entero.direct.database.models.OrderTableMasterDao;
 import com.app.entero.direct.model.OffersModel;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.StockistModel;
@@ -34,6 +39,8 @@ import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.SimpleDividerItemDecoration;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,9 +52,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Random;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class ProductsActivity extends BaseActivity implements View.OnClickListener, OnItemRecycleClickListener {
 
@@ -59,9 +70,12 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     private ArrayList<ProductListModel> mProductList;
     private Context mContext;
     private SearchView searchView;
+    ProductListModel mSelectedProductList;
     private BottomSheetBehavior sheetBehavior;
     private LinearLayout layoutBottomSheet;
     private StockistModel mStockistModel;
+    OrderDetailTableDao orderListModelDao;
+    OrderTableMasterDao orderTableMasterDao;
     int itemCount=1;
     private ProductListModel mStockListModelData;
     private ImageView img_cross,img_viewcart;
@@ -81,12 +95,28 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         initView();
     }
 
+
+
     private void initView() {
-        mStockistModel = new StockistModel();
+        mSelectedProductList = new ProductListModel();
+        mStockistModel  = new StockistModel();
         Intent i = getIntent();
         if (i.hasExtra(Constants.STOCKISTDATA)) {
             mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
         }
+        orderListModelDao = ((EnteroApp) getApplication()).getDaoSession().getOrderDetailTableDao();
+        orderTableMasterDao = ((EnteroApp) getApplication()).getDaoSession().getOrderTableMasterDao();
+        if(mStockistModel.getClientID()!=null)
+        {
+            if(!isProductAdded(mStockistModel.getClientID()))
+            {
+                orderTableMasterDao.insert(new OrderTableMaster(null,mStockistModel.getClientID(),
+                        ""+Math.random(),"test","30-11-2018","no","no"
+                ));
+            }
+
+        }
+
         layoutBottomSheet = findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
         /**
@@ -155,6 +185,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         btn_take_order_add_minus.setOnClickListener(this);
         btn_take_order_add_plus.setOnClickListener(this);
         btn_take_order_add_to_cart.setOnClickListener(this);
+        double random = Math.random();
     }
 
 
@@ -180,12 +211,13 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
 
         if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
 
-            item_name_tv.setText(mStockListModelData.getProductList().get(position).getItemname());
-            product_id_tv.setText(mStockListModelData.getProductList().get(position).getProduct_ID());
-            sale_rate_tv.setText(mStockListModelData.getProductList().get(position).getRate());
-            mrp_tv.setText(mStockListModelData.getProductList().get(position).getMrp());
-            mfg_tv.setText(mStockListModelData.getProductList().get(position).getMfgName());
-            pack_tv.setText(mStockListModelData.getProductList().get(position).getPacksize());
+            mSelectedProductList = mStockListModelData.getProductList().get(position);
+            item_name_tv.setText(mSelectedProductList.getItemname());
+            product_id_tv.setText(mSelectedProductList.getProduct_ID());
+            sale_rate_tv.setText(mSelectedProductList.getRate());
+            mrp_tv.setText(mSelectedProductList.getMrp());
+            mfg_tv.setText(mSelectedProductList.getMfgName());
+            pack_tv.setText(mSelectedProductList.getPacksize());
             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -267,16 +299,6 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
             ObjectInputStream ois = new ObjectInputStream(fis);
             ProductListModel mProductListModel  = (ProductListModel) ois.readObject();
             ois.close();
-
-          /*  FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();*/
             return mProductListModel;
         } catch (FileNotFoundException fileNotFound) {
             return null;
@@ -319,6 +341,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.img_viewcart:
                 Intent mIntent = new Intent(ProductsActivity.this, ViewCartActivityChemist.class);
+                mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
                 startActivity(mIntent);
                 break;
             case R.id.img_cross:
@@ -338,11 +361,44 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.btn_take_order_add_to_cart:
+                orderListModelDao.insert(
+                       new  OrderDetailTable(null, mStockistModel.getClientID(),
+                               getDocId(mStockistModel.getClientID()),
+                               mSelectedProductList.getProduct_ID(),
+                               mSelectedProductList.getItemcode(),
+                               mSelectedProductList.getItemname(), mSelectedProductList.getMrp(),
+                               mSelectedProductList.getRate(), mSelectedProductList.getStock(),
+                               mSelectedProductList.getMfgCode(),  mSelectedProductList.getMfgName(),
+                               mSelectedProductList.getImage_path(), mSelectedProductList.getPacksize(),
+                               mSelectedProductList.getScheme(),
+                               mSelectedProductList.getPercentScheme(), mSelectedProductList.getLegendMode(),
+                               mSelectedProductList.getColorCode(),
+                               mSelectedProductList.getHalfScheme(), mSelectedProductList.getMinQty(),
+                               mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(),"")
+                );
                 sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 //int productQty = Integer.parseInt(text_take_order_count.getText()+"");
                 break;
-
         }
 
+    }
+
+    public boolean isProductAdded(String stockistID) {
+        QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();
+        QueryBuilder<OrderTableMaster> where = qb.where(OrderTableMasterDao.Properties.Stockiest_id.eq(stockistID));
+        if(where.list().size()>0)
+            return true;
+        else
+            return false;
+    }
+
+
+    public String getDocId(String stockistID) {
+        QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();
+        QueryBuilder<OrderTableMaster> where = qb.where(OrderTableMasterDao.Properties.Stockiest_id.eq(stockistID));
+        if(where.list().size()>0)
+            return where.list().get(0).getDoc_no();
+        else
+            return null;
     }
 }

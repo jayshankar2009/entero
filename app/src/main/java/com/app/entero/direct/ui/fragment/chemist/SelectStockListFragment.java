@@ -39,7 +39,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SelectStockListFragment extends Fragment implements OnItemRecycleClickListener {
 
     private RecyclerView rv_stocklist;
-    private ArrayList<StockistModel> mOfferList;
+    private ArrayList<StockistModel> stocklist;
     private Context mContext;
     private StockListAdapter mStockListAdapter;
     private HomeActivity activity;
@@ -86,10 +86,10 @@ public class SelectStockListFragment extends Fragment implements OnItemRecycleCl
 
     public void initview(View view) {
         mModel = new StockistModel();
-        mOfferList = new ArrayList<>();
+        stocklist = new ArrayList<>();
         rv_stocklist = (RecyclerView) view.findViewById(R.id.rv_navigation);
         rv_stocklist.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mStockListAdapter = new StockListAdapter(getActivity(),this,mOfferList);
+        mStockListAdapter = new StockListAdapter(getActivity(),this,stocklist);
         rv_stocklist.setAdapter(mStockListAdapter);
         rv_stocklist.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         hashMap = new LinkedHashMap<>();

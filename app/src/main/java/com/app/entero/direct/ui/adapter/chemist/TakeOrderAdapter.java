@@ -15,6 +15,7 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.ui.activity.salesman.TakeOrderActivity_Salesman;
 import com.app.entero.direct.ui.listener.AddCartOnItemRecycleClickListener;
+import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
 
 import java.util.ArrayList;
 
@@ -34,17 +35,17 @@ public class TakeOrderAdapter extends RecyclerView.Adapter<TakeOrderAdapter.MyVi
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView take_order_product_img,take_order_product_stock_status_img;
-        TextView text_take_order_product_name,text_take_order_product_unit,text_take_order_product_ptr,text_take_order_product_mrp,text_take_order_product_stock_count;
+        CustomTextView_Salesman text_take_order_product_name,text_take_order_product_unit,text_take_order_product_ptr,text_take_order_product_mrp,text_take_order_product_stock_count;
         LinearLayout linearLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.take_order_product_img = (ImageView) itemView.findViewById(R.id.take_order_product_img);
-            this.text_take_order_product_name = (TextView) itemView.findViewById(R.id.text_take_order_product_name);
-            this.text_take_order_product_unit = (TextView) itemView.findViewById(R.id.text_take_order_product_unit);
-            this.text_take_order_product_ptr = (TextView) itemView.findViewById(R.id.text_take_order_product_ptr);
-            this.text_take_order_product_mrp = (TextView) itemView.findViewById(R.id.text_take_order_product_mrp);
-            this.text_take_order_product_stock_count = (TextView) itemView.findViewById(R.id.text_take_order_product_stock_count);
+            this.text_take_order_product_name = (CustomTextView_Salesman) itemView.findViewById(R.id.text_take_order_product_name);
+            this.text_take_order_product_unit = (CustomTextView_Salesman) itemView.findViewById(R.id.text_take_order_product_unit);
+            this.text_take_order_product_ptr = (CustomTextView_Salesman) itemView.findViewById(R.id.text_take_order_product_ptr);
+            this.text_take_order_product_mrp = (CustomTextView_Salesman) itemView.findViewById(R.id.text_take_order_product_mrp);
+            this.text_take_order_product_stock_count = (CustomTextView_Salesman) itemView.findViewById(R.id.text_take_order_product_stock_count);
             this.take_order_product_stock_status_img = (ImageView) itemView.findViewById(R.id.take_order_product_stock_status_img);
             this.linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }

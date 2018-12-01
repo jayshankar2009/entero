@@ -24,7 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
+                android:minHeight="?android:attr/actionBarSize"
                 android:background="@color/white"
                 local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 local:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -44,12 +44,14 @@
                     android:src="@drawable/add_order"
                     tools:ignore="VectorDrawableCompat" />
 
-                <TextView
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:textSize="@dimen/text_size_medium"
+                    app:fonts="Lato-Bold.ttf"
                     android:textStyle="bold"
                     android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@color/textColorBlue" />
@@ -82,8 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_gravity="right"
-                    android:gravity="right"
                     android:layout_marginRight="2dp"
+                    android:gravity="right"
                     android:src="@drawable/create_new_order"
                     />
 
@@ -118,6 +120,7 @@
                 app:tabIndicatorColor="@drawable/navigation_selector"
                 app:itemIconTint="@drawable/navigation_selector"
                 app:labelVisibilityMode="labeled"
+                app:itemBackground="@drawable/navigation_selected_bg"
                 app:itemTextAppearanceActive="@style/TabTextStyle"
                 app:itemTextAppearanceInactive="@style/TabTextStyle"
                 app:itemTextColor="@drawable/navigation_selector"

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/relative"
     tools:context="com.app.entero.direct.ui.activity.chemist.ProductsActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                app:fonts="Lato-Regular.ttf"
+                android:textSize="@dimen/text_size_medium"
+                app:fonts="Lato-Bold.ttf"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/stroke_color" />
 
@@ -45,10 +46,11 @@
     </android.support.design.widget.AppBarLayout>
 
         <RelativeLayout
+            android:id="@+id/relative_recycler"
             android:layout_width="match_parent"
-            android:layout_above="@+id/relative"
             android:layout_below="@+id/appBarLayout"
-            android:layout_height="wrap_content" >
+            android:layout_above="@+id/bottom_linear_confirm"
+            android:layout_height="match_parent" >
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_navigation"
@@ -59,5 +61,125 @@
 
 
         </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_linear_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_linear"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+    <LinearLayout
+        android:id="@+id/confirm_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:background="@drawable/rectanglular_background"
+        android:orientation="horizontal"
+        >
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:text="Confirm Order"
+            android:textColor="@color/btn_color"
+            android:textSize="@dimen/twelvedp"
+            android:textStyle="bold"
+            app:fonts="Lato-Bold.ttf" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cancel_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectanglular_background"
+            android:orientation="horizontal"
+            >
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:text="Cancel"
+                android:textColor="@color/btn_color"
+                android:textSize="@dimen/twelvedp"
+                android:textStyle="bold"
+                app:fonts="Lato-Bold.ttf" />
+
+        </LinearLayout>
+
+
+           </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_linear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/cust_task"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/text_name_take_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.8"
+            android:background="@color/cust_task"
+            android:gravity="left|center"
+            android:paddingLeft="15dp"
+            android:text="@string/order_bottom"
+            android:textColor="@color/white"
+            android:textSize="@dimen/twelvedp"
+            android:textStyle="bold"
+            app:fonts="Lato-Bold.ttf" />
+
+        <RelativeLayout
+            android:id="@+id/ry_cart_take_order"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_weight="0.2"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/cart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_cart" />
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/text_cart_count_take_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:padding="1dp"
+                android:background="@drawable/cart_circle"
+                android:gravity="center"
+                android:text="09"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:fonts="Lato_Bold.ttf" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
 
 </RelativeLayout>

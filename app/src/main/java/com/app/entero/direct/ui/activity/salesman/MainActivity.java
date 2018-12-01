@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
 
     private void setToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        imgToolbar = (ImageView) findViewById(R.id.imgLogo);
+        imgToolbar = (ImageView) findViewById(R.id.add_credit_note_images);
         txtToolbar = (TextView) findViewById(R.id.txtHeader);
 
         //  tv_title = (TextView) findViewById(R.id.tv_title);

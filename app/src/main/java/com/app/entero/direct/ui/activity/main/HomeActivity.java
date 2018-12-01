@@ -35,12 +35,13 @@ import com.app.entero.direct.ui.fragment.chemist.OutStandingFragment;
 import com.app.entero.direct.ui.fragment.chemist.SelectStockListFragment;
 import com.app.entero.direct.ui.fragment.chemist.StockListFragment;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
 
 
 public class HomeActivity extends BaseActivity implements OnItemRecycleClickListener {
 
     private Toolbar toolbar;
-    private TextView tv_title;
+    private CustomTextView_Salesman tv_title;
     private RecyclerView rv_navigation;
     private LoginModel loginModel;
     private static final String TAG = HomeActivity.class.getSimpleName();
@@ -220,7 +221,7 @@ public class HomeActivity extends BaseActivity implements OnItemRecycleClickList
 
     private void setToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_title = (CustomTextView_Salesman) findViewById(R.id.tv_title);
         img_title = (ImageView) findViewById(R.id.img_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

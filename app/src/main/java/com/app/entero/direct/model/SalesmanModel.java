@@ -16,6 +16,11 @@ public class SalesmanModel implements Serializable {
     @Expose
     private String message;
 
+    @SerializedName("OTP")
+    @Expose
+    private String OTP;
+
+
     @SerializedName("salesmanInfo")
     @Expose
 
@@ -174,6 +179,37 @@ public class SalesmanModel implements Serializable {
     }
 
 
+    public String getOTP() {
+        return OTP;
+    }
+
+    public void setOTP(String OTP) {
+        this.OTP = OTP;
+    }
+
+    public String getiD() {
+        return iD;
+    }
+
+    public void setiD(String iD) {
+        this.iD = iD;
+    }
+
+    public String geteRPSalesmanID() {
+        return eRPSalesmanID;
+    }
+
+    public void seteRPSalesmanID(String eRPSalesmanID) {
+        this.eRPSalesmanID = eRPSalesmanID;
+    }
+
+    public String getiMEI() {
+        return iMEI;
+    }
+
+    public void setiMEI(String iMEI) {
+        this.iMEI = iMEI;
+    }
 
     public String getMsg() {
         return message;

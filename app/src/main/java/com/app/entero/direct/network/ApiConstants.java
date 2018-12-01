@@ -12,9 +12,6 @@ public class ApiConstants {
     public static final String type = "type";
     public static final String Get_SalesmandetailsByIMEI ="api/salesmans/Get_SalesmandetailsByIMEI";
     public static final String GET_TOKEN ="auth/local";
-
-
-
     public static final String time = "time";
     public static final String id = "id";
     public static final String ClientID = "ClientID";
@@ -28,6 +25,12 @@ public class ApiConstants {
     public static final String SalesmanID = "SalesmanID";
 
     public static final String Get_productList = "api/products/getProductlist";
+    public static final String APP_SCHEME_FOR_CHEMIST = "api/customers/APP_SchemeforChemist";
+    public static final String Chemist_ID = "Chemist_ID";
+    public static final String GETOTPCODE = "api/customers/GetOTPCode";
+    public static final String MOBILE_NUMBER = "MobileNo";
+    public static final String OTP = "Otp";
+    public static final String GETAPPLOGIN = "api/customers/GetAppLogin";
     public static final String Get_OrdersAll = "api/orders/Get_OrdersAll";
 
 
