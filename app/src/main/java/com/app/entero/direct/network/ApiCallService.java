@@ -70,6 +70,15 @@ public interface ApiCallService {
     @FormUrlEncoded
     Observable<SalesmanModel> getOTPCode(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
+    @POST
+    @FormUrlEncoded
+    Observable<AllOrderSecondModel> getAllOrderSecond(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
+
+    @POST
+    @FormUrlEncoded
+    Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
+
+
 
     @POST
     Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);

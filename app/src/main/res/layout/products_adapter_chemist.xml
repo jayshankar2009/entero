@@ -86,7 +86,7 @@
             android:layout_toLeftOf="@+id/addToCart"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/black_dot" />
+            android:src="@drawable/circle_dot_yellow" />
 
         <ImageView
             android:id="@+id/addToCart"

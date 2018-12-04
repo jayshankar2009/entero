@@ -1,6 +1,8 @@
 package com.app.entero.direct.ui.activity.chemist;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -68,6 +70,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
     private StockistModel mStockistModel;
     private ProductListModel mStockListModelData;
     OrderDetailTableDao orderDetailTableDao;
+    OrderTableMasterDao orderTableMasterDao;
     List<OrderDetailTable> productListModelDaos;
     private  RelativeLayout relativemain;
     private  LinearLayout confirm_linear, cancel_linear;
@@ -88,6 +91,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         productListModelDaos = new ArrayList<>();
         orderDetailTableDao = ((EnteroApp) getApplication()).getDaoSession().getOrderDetailTableDao();
         productListModelDaos = orderDetailTableDao.loadAll();
+        orderTableMasterDao = ((EnteroApp) getApplication()).getDaoSession().getOrderTableMasterDao();
         Log.d("productListModelDaos",""+productListModelDaos);
         mStockistModel = new StockistModel();
         Intent i = getIntent();
@@ -188,8 +192,8 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
             final int deletedIndex = viewHolder.getAdapterPosition();
 
             // remove the item from recycler view
-            mViewCartAdapter.removeItem(viewHolder.getAdapterPosition());
             deleteCartItem(productListModelDaos.get(position).getId());
+            mViewCartAdapter.removeItem(viewHolder.getAdapterPosition());
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar
                     .make(relativemain, name + " removed from cart!", Snackbar.LENGTH_LONG);
@@ -212,7 +216,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
 
         if(view == cancel_linear)
         {
-
+            simpleAlert();
         }
         if(view == confirm_linear)
         {
@@ -225,9 +229,62 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         orderDetailTableDao.deleteByKey(stockistID);
     }
 
-
     public void addItem(OrderDetailTable deletedItem) {
+        orderDetailTableDao.insert( new  OrderDetailTable(deletedItem.getId(), mStockistModel.getClientID(),
+                deletedItem.getDoc_no(),
+                deletedItem.getProduct_ID(),
+                deletedItem.getItemcode(),
+                deletedItem.getItemname(), deletedItem.getMrp(),
+                deletedItem.getRate(), deletedItem.getStock(),
+                deletedItem.getMfgCode(),  deletedItem.getMfgName(),
+                deletedItem.getImage_path(), deletedItem.getPacksize(),
+                deletedItem.getScheme(),
+                deletedItem.getPercentScheme(), deletedItem.getLegendMode(),
+                deletedItem.getColorCode(),
+                deletedItem.getHalfScheme(), deletedItem.getMinQty(),
+                deletedItem.getMaxQty(), deletedItem.getBoxSize(),deletedItem.getQuantity()));
 
     }
+
+
+    public void simpleAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete items");
+        builder.setMessage("Are you realy want to clear the cart!");
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteDataFromDb(getId(mStockistModel.getClientID()));
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                dialog.dismiss();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    private void deleteDataFromDb(Long stockistID)
+    {
+        orderTableMasterDao.deleteByKey(stockistID);
+        orderDetailTableDao.deleteAll();
+    }
+
+
+    public Long getId(String stockistID) {
+        QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();
+        QueryBuilder<OrderTableMaster> where = qb.where(OrderTableMasterDao.Properties.Stockiest_id.eq(stockistID));
+        if(where.list().size()>0)
+            return where.list().get(0).getId();
+        else
+            return null;
+    }
+
 
 }

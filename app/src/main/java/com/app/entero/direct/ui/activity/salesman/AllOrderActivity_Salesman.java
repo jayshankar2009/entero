@@ -90,7 +90,6 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
         jsonObject.addProperty(Constants.eDate, toDate);
 
         mCompositeDisposable.add(getApiCallService().getAllOrder(SavePref.getInstance(getApplicationContext()).getToken(), ApiConstants.Get_OrdersAll, jsonObject)
-
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError));

@@ -6,13 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.OffersModel;
 import com.app.entero.direct.model.ProductListModel;
-import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.ui.listener.AddCartOnItemRecycleClickListener;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
 import com.bumptech.glide.Glide;
 
@@ -23,14 +24,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Holder
 
     private Activity activity;
     private ArrayList<ProductListModel> mList;
+    private ArrayList<ProductListModel> mFilterData;
     int selected_pos = 0;
-    private OnItemRecycleClickListener onItemRecycleClickListener;
+    private AddCartOnItemRecycleClickListener AddCartOnItemRecycleClickListener;
 
-    public ProductsAdapter(Activity activity, OnItemRecycleClickListener onItemRecycleClickListener, ArrayList<ProductListModel> mProductList) {
+    public ProductsAdapter(Activity activity, AddCartOnItemRecycleClickListener AddCartOnItemRecycleClickListener, ArrayList<ProductListModel> mProductList) {
         this.activity = activity;
-        this.onItemRecycleClickListener = onItemRecycleClickListener;
+        this.AddCartOnItemRecycleClickListener = AddCartOnItemRecycleClickListener;
         this.selected_pos = selected_pos;
         this.mList = mProductList;
+        this.mFilterData = mProductList;
     }
 
     @Override
@@ -42,20 +45,22 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Holder
 
     @Override
     public void onBindViewHolder(@NonNull HolderNavigation holderNavigation, int position) {
-        ProductListModel mOfferModel = mList.get(position);
+        ProductListModel mOfferModel = mFilterData.get(position);
         //holderNavigation.des_Tv.setText(mOfferModel.getTabDes());
         holderNavigation.tab_Tv.setText(mOfferModel.getItemname());
         holderNavigation.count_Tv.setText(mOfferModel.getStock());
-        /*if(mOfferModel.getColorCode().equals("#f7931e")){
-            Glide.with(activity).load(R.drawable.circle_dot_yellow).fitCenter().into(holderNavigation.ic_dot);
+        //Glide.with(activity).load(R.drawable.circle_dot_yellow).into(holderNavigation.ic_dot);
+
+        /*
+        if(mOfferModel.getColorCode().equals("#f7931e")){
+            Glide.with(activity).load(R.drawable.circle_dot_yellow).into(holderNavigation.ic_dot);
         }else if(mOfferModel.getColorCode().equals("#22b573")){
             Glide.with(activity).load(R.drawable.circle_dot_green).into(holderNavigation.ic_dot);
 
-        }*/ /*else if(mOfferModel.getBoxSize().equals("f7931e")){
-
-        }else if(mOfferModel.getBoxSize().equals("f7931e")){
-
-        }else if(mOfferModel.getBoxSize().equals("f7931e")){
+        }
+        else
+        {
+            Glide.with(activity).load(R.drawable.black_dot).into(holderNavigation.ic_dot);
 
         }*/
 
@@ -65,7 +70,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Holder
             @Override
             public void onClick(View v) {
                 selected_pos = position;
-                onItemRecycleClickListener.onItemClick(v, position);
+                AddCartOnItemRecycleClickListener.onItemClick(v, position, mFilterData.get(position));
                 notifyDataSetChanged();
 //                ((HomeActivity) activity).onNavItemClick(v, position);
             }
@@ -83,7 +88,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Holder
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mFilterData.size();
     }
 
     public class HolderNavigation extends RecyclerView.ViewHolder {
@@ -105,7 +110,42 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Holder
     public void refreshAdapter(ArrayList<ProductListModel> mProductList)
     {
         this.mList = mProductList;
+        this.mFilterData = mProductList;
         notifyDataSetChanged();
         
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    mFilterData = mList;
+                } else {
+                    ArrayList<ProductListModel> filteredList = new ArrayList<>();
+                    for (ProductListModel row : mList) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getItemname().toLowerCase().contains(charString.toLowerCase()) || row.getItemname().contains(charSequence)) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    mFilterData = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mFilterData;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mFilterData = (ArrayList<ProductListModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }
