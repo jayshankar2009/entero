@@ -176,7 +176,7 @@ public class SalesmanDashBoardModel implements Serializable{
         this.assignedDeliveryCount = assignedDeliveryCount;
     }
 
-    public Object getAssignedcustomerCount() {
+    public String getAssignedcustomerCount() {
         return assignedcustomerCount;
     }
 

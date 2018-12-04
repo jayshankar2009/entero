@@ -2,6 +2,7 @@ package com.app.entero.direct.ui.activity.salesman;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,11 +22,14 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.Outstandings;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.CustTaskDeliveryDetailsAdapter_Salesman;
+import com.app.entero.direct.utils.LocationTrack;
+import com.app.entero.direct.utils.getLocation;
 
 public class CustomTaskDeliveryDetailsActivity_Salesman extends BaseActivity implements View.OnClickListener{
     Toolbar mToolbar;
     SearchView searchView;
     TextView txtHeader;
+    LocationTrack locationTrack;
     private static RecyclerView.Adapter adapter_cust_task_delivery_detail;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recycler_view_cust_task_delivery_detail;
@@ -40,6 +45,7 @@ TextView btn_cust_task_delivery_detail_deliver,btn_cust_task_delivery_detail_und
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_activity_customer_task_delivery_details);
         initLayout();
+        new getLocation(this).checkLocation(this);
         setToolbar();
         onSetText();
         onClickEvent();
@@ -86,6 +92,7 @@ TextView btn_cust_task_delivery_detail_deliver,btn_cust_task_delivery_detail_und
     private void initLayout() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
+        locationTrack= new LocationTrack(this);
         text_cust_task_delivery_detail_name = (TextView) findViewById(R.id.text_cust_task_delivery_detail_name);
         text_cust_task_delivery_detail_invoice_no = (TextView) findViewById(R.id.text_cust_task_delivery_detail_invoice_no);
         text_cust_task_delivery_detail_items_count = (TextView) findViewById(R.id.text_cust_task_delivery_detail_items_count);
@@ -112,13 +119,23 @@ TextView btn_cust_task_delivery_detail_deliver,btn_cust_task_delivery_detail_und
 
                 break;
             case R.id.btn_cust_task_delivery_detail_deliver:
-                Intent in = new Intent(CustomTaskDeliveryDetailsActivity_Salesman.this,CustomTaskDeliverDetailStatusActivity_Salesman.class);
-                startActivity(in);
+                if(locationTrack.get_location()) {
+                    Intent in = new Intent(CustomTaskDeliveryDetailsActivity_Salesman.this, CustomTaskDeliverDetailStatusActivity_Salesman.class);
+                    startActivity(in);
+                }else {
+                    Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
+
+                }
 
                 break;
             case R.id.btn_cust_task_delivery_detail_undelivered:
-                Intent in2 = new Intent(CustomTaskDeliveryDetailsActivity_Salesman.this,DeliveryActivity_Salesman.class);
-                startActivity(in2);
+                if(locationTrack.get_location()) {
+                    Intent in2 = new Intent(CustomTaskDeliveryDetailsActivity_Salesman.this, DeliveryActivity_Salesman.class);
+                    startActivity(in2);
+                }else {
+                    Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
+
+                }
                 break;
         }
     }

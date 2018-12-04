@@ -1,6 +1,7 @@
 package com.app.entero.direct.ui.activity.salesman;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -91,7 +93,8 @@ public class OrderDetailsActivity_Saleesman extends BaseActivity implements View
       Log.i("Split--"+dateSplit[0],"---"+dateSplit[1]);
       order_details_date.setText(dateSplit[0]);
       order_details_time.setText(dateSplit[1]+" "+dateSplit[2].replace("AM","am").replace("PM","pm"));
-
+        order_details_status.setText(listAllOrder.getStatusTitle());
+        order_details_status.setTextColor(Color.parseColor(listAllOrder.getColorCode()));
 
 }
 
@@ -150,12 +153,16 @@ public class OrderDetailsActivity_Saleesman extends BaseActivity implements View
             jsonObject.addProperty(Constants.Transaction_No,listAllOrder.getTransactionNo());
             jsonObject.addProperty(Constants.eDate,"0");
             jsonObject.addProperty(Constants.sDate,"0");
-            callOrderList(ApiConstants.Get_OrdersAll,jsonObject);
-        }
+            if(isNetworkAvailable()) {
+                callOrderList(ApiConstants.Get_OrdersAll, jsonObject);
+            }else {
+
+            }
+            }
     }
 
     private void callOrderList(String get_ordersAll, JsonObject jsonObject) {
-        mCompositeDisposable.add(getApiCallService().getAllOrderSecond(SavePref.getInstance(getApplicationContext()).getToken(), ApiConstants.Get_OrdersAll, jsonObject)
+        mCompositeDisposable.add(getApiCallService().getAllOrderSecond(SavePref.getInstance(getApplicationContext()).getToken(), get_ordersAll, jsonObject)
 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -181,6 +188,8 @@ public void handleResponse(AllOrderSecondModel allOrderSecondModel){
                     order_details_item_list_total.setText("Rs. 0");
                 }
 
+            }else {
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.recordNotFound),Toast.LENGTH_SHORT).show();
             }
         }
 

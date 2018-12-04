@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 
@@ -17,11 +18,11 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeCustomerAdapter_Salesman extends RecyclerView.Adapter<HomeCustomerAdapter_Salesman.MyViewHolder> {
-ArrayList<SalesmanDashBoardModel> salesmanDashBoardModel;
+ArrayList<CustomerVisitTable> salesmanDashBoardModel;
 Context context;
 OnItemRecycleClickListener onItemRecycleClickListener;
 
-    public HomeCustomerAdapter_Salesman(Context context,OnItemRecycleClickListener onItemRecycleClickListener, ArrayList<SalesmanDashBoardModel> salesmanDashBoardModel) {
+    public HomeCustomerAdapter_Salesman(Context context,OnItemRecycleClickListener onItemRecycleClickListener, ArrayList<CustomerVisitTable> salesmanDashBoardModel) {
 this.context=context;
    this.salesmanDashBoardModel=salesmanDashBoardModel;
    this.onItemRecycleClickListener = onItemRecycleClickListener;
@@ -41,8 +42,8 @@ this.context=context;
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.txtLocation.setText(salesmanDashBoardModel.get(position).getChemistCity());
-        holder.txtPharma.setText(salesmanDashBoardModel.get(position).getChemistLegalName());
+        holder.txtLocation.setText(salesmanDashBoardModel.get(position).getCity());
+        holder.txtPharma.setText(salesmanDashBoardModel.get(position).getChemist_Legal_Name());
         holder.lnrClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

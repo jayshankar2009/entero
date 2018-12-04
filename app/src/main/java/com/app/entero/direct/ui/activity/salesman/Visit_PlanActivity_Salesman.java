@@ -3,6 +3,7 @@ package com.app.entero.direct.ui.activity.salesman;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,11 +27,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
+import com.app.entero.direct.database.models.CustomerVisitTableDao;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.Adapter_Visitplan_Salesman;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.LocationTrack;
+import com.app.entero.direct.utils.getLocation;
 
 public class Visit_PlanActivity_Salesman extends BaseActivity implements View.OnClickListener,OnItemRecycleClickListener {
 
@@ -37,13 +44,17 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     Adapter_Visitplan_Salesman mAdapter;
     Toolbar mToolbar;
     TextView txtHeader;
+   LocationManager mLocationManager;
     Bundle bundle;
-  public static   ArrayList<SalesmanDashBoardModel> listChemist;
-
+    LocationTrack locationTrack;
+    public static   ArrayList<SalesmanDashBoardModel> listChemist;
+    CustomerVisitTableDao customerVisitTableDao;
+    ArrayList<CustomerVisitTable> listCustomerVisit;
    // private List<Visitplanmodal> mList;
     TextView textView_date;
     RelativeLayout baseLayout;
     SearchView searchView;
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("EEE,dd LLL yyyy");
     Date filter_start_date = Calendar.getInstance().getTime();
     private Date current_date = Calendar.getInstance().getTime();
@@ -61,10 +72,12 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_activity_visit__plan);
+         new getLocation(this).checkLocation(this);
         initView();
         setToolBar();
         onClickEvent();
         onSetText();
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recycler_vie.setLayoutManager(mLayoutManager);
@@ -75,7 +88,7 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     }
 
     private void fetchVisitPlan() {
-        mAdapter = new Adapter_Visitplan_Salesman(this,this,listChemist);
+        mAdapter = new Adapter_Visitplan_Salesman(this,this,listCustomerVisit);
         recycler_vie.setAdapter(mAdapter);
     }
 
@@ -105,11 +118,15 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     }
 
     private void initView() {
+        listCustomerVisit = new ArrayList<>();
+        customerVisitTableDao =((EnteroApp) getApplication()).getDaoSession().getCustomerVisitTableDao();
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
         bundle = getIntent().getExtras();
-        listChemist= (ArrayList<SalesmanDashBoardModel>) bundle.getSerializable("array_list");
-
+       // listChemist= (ArrayList<SalesmanDashBoardModel>) bundle.getSerializable("array_list");
+        listCustomerVisit = (ArrayList<CustomerVisitTable>) customerVisitTableDao.loadAll();
+locationTrack = new LocationTrack(this);
        // mList = new ArrayList<>();
         recycler_vie = (RecyclerView) findViewById(R.id.recycler_view);
         textView_date = (TextView) findViewById(R.id.txt_date);
@@ -208,12 +225,27 @@ textView_date.setText(dateFormat.format(date1));
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent i = new Intent(getApplicationContext(), Customer_TastActivity_Salesman.class);
-      //  Log.i("ListDash",""+listChemist.get(position));
+        // if(new getLocation(this).get_location())
+        if (locationTrack.get_location()) {
+            Intent i = new Intent(getApplicationContext(), Customer_TastActivity_Salesman.class);
+            //  Log.i("ListDash",""+listChemist.get(position));
+             i.putExtra("chemistId",listCustomerVisit.get(position).getChemistID());
+         //   i.putExtra("array_list", listChemist.get(position));
+            startActivity(i);
+        } else {
+            Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
 
-        i.putExtra("array_list",listChemist.get(position));
-        startActivity(i);
-
+        }
 
     }
+
+
+    /*public void checkLocation(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION }, 1);
+        }
+    }*/
+
+
 }

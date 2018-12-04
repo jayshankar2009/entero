@@ -17,12 +17,15 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.DeliveryModel;
 import com.app.entero.direct.ui.activity.salesman.AllOrderActivity_Salesman;
 import com.app.entero.direct.ui.activity.salesman.CustomTaskDeliveryDetailsActivity_Salesman;
+import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DeliveryActivity_Adpter_Salesman extends RecyclerView.Adapter<DeliveryActivity_Adpter_Salesman.MyViewHolder> {
 
     private ArrayList<DeliveryModel> data;
     Context context;
+    OnItemRecycleClickListener onItemRecycleClickListener;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -30,6 +33,7 @@ public class DeliveryActivity_Adpter_Salesman extends RecyclerView.Adapter<Deliv
         TextView txtItems;
         TextView txtPackets;
 CardView card_view;
+
         TextView txtBoxes;
         TextView txtDlvryStatus,txtInvoiceStatus;
         CircleImageView imgCircle,imgRupee;
@@ -49,9 +53,10 @@ CardView card_view;
 
         }
     }
-    public DeliveryActivity_Adpter_Salesman(Context context, ArrayList<DeliveryModel> data) {
+    public DeliveryActivity_Adpter_Salesman(Context context, OnItemRecycleClickListener onItemRecycleClickListener,ArrayList<DeliveryModel> data) {
         this.data = data;
         this.context=context;
+        this.onItemRecycleClickListener=onItemRecycleClickListener;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent,
@@ -105,9 +110,10 @@ CardView card_view;
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent i = new Intent(context, CustomTaskDeliveryDetailsActivity_Salesman.class);
+                onItemRecycleClickListener.onItemClick(v,listPosition);
+             /*  Intent i = new Intent(context, CustomTaskDeliveryDetailsActivity_Salesman.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-               context.startActivity(i);
+               context.startActivity(i);*/
             }
         });
 

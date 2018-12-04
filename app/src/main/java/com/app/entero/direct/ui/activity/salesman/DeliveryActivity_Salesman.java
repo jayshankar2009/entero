@@ -3,6 +3,7 @@ package com.app.entero.direct.ui.activity.salesman;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,9 +37,12 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.DeliveryModel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.DeliveryActivity_Adpter_Salesman;
+import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.LocationTrack;
+import com.app.entero.direct.utils.getLocation;
 
 
-public class DeliveryActivity_Salesman extends BaseActivity {
+public class DeliveryActivity_Salesman extends BaseActivity implements OnItemRecycleClickListener{
     ArrayList<DeliveryModel> listDelivery;
     Toolbar mToolbar;
     TextView txtHeader;
@@ -47,6 +52,7 @@ public class DeliveryActivity_Salesman extends BaseActivity {
     private SimpleDateFormat sdDay = new SimpleDateFormat("dd");
     private int mYear, mMonth, mDay;
     TextView txt_start_date,txt_end_date;
+    LocationTrack locationTrack;
     private Date filter_start_date, filter_end_date;
     CheckBox chk_pending_invoices,chk_undelivered_invoices;
     Button btn_filter,btn_clear;
@@ -58,7 +64,9 @@ public class DeliveryActivity_Salesman extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_delivery_activity);
+
         initView();
+        new getLocation(this).checkLocation(this);
         setToolbar();
         onSetText();
         onClickEvent();
@@ -86,6 +94,7 @@ public class DeliveryActivity_Salesman extends BaseActivity {
     }
 
     private void initView() {
+        locationTrack = new LocationTrack(getApplicationContext());
         listDelivery = new ArrayList<>();
         listDelivery.add(new DeliveryModel("U0018336961","8","3","1"));
         listDelivery.add(new DeliveryModel("U0018336962","4","1","2"));
@@ -100,7 +109,7 @@ public class DeliveryActivity_Salesman extends BaseActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        DeliveryActivity_Adpter_Salesman deliveryActivity_adpter = new DeliveryActivity_Adpter_Salesman(getApplicationContext(),listDelivery);
+        DeliveryActivity_Adpter_Salesman deliveryActivity_adpter = new DeliveryActivity_Adpter_Salesman(getApplicationContext(),this,listDelivery);
         recyclerView.setAdapter(deliveryActivity_adpter);
 
     }
@@ -239,7 +248,20 @@ public class DeliveryActivity_Salesman extends BaseActivity {
 
     }
 
-    private static class MyOnClickListener implements View.OnClickListener {
+    @Override
+    public void onItemClick(View view, int position) {
+        if(locationTrack.get_location()) {
+            Intent i = new Intent(this, CustomTaskDeliveryDetailsActivity_Salesman.class);
+            //  i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }else {
+            Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    /*private static class MyOnClickListener implements View.OnClickListener {
 
         private final Context context;
 
@@ -252,5 +274,5 @@ public class DeliveryActivity_Salesman extends BaseActivity {
             //removeItem(v);
 
         }
-    }
+    }*/
 }

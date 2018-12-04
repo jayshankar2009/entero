@@ -30,6 +30,8 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.Selfie;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.HorizontalAdapter_Salesman;
+import com.app.entero.direct.utils.LocationTrack;
+import com.app.entero.direct.utils.getLocation;
 
 public class CustomTaskDeliverDetailStatusActivity_Salesman extends BaseActivity implements View.OnClickListener {
 
@@ -48,6 +50,7 @@ public class CustomTaskDeliverDetailStatusActivity_Salesman extends BaseActivity
     LinearLayout canvasLL;
     signature mSignature;
     private View view;
+    LocationTrack locationTrack;
     LinearLayoutManager horizontalLayoutManager;
     List<Selfie> bitmapSignaturedata = new ArrayList<Selfie>();
 
@@ -56,6 +59,7 @@ public class CustomTaskDeliverDetailStatusActivity_Salesman extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_activity_custom_task_deliver_detail_status);
         initLayout();
+        new getLocation(this).checkLocation(this);
         setToolbar();
         onSetText();
         onClickEvent();
@@ -86,10 +90,12 @@ public class CustomTaskDeliverDetailStatusActivity_Salesman extends BaseActivity
     private void onClickEvent() {
         ly_cust_task_delivery_detail_status_take_selfie.setOnClickListener(this);
         ly_cust_task_delivery_detail_status_take_signature.setOnClickListener(this);
+        btn_cust_task_delivery_detail_status_delivery.setOnClickListener(this);
 
     }
 
     private void initLayout() {
+        locationTrack= new LocationTrack(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtToolbarHeader = (TextView) findViewById(R.id.txtHeader);
         text_cust_task_delivery_detail_status_name = (TextView) findViewById(R.id.text_cust_task_delivery_detail_status_name);
@@ -131,6 +137,12 @@ public class CustomTaskDeliverDetailStatusActivity_Salesman extends BaseActivity
                 takeSignatureDialog();
 
                 break;
+            case R.id.btn_cust_task_delivery_detail_status_delivery:
+                if(locationTrack.get_location()){
+
+                }else {
+
+                }
         }
     }
 

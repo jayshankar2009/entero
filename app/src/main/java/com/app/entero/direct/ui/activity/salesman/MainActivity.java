@@ -1,6 +1,7 @@
 package com.app.entero.direct.ui.activity.salesman;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -16,24 +17,44 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
+import com.app.entero.direct.database.models.CustomerVisitTableDao;
 import com.app.entero.direct.model.LoginModel;
+import com.app.entero.direct.model.SalesmanDashBoardModel;
+import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.NavigationAdapter_Salesman;
 import com.app.entero.direct.ui.fragment.salesman.AllCustomerList_Fragment_Salesman;
 import com.app.entero.direct.ui.fragment.salesman.HomeFragment_Salesman;
 import com.app.entero.direct.ui.fragment.salesman.ProductsFragment_Salesman;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.SavePref;
+import com.app.entero.direct.utils.getLocation;
+
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseActivity implements OnItemRecycleClickListener {
@@ -42,22 +63,28 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
     private TextView tv_title;
     private RecyclerView rv_navigation;
     private LoginModel loginModel;
-    BottomNavigationView bottomNavigationView;
+    public static BottomNavigationView bottomNavigationView;
     private static final String TAG = MainActivity.class.getSimpleName();
     NavigationView navigationView;
-    public static ImageView imgToolbar;
+    CustomerVisitTableDao customerVisitTableDao;
+    ArrayList<CustomerVisitTable> listCustomerVisit;
+    LinkedHashMap<String, String> linkRequest;
+   public static ImageView imgToolbar;
     public static TextView txtToolbar;
     DrawerLayout drawer;
-
+    String strSalesmanId, strStockisId;
     // public static ImageView imgFilter,imgSearch;
     ActionBarDrawerToggle toggle;
     private NavigationAdapter_Salesman mNavigationAdapter;
     Fragment selectedFragment;
+    private static final int REQUEST_WRITE_PERMISSION = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_activity_salesman_home);
+
+
         initObjects();
         setToolbar();
         initView();
@@ -81,7 +108,6 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
                         selectedFragment = new HomeFragment_Salesman();
-
                         bundle = new Bundle();
                         bundle.putInt("type", 1);
                         selectedFragment.setArguments(bundle);
@@ -90,7 +116,6 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
 
                     case R.id.action_product:
                         selectedFragment = new ProductsFragment_Salesman();
-
                         bundle = new Bundle();
                         bundle.putInt("type", 2);
                         selectedFragment.setArguments(bundle);
@@ -98,7 +123,6 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
                         return true;
                     case R.id.action_customer:
                         selectedFragment = new AllCustomerList_Fragment_Salesman();
-
                         bundle = new Bundle();
                         bundle.putInt("type", 3);
                         selectedFragment.setArguments(bundle);
@@ -122,9 +146,14 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
 
 
     private void initView() {
+        listCustomerVisit = new ArrayList<>();
+        customerVisitTableDao =((EnteroApp)getApplication()).getDaoSession().getCustomerVisitTableDao();
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         rv_navigation = (RecyclerView) findViewById(R.id.rv_navigation);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        strStockisId = SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
+        strSalesmanId = SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getID();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -134,6 +163,7 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         rv_navigation.setAdapter(mNavigationAdapter);
         rv_navigation.setLayoutManager(new LinearLayoutManager(this));
         mNavigationAdapter.refreshadapter(0);
+
         setProfileData();
 
     }
@@ -170,7 +200,7 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
 
     private void setToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        imgToolbar = (ImageView) findViewById(R.id.add_credit_note_images);
+       imgToolbar = (ImageView) findViewById(R.id.imgLogo);
         txtToolbar = (TextView) findViewById(R.id.txtHeader);
 
         //  tv_title = (TextView) findViewById(R.id.tv_title);
@@ -187,11 +217,29 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+          //  finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    MainActivity.this);
+            builder.setTitle("Exit");
+            builder.setMessage("Are you sure want to Exit.");
+            builder.setNegativeButton("NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                     dialog.dismiss();                        }
+                    });
+            builder.setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                           finish();                        }
+                    });
+           
+           /* if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
                 finish();
             } else {
 
-            }
+            }*/
         }
     }
 
@@ -220,6 +268,7 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         } else if (position == 2) {
             bottomNavigationView.setSelectedItemId(R.id.action_customer);
         } else if (position == 3) {
+
             Intent i = new Intent(getApplicationContext(), AllOrderActivity_Salesman.class);
             startActivity(i);
         } else if (position == 4) {
@@ -274,7 +323,7 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_all_pending_list, menu);
         txtToolbar.setVisibility(View.GONE);
-        imgToolbar.setVisibility(View.VISIBLE);
+     imgToolbar.setVisibility(View.VISIBLE);
 
         return true;
     }
@@ -292,5 +341,13 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
                 return super.onOptionsItemSelected(item);
         }
     }
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        } else {
+
+        }
+    }
+
 
 }

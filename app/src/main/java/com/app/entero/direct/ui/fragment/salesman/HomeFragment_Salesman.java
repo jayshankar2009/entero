@@ -17,7 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
+import com.app.entero.direct.database.models.CustomerVisitTableDao;
+import com.app.entero.direct.database.models.OrderTableMaster;
+import com.app.entero.direct.database.models.OrderTableMasterDao;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
@@ -30,8 +35,13 @@ import com.app.entero.direct.ui.activity.salesman.Visit_PlanActivity_Salesman;
 import com.app.entero.direct.ui.adapter.salesman.HomeCustomerAdapter_Salesman;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.LocationTrack;
 import com.app.entero.direct.utils.SavePref;
+import com.app.entero.direct.utils.getLocation;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -44,7 +54,10 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     private MainActivity activity;
     BaseActivity baseActivity;
     LinearLayout lnrCustomer;
+    LocationTrack locationTrack;
     SavePref savePref;
+    CustomerVisitTableDao customerVisitTableDao;
+    ArrayList<CustomerVisitTable> listCustomerVisit;
     ArrayList<SalesmanDashBoardModel> listDashBoard;
     TextView txtDlvryNo, txtPymntCol, txtCstmrVisit;
     LinkedHashMap<String, String> linkRequest;
@@ -68,26 +81,51 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         //Toast.makeText(getContext(), "Toast", Toast.LENGTH_LONG).show();
         activity = ((MainActivity) getActivity());
         activity.initObjects();
+
         initview(view);
+
+        new getLocation(getActivity()).checkLocation(getActivity());
        // savePref = new SavePref();
-        strStockisId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
+       strStockisId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
         strSalesmanId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getID();
         linkRequest = new LinkedHashMap<>();
         linkRequest.put(Constants.StockistID, "1");
         linkRequest.put(Constants.SalesmanID, "2");
         if(baseActivity.isNetworkAvailable()) {
-            baseActivity.isShowProgress(true);
-            callSalesmanDashBoard(ApiConstants.Get_SalesmanDashboard, linkRequest);
-        }else {
 
+            if (customerVisitTableDao.loadAll().size() < 0) {
+                callSalesmanDashBoard(ApiConstants.Get_SalesmanDashboard, linkRequest);
+            } else {
+                setOnText();
+                fetchData();
+            }
         }
         activity.imgToolbar.setVisibility(View.VISIBLE);
         activity.txtToolbar.setVisibility(View.GONE);
-
-
         setOnClick();
         return view;
 
+    }
+
+    private void setOnText() {
+        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,"").equals("null")){
+            txtDlvryNo.setText("0");
+                    }else {
+            txtDlvryNo.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,""));
+
+        }
+        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,"").equals("null")){
+            txtCstmrVisit.setText("0");
+                   }else {
+            txtCstmrVisit.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,""));
+
+        }
+        if(SavePref.getInstance(getContext()).getStringValue(Constants.homePaymenClc,"").equals("null")){
+            txtPymntCol.setText("0");
+        }else {
+            txtPymntCol.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homePaymenClc,""));
+
+        }
     }
 
     private void setOnClick() {
@@ -104,6 +142,9 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     }
 
     public void initview(View view) {
+         listCustomerVisit = new ArrayList<>();
+        customerVisitTableDao =((EnteroApp) activity.getApplication()).getDaoSession().getCustomerVisitTableDao();
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         btnOutSta = (CardView) view.findViewById(R.id.btnOutSta);
         btnAllOrder = (CardView) view.findViewById(R.id.btnAllOrder);
@@ -115,6 +156,8 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        locationTrack = new LocationTrack(getActivity());
+       // fetchData();
         }
 
     @Override
@@ -134,9 +177,11 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                 break;
 
             case R.id.lnrCustomer:
-                Intent i3 = new Intent(getActivity(), Visit_PlanActivity_Salesman.class);
-                i3.putExtra("array_list", listDashBoard);
-                this.startActivity(i3);
+              //  if(listDashBoard.size()>0) {
+                    Intent i3 = new Intent(getActivity(), Visit_PlanActivity_Salesman.class);
+                  //  i3.putExtra("array_list", listDashBoard);
+                    this.startActivity(i3);
+             //   }
                 break;
 
         }
@@ -145,7 +190,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     }
 
 
-    private void callSalesmanDashBoard(String url, LinkedHashMap<String, String> linkedHashMap) {
+   private void callSalesmanDashBoard(String url, LinkedHashMap<String, String> linkedHashMap) {
         baseActivity.isShowProgress(true);
         baseActivity.mCompositeDisposable.add(baseActivity.getApiCallService().getSalesmanDashBoard(SavePref.getInstance(getContext()).getToken(), url, linkedHashMap)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -163,47 +208,68 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         baseActivity.isShowProgress(false);
         if (mSalesmanDashBoard.getStatus().equals("success")) {
             if (mSalesmanDashBoard.getEntityCountSalesmanData().size() > 0) {
-                if (mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedcustomerCount() != null) {
-                    txtDlvryNo.setText(String.valueOf(mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedDeliveryCount()));
-                } else {
-                    txtDlvryNo.setText("0");
-                }
+                SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedcustomerCount());
+                SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedDeliveryCount());
+                SavePref.getInstance(getContext()).getStringValue(Constants.homePaymenClc,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getTotalPaymentCollection());
 
-                if (mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedcustomerCount() != null) {
-                    txtCstmrVisit.setText(String.valueOf(mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedcustomerCount()));
 
-                } else {
-                    txtCstmrVisit.setText("0");
-                }
-                if (mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getTotalPaymentCollection() != null) {
-                    txtPymntCol.setText(String.valueOf(mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getTotalPaymentCollection()));
-
-                } else {
-                    txtPymntCol.setText("0");
-                }
             }else {
                 Toast.makeText(getContext(),"Delivery , Customer Visit , Payment Collection Records are not found",Toast.LENGTH_SHORT).show();
             }
             if(mSalesmanDashBoard.getEntityChemListData().size()>0){
-                listDashBoard = new ArrayList<>();
+            //    listDashBoard = new ArrayList<>();
                 for (int i = 0;i<mSalesmanDashBoard.getEntityChemListData().size();i++) {
-                    listDashBoard.add(mSalesmanDashBoard.getEntityChemListData().get(i));
+                  //  listDashBoard.add(mSalesmanDashBoard.getEntityChemListData().get(i));
+                   if(!isCustomerAdded(mSalesmanDashBoard.getEntityChemListData().get(i).getEcid())) {
+                       customerVisitTableDao.insert(new CustomerVisitTable(null, mSalesmanDashBoard.getEntityChemListData().get(i).getEcid(), mSalesmanDashBoard.getEntityChemListData().get(i).getStokistID(), mSalesmanDashBoard.getEntityChemListData().get(i).getUserID(),
+                               mSalesmanDashBoard.getEntityChemListData().get(i).getRouteID(), mSalesmanDashBoard.getEntityChemListData().get(i).getChemistLegalName(),
+                               mSalesmanDashBoard.getEntityChemListData().get(i).getChemistAddress(), mSalesmanDashBoard.getEntityChemListData().get(i).getMobileNo(),
+                               mSalesmanDashBoard.getEntityChemListData().get(i).getEmail(), mSalesmanDashBoard.getEntityChemListData().get(i).getChemistCity(),
+                               mSalesmanDashBoard.getEntityChemListData().get(i).getChemistErpCode(), mSalesmanDashBoard.getEntityChemListData().get(i).getTotalAmnt(), mSalesmanDashBoard.getEntityChemListData().get(i).getOutStanding()));
+                   }else {
+
+                   }
+
                 }
-                HomeCustomerAdapter_Salesman adapter = new HomeCustomerAdapter_Salesman(getContext(),this,listDashBoard);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+             fetchData();
 
             }else {
+                Toast.makeText(getContext(), mSalesmanDashBoard.getMessage(), Toast.LENGTH_SHORT).show();
                 }
         }
     }
 
+    private void fetchData() {
+        listCustomerVisit= (ArrayList<CustomerVisitTable>) customerVisitTableDao.loadAll();
+        Log.i("ListCustomerV","---"+listCustomerVisit.size());
+        if(listCustomerVisit.size()>0) {
+            HomeCustomerAdapter_Salesman adapter = new HomeCustomerAdapter_Salesman(getContext(), this, listCustomerVisit);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        }
+    }
+
+
+
     @Override
     public void onItemClick(View view, int position) {
-        Intent i = new Intent(getContext(), Customer_TastActivity_Salesman.class);
-        i.putExtra("array_list", listDashBoard.get(position));
-        startActivity(i);
+        if(locationTrack.get_location()) {
+            Intent i = new Intent(getContext(), Customer_TastActivity_Salesman.class);
+            i.putExtra("chemistId",listCustomerVisit.get(position).getChemistID());
+            startActivity(i);
+        }else {
+            Toast.makeText(getContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
 
+        }
+
+    }
+    private boolean isCustomerAdded(String chemistID) {
+        QueryBuilder<CustomerVisitTable> qb = customerVisitTableDao.queryBuilder();
+        QueryBuilder<CustomerVisitTable> where = qb.where(CustomerVisitTableDao.Properties.ChemistID.eq(chemistID));
+        if(where.list().size()>0)
+            return true;
+        else
+            return false;
     }
 }

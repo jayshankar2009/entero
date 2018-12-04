@@ -29,6 +29,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.Paymentmodel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.Adapter_payment_Salesman;
+import com.app.entero.direct.utils.LocationTrack;
+import com.app.entero.direct.utils.getLocation;
 
 import net.igenius.customcheckbox.CustomCheckBox;
 
@@ -50,11 +53,13 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
     Adapter_payment_Salesman mAdapter;
     public static TextView txtPdc,txtCreditNote,txt_balance_amount;
     SearchView searchView;
+    LocationTrack locationTrack;
     public static Button btn_border_details_pending,btn_order_details_invoiced,btn_order_details_filter,btn_clear_filter;
     TextView txt_start_date,txt_end_date;
     private List<Paymentmodel> mList = new ArrayList<>();
     public static Button btn_makePayment;
     TextView txtHeader;
+    int paidAmnt=0;
     private int mYear, mMonth, mDay;
     RecyclerView.LayoutManager mLayoutManager;
     String date = null;
@@ -69,6 +74,7 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_activity_collect_payment);
         initView();
+        new getLocation(this).checkLocation(this);
         setToolbar();
         onSetText();
         onClickEvent();
@@ -78,6 +84,13 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+        if(paidAmnt>0) {
+            txt_balance_amount.setText(String.valueOf(paidAmnt));
+            ly_balance_account_amount.setVisibility(View.VISIBLE);
+        }else {
+            ly_balance_account_amount.setVisibility(View.GONE);
+        }
 
         prepareMovieData();
     }
@@ -109,11 +122,13 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
     }
 
     private void initView() {
+        locationTrack = new LocationTrack(getApplicationContext());
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
         txtPdc = (TextView)findViewById(R.id.txtPdc);
         txtCreditNote=(TextView)findViewById(R.id.txtCreditNote);
         txt_balance_amount=(TextView)findViewById(R.id.txt_balance_amount);
+
         ly_balance_account_amount = (LinearLayout) findViewById(R.id.ly_balance_account_amount);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -159,11 +174,15 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
                 startActivity(i2);
                 break;
             case R.id.btn_makePayment :
-                if(btn_makePayment.getText().toString().equalsIgnoreCase("Make Payment")){
-                    makePaymentDialog();
+                if(locationTrack.get_location()) {
+                    if (btn_makePayment.getText().toString().equalsIgnoreCase("Make Payment")) {
+                        makePaymentDialog();
+                    } else {
+                        Intent in = new Intent(CollectPaymentActivity_Salesman.this, Complete_PaymentActivity_Salesman.class);
+                        startActivity(in);
+                    }
                 }else {
-                    Intent in = new Intent(CollectPaymentActivity_Salesman.this, Complete_PaymentActivity_Salesman.class);
-                    startActivity(in);
+
                 }
 
                 break;
@@ -173,9 +192,12 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_all_pending_list, menu);
-
+        MenuItem action_search = menu.findItem(R.id.action_search);
+        MenuItem action_filter = menu.findItem(R.id.action_filter);
+        action_filter.setVisible(true);
+        action_search.setVisible(true);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setQueryHint("Order List");
+        searchView.setQueryHint("Collect Payment");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -349,8 +371,12 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
         btn_proceed_invoices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String proceedAmount = edtAmnt.getText()+"";
-                dialog.dismiss();
+                paidAmnt = Integer.parseInt(edtAmnt.getText().toString());
+                if (paidAmnt > 0) {
+                    ly_balance_account_amount.setVisibility(View.VISIBLE);
+                    txt_balance_amount.setText("Rs. "+String.valueOf(paidAmnt));
+                    dialog.dismiss();
+                }
             }
         });
 
@@ -381,26 +407,56 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
             RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForPosition(selectedItemPosition);
             CustomCheckBox checkbox_status = (CustomCheckBox) viewHolder.itemView.findViewById(R.id.checkbox_status);
             TextView txt_bill_balanceAmt = (TextView) viewHolder.itemView.findViewById(R.id.txt_balAmt);
-
-            if(checkbox_status.isChecked()){
+//TextView txtBalanceAmnt=(TextView)viewHolder.itemView.findViewById(R.id.txt_balAmt);
+           /* if(checkbox_status.isChecked()){
                 checkbox_status.setChecked(false);
                 balanceAmount = balanceAmount - Integer.parseInt(txt_bill_balanceAmt.getText()+"");
                 txt_balance_amount.setText("Rs. "+ balanceAmount);
                 if(txt_balance_amount.getText().toString().equalsIgnoreCase("Rs. 0")){
-                    ly_balance_account_amount.setVisibility(View.GONE);
+                //    ly_balance_account_amount.setVisibility(View.GONE);
                     btn_makePayment.setText("Make Payment");
                     btn_makePayment.setBackgroundResource(R.drawable.curd_rectangle);
                 }
             }else {
+
+
                 checkbox_status.setChecked(true);
                 btn_makePayment.setText("Complete Payment");
+                btn_makePayment.setTextSize(12);
                 btn_makePayment.setBackgroundResource(R.drawable.curve_blue_background);
                 ly_balance_account_amount.setVisibility(View.VISIBLE);
                 balanceAmount = balanceAmount + Integer.parseInt(txt_bill_balanceAmt.getText()+"");
+                //txt_bill_balanceAmt.setText("0");
                 txt_balance_amount.setText("Rs. "+ balanceAmount);
-            }
+            }*/
+           if(checkbox_status.isChecked()) {
+               checkbox_status.setChecked(false);
 
-            mAdapter.notifyDataSetChanged();
+           }else {
+             //  checkbox_status.setChecked(true);
+               if(paidAmnt>0) {
+
+                checkbox_status.setChecked(true);
+                  // int blnceAmnt;
+                   paidAmnt= paidAmnt-Integer.parseInt(txt_bill_balanceAmt.getText().toString());
+                  if(paidAmnt>=Integer.parseInt(txt_bill_balanceAmt.getText().toString())){
+                      txt_bill_balanceAmt.setText(String.valueOf(0));
+                      if(txt_bill_balanceAmt.getText().toString().equals("0")) {
+
+                      }
+
+                  }else {
+                      txt_bill_balanceAmt.setText(String.valueOf(Math.abs(paidAmnt)));
+                  }
+               }else {
+                   checkbox_status.setChecked(false);
+                Toast.makeText(getApplicationContext(),"Balance Not Available",Toast.LENGTH_SHORT).show();
+               }
+           }
+
+            //mAdapter.notifyDataSetChanged();
         }
     }
+
+
 }

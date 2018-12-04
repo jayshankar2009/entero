@@ -1,18 +1,16 @@
 package com.app.entero.direct.ui.fragment.salesman;
 
 import android.app.Dialog;
-import android.app.ListFragment;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -28,31 +26,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
-import com.app.entero.direct.Helper.OutstandingsData;
+import java.util.Collections;
+import java.util.Comparator;
+
 import com.app.entero.direct.R;
-import com.app.entero.direct.model.Outstandings;
 import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
-import com.app.entero.direct.ui.activity.main.ChemistLoginActivity;
-import com.app.entero.direct.ui.activity.main.HomeActivity;
-import com.app.entero.direct.ui.activity.main.SplashActivity;
 import com.app.entero.direct.ui.activity.salesman.MainActivity;
 import com.app.entero.direct.ui.activity.salesman.Product_Search_Activity_Salesman;
-import com.app.entero.direct.ui.activity.salesman.TakeOrderActivity_Salesman;
+
 import com.app.entero.direct.ui.adapter.salesman.Products_Adapter_Salesman;
 import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.SaveJsonFile;
 import com.app.entero.direct.utils.SavePref;
-import com.google.gson.Gson;
+
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -61,13 +64,19 @@ import static android.support.constraint.Constraints.TAG;
 
 public class ProductsFragment_Salesman extends Fragment {
     private MainActivity activity;
+    SaveJsonFile saveJsonFile;
     private BaseActivity baseActivity;
+    boolean saveBoolean;
+
+
+    ProductsModel productsModel;
     ArrayList<ProductsModel> allProductList = new ArrayList<ProductsModel>();
     public static Products_Adapter_Salesman adapterProducts;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-
     SearchView searchView;
+
+
     public static View.OnClickListener productListOnClickListener;
     BottomSheetBehavior behavior;
     ImageView closeProductDiscription;
@@ -96,7 +105,7 @@ public class ProductsFragment_Salesman extends Fragment {
         activity = ((MainActivity) getActivity());
         activity.initObjects();
         initview(view);
-
+//saveJsonFile = new SaveJsonFile(getContext());
        /* activity.imgFilter.setVisibility(View.VISIBLE);
         activity.imgSearch.setVisibility(View.VISIBLE);*/
         setOnClick();
@@ -122,12 +131,7 @@ public class ProductsFragment_Salesman extends Fragment {
 
     private void setOnClick() {
         productListOnClickListener = new MyOnClickListener(this);
-        /*activity.imgFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                show_Filter_dialog();
-            }
-        });*/
+
         closeProductDiscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +142,7 @@ public class ProductsFragment_Salesman extends Fragment {
     }
 
     private void initview(View view) {
-
+        productsModel = new ProductsModel();
         recyclerView = (RecyclerView) view.findViewById(R.id.recyAllProducts);
         txtProductCount = (TextView) view.findViewById(R.id.txtProductCount);
         layoutManager = new LinearLayoutManager(mContext);
@@ -157,9 +161,15 @@ public class ProductsFragment_Salesman extends Fragment {
 
         } else {
             Toast.makeText(mContext, "No internet connection available", Toast.LENGTH_SHORT).show();
-        }
 
-        //Product Description View
+            if(SavePref.getInstance(getContext()).getStringValue("productSave","").equals("1")){
+                read(activity,Constants.Salesman_PRODUCT_LIST);
+            }else {
+
+            }
+              }
+
+
         closeProductDiscription = (ImageView) view.findViewById(R.id.ingCross);
         txtPrdctName = (TextView) view.findViewById(R.id.txtPrdctName);
         txtPrdctId = (TextView) view.findViewById(R.id.txtPrdctId);
@@ -190,27 +200,30 @@ public class ProductsFragment_Salesman extends Fragment {
 
         baseActivity.isShowProgress(false);
         if (productsModel.getStatus().equals("success")) {
-            for (int i = 0; i < productsModel.getProductList().size(); i++) {
-                allProductList.add(productsModel.getProductList().get(i));
+            if (productsModel.getMessage().equals("Record found")) {
+                for (int i = 0; i < productsModel.getProductList().size(); i++) {
+                    allProductList.add(productsModel.getProductList().get(i));
+
+                }
+
+              if  (create(activity,Constants.Salesman_PRODUCT_LIST,productsModel)){
+                  SavePref.getInstance(getContext()).setValue("productSave","1");
+                //    read(activity,Constants.Salesman_PRODUCT_LIST);
+
+                }
+
+                fetchProductList();
+                txtProductCount.setText(allProductList.size() + "");
+                Toast.makeText(mContext, allProductList.size() + "Products", Toast.LENGTH_LONG).show();
+            } else {
+
+                Toast.makeText(mContext, productsModel.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-            fetchProductList();
-            txtProductCount.setText(allProductList.size()+"");
-
-            Toast.makeText(mContext, allProductList.size()+ "Products", Toast.LENGTH_LONG).show();
-        } else {
-
-            Toast.makeText(mContext, productsModel.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
 
-
-
-
-    // search and filter menu
-
-    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+   public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
 
         inflater = activity.getMenuInflater();
         inflater.inflate(R.menu.menu_all_pending_list, menu);
@@ -265,6 +278,13 @@ public class ProductsFragment_Salesman extends Fragment {
     }
 
     private void fetchProductList() {
+        Collections.sort(allProductList, new Comparator<ProductsModel>() {
+            @Override
+            public int compare(ProductsModel u1, ProductsModel u2) {
+                return u1.getItemname().compareToIgnoreCase(u2.getItemname());
+            }
+        });
+
         adapterProducts = new Products_Adapter_Salesman(allProductList);
         recyclerView.setAdapter(adapterProducts);
     }
@@ -364,7 +384,6 @@ public class ProductsFragment_Salesman extends Fragment {
             //removeItem(v);
             int selectedItemPosition = recyclerView.getChildPosition(v);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
             txtPrdctName.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getItemname());
             txtPrdctId.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getProductID());
             txtPact.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getPacksize());
@@ -372,6 +391,49 @@ public class ProductsFragment_Salesman extends Fragment {
             txtProductMrp.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getMrp() + "");
             txtSaleRate.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getRate() + "");
 
+        }
+
+    }
+    private ProductsModel read(Context context, String fileName) {
+        try {
+
+            FileInputStream fis = context.openFileInput(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ProductsModel mProductModel  = (ProductsModel) ois.readObject();
+            for (int i = 0; i < mProductModel.getProductList().size(); i++) {
+                allProductList.add(mProductModel.getProductList().get(i));
+
+            }
+            fetchProductList();
+            Log.i("ProductList","--"+mProductModel.getMessage());
+            ois.close();
+            return mProductModel;
+        } catch (FileNotFoundException fileNotFound) {
+            return null;
+        } catch (IOException ioException) {
+            return null;
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    private boolean create(Context context, String fileName, ProductsModel jsonString){
+        try {
+            //File file = null;
+         //   File file = new File(Environment.getExternalStorageDirectory()+"/", "MyCache"); // Pass getFilesDir() and "MyFile" to read file
+            FileOutputStream fos = activity.openFileOutput(fileName,Context.MODE_PRIVATE);
+
+            if (jsonString != null) {
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(jsonString);
+                oos.close();
+            }
+            fos.close();
+            return true;
+        } catch (FileNotFoundException fileNotFound) {
+            return false;
+        } catch (IOException ioException) {
+            return false;
         }
 
     }

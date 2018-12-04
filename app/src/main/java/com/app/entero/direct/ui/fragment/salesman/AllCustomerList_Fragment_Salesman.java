@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -104,6 +105,8 @@ private void handleCustomerError(Throwable throwable) {
                 allCustomerList_adapter_salesman = new AllCustomerList_Adapter_Salesman(getActivity(),this, listCustomer);
                 recyclerView.setAdapter(allCustomerList_adapter_salesman);
             }
+            }else {
+                Toast.makeText(getContext(),getResources().getString(R.string.recordNotFound),Toast.LENGTH_SHORT).show();
             }
         }
     }

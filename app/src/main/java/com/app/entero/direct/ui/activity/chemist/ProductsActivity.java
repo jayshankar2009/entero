@@ -231,32 +231,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         inflater.inflate(R.menu.menu_all_pending_list, menu);
 
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        //searchView.setQueryHint("Outstandings List");
-       /* searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String newText) {
 
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-        });
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                return false;
-            }
-        });
-
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });*/
         return true;
     }
 

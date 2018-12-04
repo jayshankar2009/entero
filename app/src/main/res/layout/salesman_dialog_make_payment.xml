@@ -47,6 +47,7 @@
             android:layout_marginLeft="@dimen/twentydp"
             android:layout_marginRight="@dimen/twentyFivedp"
             android:padding="@dimen/twentydp"
+            android:inputType="number"
             android:layout_marginTop="@dimen/tendp"
             android:background="@drawable/edit_drawable"/>
 

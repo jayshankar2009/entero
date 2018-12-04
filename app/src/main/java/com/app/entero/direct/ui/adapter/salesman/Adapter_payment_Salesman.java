@@ -97,8 +97,8 @@ public class Adapter_payment_Salesman extends RecyclerView.Adapter<Adapter_payme
             public void onClick(View v) {
                 //holder.checkbox_status.setChecked(false);
                 if(holder.checkbox_status.isChecked()){
-                    holder.checkbox_status.setChecked(false);
-                    CollectPaymentActivity_Salesman.balanceAmount = CollectPaymentActivity_Salesman.balanceAmount - Integer.parseInt(holder.txt_bill_balanceAmt.getText()+"");
+                    holder.checkbox_status.setChecked(true);
+                 CollectPaymentActivity_Salesman.balanceAmount = CollectPaymentActivity_Salesman.balanceAmount - Integer.parseInt(holder.txt_bill_balanceAmt.getText()+"");
                     CollectPaymentActivity_Salesman.txt_balance_amount.setText("Rs. "+ CollectPaymentActivity_Salesman.balanceAmount);
                     if(CollectPaymentActivity_Salesman.txt_balance_amount.getText().toString().equalsIgnoreCase("Rs. 0")){
                         CollectPaymentActivity_Salesman.ly_balance_account_amount.setVisibility(View.GONE);
@@ -106,13 +106,13 @@ public class Adapter_payment_Salesman extends RecyclerView.Adapter<Adapter_payme
                         CollectPaymentActivity_Salesman.btn_makePayment.setBackgroundResource(R.drawable.curd_rectangle);
                     }
                 }else {
-                    holder.checkbox_status.setChecked(true);
-                    CollectPaymentActivity_Salesman.btn_makePayment.setText("Complete Payment");
+                    holder.checkbox_status.setChecked(false);
+                  CollectPaymentActivity_Salesman.btn_makePayment.setText("Complete Payment");
                     CollectPaymentActivity_Salesman.btn_makePayment.setBackgroundResource(R.drawable.curve_blue_background);
                     CollectPaymentActivity_Salesman.ly_balance_account_amount.setVisibility(View.VISIBLE);
                     CollectPaymentActivity_Salesman.balanceAmount = CollectPaymentActivity_Salesman.balanceAmount + Integer.parseInt(holder.txt_bill_balanceAmt.getText()+"");
                     CollectPaymentActivity_Salesman.txt_balance_amount.setText("Rs. "+ CollectPaymentActivity_Salesman.balanceAmount);
-                }
+              }
             }
         });
     }

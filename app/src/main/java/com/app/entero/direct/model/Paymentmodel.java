@@ -15,6 +15,7 @@ public class Paymentmodel {
     private String finalamount;
     private String status;
     private String BalAmount;
+    private boolean isChecked;
 
 
     public Paymentmodel(String Billid, String Billdate, String Pendingdays, String Billitems, String GrandTotal, String discount, String finalamount, String status, String BalAmount){
@@ -103,6 +104,14 @@ public class Paymentmodel {
 
     public void setBalAmount(String balAmount) {
         BalAmount = balAmount;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
 

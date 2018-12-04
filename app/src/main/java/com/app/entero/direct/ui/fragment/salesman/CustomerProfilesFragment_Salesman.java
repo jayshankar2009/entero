@@ -1,5 +1,6 @@
 package com.app.entero.direct.ui.fragment.salesman;
 
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.utils.LocationTrack;
+import com.app.entero.direct.utils.getLocation;
 
 public class CustomerProfilesFragment_Salesman extends Fragment implements View.OnClickListener {
 
@@ -17,6 +20,7 @@ public class CustomerProfilesFragment_Salesman extends Fragment implements View.
     Button btn_customer_update_location;
     View rootView;
     Bundle b;
+    LocationTrack locationTrack;
     int position;
     public CustomerProfilesFragment_Salesman() {
         // Required empty public constructor
@@ -25,10 +29,10 @@ public class CustomerProfilesFragment_Salesman extends Fragment implements View.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.salesman_customer_list_tab_profile, container, false);
-
+         new getLocation(getActivity()).checkLocation(getActivity());
         initView();
         onSetText();
-b=getArguments();
+       b=getArguments();
         if (b != null) {
            position = b.getInt("position", 2);
         }
@@ -46,6 +50,7 @@ b=getArguments();
     }
 
     private void initView() {
+        locationTrack = new LocationTrack(getActivity());
         txt_customer_name = (TextView) rootView.findViewById(R.id.txt_customer_name);
         txt_customer_address = (TextView) rootView.findViewById(R.id.txt_customer_address);
         text_Customer_code = (TextView) rootView.findViewById(R.id.text_Customer_code);
@@ -53,8 +58,11 @@ b=getArguments();
         txt_customer_email = (TextView) rootView.findViewById(R.id.txt_customer_email);
         txt_customer_outstanding_bill = (TextView) rootView.findViewById(R.id.txt_customer_outstanding_bill);
         btn_customer_update_location = (Button) rootView.findViewById(R.id.btn_customer_update_location);
+if(locationTrack.get_location()) {
+    btn_customer_update_location.setOnClickListener(this);
+}else {
 
-        btn_customer_update_location.setOnClickListener(this);
+}
     }
 
     @Override

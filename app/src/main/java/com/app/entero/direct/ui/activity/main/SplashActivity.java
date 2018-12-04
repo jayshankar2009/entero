@@ -14,13 +14,12 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.SalesmanModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.salesman.MainActivity;
+import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.Utils;
 import com.app.entero.direct.utils.get_imie_number;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -94,6 +93,7 @@ public class SplashActivity extends BaseActivity {
 
         JSONObject mObject = new JSONObject();
         try {
+
             mObject.put(ApiConstants.EMAIL,"Entero_CRM");
             mObject.put(ApiConstants.PASSWORD,ApiConstants.PASSWORD);
         } catch (JSONException e) {
@@ -121,7 +121,7 @@ public class SplashActivity extends BaseActivity {
 
     private void callIMIApi(String url, LinkedHashMap<String, String> linkedHashMap) {
         isShowProgress(true);
-        mCompositeDisposable.add(getApiCallService().get_SalesmandetailsByIMEI("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInJvbGUiOiJzdG9ja2lzdCIsImlhdCI6MTU0Mjg2NjE0OCwiZXhwIjoxNTQyOTAyMTQ4fQ.BQA-0SlRpEpLns4IhNi_b7ICcX3XPQQkrIsjtkTD5fY",url, linkedHashMap)
+        mCompositeDisposable.add(getApiCallService().get_SalesmandetailsByIMEI(SavePref.getInstance(getApplicationContext()).getToken(),url, linkedHashMap)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError));
@@ -156,9 +156,9 @@ public class SplashActivity extends BaseActivity {
         {
             try {
                 SavePref.getInstance(SplashActivity.this).setToken("Bearer "+jsonObject.get("token").toString());
-                Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
+               /* Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
                 startActivity(i);
-                finish();
+                finish();*/
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -174,37 +174,32 @@ public class SplashActivity extends BaseActivity {
 
     private void handleResponse(SalesmanModel mSalesmanModel) {
         Log.e(TAG, " res: " + mSalesmanModel.getSalesmanInfo().get(0).getRoleName());
-        //  Log.e(TAG, " res: " + raw.);
+      //  Log.e(TAG, " res: " + raw.);
         isShowProgress(false);
-        if(mSalesmanModel.getStatus().equals("success"))
-        {
-            SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
+        if(mSalesmanModel.getStatus().equals("success")) {
+            if (mSalesmanModel.getMessage().equals("Record found")) {
+                SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
 
-            if(mSalesmanModel.getSalesmanInfo().get(0).getRoleName().equals("Deliveryboy")) {
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-            else  if(mSalesmanModel.getMessage().equals("No Record found"))
-            {
-                Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
-                startActivity(i);
-                finish();
-            }
+                //   SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
 
-            else
-            {
-                if(mSalesmanModel.getRoleID().equals("4")) {
+                if (mSalesmanModel.getSalesmanInfo().get(0).getRoleID().equals(String.valueOf(Constants.Deliveryboy))) {
+                    //    Toast.makeText(getApplicationContext(),"StockistId"+mSalesmanModel.getSalesmanInfo().get(0).getRole_ID(),Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(),savePref.getUserDetail().getSalesmanInfo().get(0).getRole_ID(),Toast.LENGTH_LONG).show();
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();
+                } else if (mSalesmanModel.getMessage().equals("No Record found")) {
+                    Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
+                    startActivity(i);
+                    finish();
                 }
+
+            } else
+            {
+                Toast.makeText(this,mSalesmanModel.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
-        else
-        {
-            Toast.makeText(this,mSalesmanModel.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     /* Runtime Permissions */

@@ -3,7 +3,6 @@ package com.app.entero.direct.ui.activity.salesman;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Point;
@@ -29,16 +28,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import com.app.entero.direct.Helper.OutstandingsData;
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.AllOrderModel;
-import com.app.entero.direct.model.Outstandings;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.AllOrderCustomAdapter_Salesman;
@@ -46,11 +41,8 @@ import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.SavePref;
 import com.google.gson.JsonObject;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-
 
 public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRecycleClickListener {
     Toolbar mToolbar;
@@ -63,13 +55,7 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
     ArrayList<AllOrderModel> listAllOrder;
     private Calendar calendar;
     Button btn_border_details_pending, btn_order_details_invoiced, btn_order_details_filter, btn_clear_filter;
-    DatePickerDialog dpd_start_date, dpd_end_date;
-    private Date current_date = Calendar.getInstance().getTime();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    private SimpleDateFormat sdYear = new SimpleDateFormat("yyyy");
-    private SimpleDateFormat sdMonth = new SimpleDateFormat("MM");
-    private SimpleDateFormat sdDay = new SimpleDateFormat("dd");
     private int mYear, mMonth, mDay;
     private Date filter_start_date, filter_end_date;
     String date = null;
@@ -88,9 +74,7 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
         setToolbar();
         onSetText();
         onClickEvent();
-
         recycler_view_all_order.setHasFixedSize(true);
-
         recycler_view_all_order.setLayoutManager(layoutManager);
         recycler_view_all_order.setItemAnimator(new DefaultItemAnimator());
 
@@ -125,6 +109,9 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
                 }
                 fetchData();
 
+            }else {
+                Toast.makeText(getApplicationContext(), allOrderModel.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         }
 
@@ -153,10 +140,10 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // Back to previous activity
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MainActivity.bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);
                 finish();
             }
         });
@@ -183,7 +170,6 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader = (TextView) findViewById(R.id.txtHeader);
         recycler_view_all_order = (RecyclerView) findViewById(R.id.recycler_view_all_order);
-       // allOrderOnClickListener = new MyOnClickListener(this);
         layoutManager = new LinearLayoutManager(this);
     }
 
@@ -271,10 +257,7 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
                 date = "from";
                 pickUpDate();
             }
-
-
         });
-
 
         txt_end_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,8 +265,6 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
                 date = "to";
                 pickUpDate();
             }
-
-
         });
 
         dialogview.findViewById(R.id.btn_order_details_filter).setOnClickListener(new View.OnClickListener() {
@@ -356,15 +337,12 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
         datePickerDialog.show();
     }
 
-    private void set_attributes(Dialog dlg) {
-
+      private void set_attributes(Dialog dlg) {
         Window window = dlg.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-
         Display mdisp = getWindowManager().getDefaultDisplay();
         Point mdispSize = new Point();
         mdisp.getSize(mdispSize);
-
         int[] textSizeAttr = new int[]{android.R.attr.actionBarSize};
         int indexOfAttrTextSize = 0;
         TypedValue typedValue = new TypedValue();
@@ -376,7 +354,6 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
         wlp.x = maxX;   //x position
         wlp.y = actionbarsize - 20;   //y position
         window.setAttributes(wlp);
-
     }
 
     @Override
@@ -387,6 +364,4 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
         startActivity(in);
 
     }
-
-
 }

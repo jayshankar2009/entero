@@ -6,16 +6,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
+import com.app.entero.direct.database.models.CustomerVisitTableDao;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
+
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileActivity_Salesman extends BaseActivity {
     TextView txtHeader;
     TextView txtcustName,txtCustAddrs,txtCustPhone,txtCustCode,txtEmail,txtPending;
     Toolbar mToolbar;
     Bundle bundle;
-    SalesmanDashBoardModel listSalesmanData;
+    String chemistId;
+    CustomerVisitTableDao customerVisitTableDao;
+    List<CustomerVisitTable> listCustomerVisit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +41,12 @@ public class ProfileActivity_Salesman extends BaseActivity {
 
     private void onSetText() {
         txtHeader.setText("Customer Profile");
-        txtcustName.setText(listSalesmanData.getChemistLegalName());
-        txtCustAddrs.setText(listSalesmanData.getChemistAddress());
-        txtCustPhone.setText(listSalesmanData.getMobileNo());
-        txtCustCode.setText(listSalesmanData.getChemistErpCode());
-        txtEmail.setText(listSalesmanData.getEmail());
-        txtPending.setText(listSalesmanData.getOutStanding());
+        txtcustName.setText(listCustomerVisit.get(0).getChemist_Legal_Name());
+        txtCustAddrs.setText(listCustomerVisit.get(0).getAddress());
+        txtCustPhone.setText(listCustomerVisit.get(0).getMobileNo());
+        txtCustCode.setText(listCustomerVisit.get(0).getChemistERPCode());
+        txtEmail.setText(listCustomerVisit.get(0).getEmail());
+        txtPending.setText(listCustomerVisit.get(0).getOutstandingAmt());
 
     }
 
@@ -57,7 +67,10 @@ public class ProfileActivity_Salesman extends BaseActivity {
 
     private void initView() {
         bundle=getIntent().getExtras();
-        listSalesmanData = (SalesmanDashBoardModel) bundle.getSerializable("array_list");
+        chemistId=bundle.getString("chemistId");
+        listCustomerVisit = new ArrayList<>();
+        customerVisitTableDao =((EnteroApp) getApplication()).getDaoSession().getCustomerVisitTableDao();
+          listCustomerVisit=getProfileData(chemistId);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
         txtcustName =(TextView)findViewById(R.id.txtCustName);
@@ -68,5 +81,12 @@ public class ProfileActivity_Salesman extends BaseActivity {
         txtCustPhone=(TextView)findViewById(R.id.text_phno);
         txtPending=(TextView)findViewById(R.id.text_pendingamt);
 
+    } public List<CustomerVisitTable> getProfileData(String chemistId) {
+        QueryBuilder<CustomerVisitTable> qb = customerVisitTableDao.queryBuilder();
+       /* qb.where(qb.and(Properties.ChemistID.eq(clientId)));
+        QueryBuilder<MasterPlacedOrder> qb = this.queryBuilder();*/
+        qb.where(CustomerVisitTableDao.Properties.ChemistID.eq(chemistId));
+        return qb.list();
     }
+
 }

@@ -50,6 +50,32 @@ public class AllOrderModel implements Serializable{
     @SerializedName("Chemist_Legal_Name")
     @Expose
     private String chemistLegalName;
+    @SerializedName("status_title")
+    @Expose
+    private String statusTitle;
+
+    @SerializedName("color_code")
+    @Expose
+    private String colorCode;
+
+
+
+    public String getStatusTitle() {
+        return statusTitle;
+    }
+
+    public void setStatusTitle(String statusTitle) {
+        this.statusTitle = statusTitle;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
 
     public String getTransactionNo() {
         return transactionNo;

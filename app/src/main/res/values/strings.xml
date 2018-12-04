@@ -149,6 +149,8 @@
         <item>Customers</item>
         <item>Orders</item>
         <item>Notifications</item>
+        <item>Sync</item>
+        <item>Logout</item>
 
     </string-array>
 
@@ -158,6 +160,8 @@
         <item>@drawable/nav_customers</item>
         <item>@drawable/nav_orders</item>
         <item>@drawable/ic_nav_notification</item>
+        <item>@drawable/ic_thum_refresh</item>
+        <item>@drawable/ic_logout</item>
     </integer-array>
 
     <string name="outStanding">OutStanding</string>
@@ -176,5 +180,5 @@
     <string name="chequeNo">Cheque No</string>
     <string name="paymentDate">Payment Date</string>
     <string name="bankName">Bank Name</string>
-
+<string name="recordNotFound">Record are not found.</string>
 </resources>

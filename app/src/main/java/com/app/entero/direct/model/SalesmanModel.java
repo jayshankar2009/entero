@@ -27,7 +27,7 @@ public class SalesmanModel implements Serializable {
     private ArrayList<SalesmanModel> salesmanInfo;
 
 
-    @SerializedName("_ID")
+    @SerializedName("SalesmanID")
     @Expose
     private String iD;
     @SerializedName("StockistID")

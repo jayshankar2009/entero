@@ -1,5 +1,6 @@
 package com.app.entero.direct.ui.adapter.salesman;
 
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,7 +36,7 @@ public class AllOrderCustomAdapter_Salesman extends RecyclerView.Adapter<AllOrde
 
         TextView text_outstanding_name;
         TextView text_total_outstanding_amount;
-        TextView text_order_id;
+        TextView text_order_id,text_order_status;
         TextView text_order_date;
         TextView text_order_count, text_total_order_amount;
         CardView card_view;
@@ -50,6 +51,7 @@ public class AllOrderCustomAdapter_Salesman extends RecyclerView.Adapter<AllOrde
             this.text_order_count = (TextView) itemView.findViewById(R.id.text_order_count);
             this.text_total_order_amount = (TextView) itemView.findViewById(R.id.text_total_order_amount);
             this.card_view = (CardView) itemView.findViewById(R.id.card_view);
+            this.text_order_status=(TextView)itemView.findViewById(R.id.text_order_status);
         }
     }
 
@@ -88,6 +90,8 @@ public class AllOrderCustomAdapter_Salesman extends RecyclerView.Adapter<AllOrde
         }
         formattedDate = outputFormat.format(date);
         holder.text_order_date.setText("Date : " + formattedDate);
+        holder.text_order_status.setText(dataSet.get(listPosition).getStatusTitle());
+        holder.text_order_status.setTextColor(Color.parseColor(dataSet.get(listPosition).getColorCode()));
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

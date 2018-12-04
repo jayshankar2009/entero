@@ -7,6 +7,7 @@ public class Constants {
     public static final String USER_DETAIL = "user_detail";
     public static final String STOCKISTDATA = "stockist_data";
     public static final String PRODUCT_LIST = "product_list";
+    public static final String Salesman_PRODUCT_LIST = "salesman_product_list";
     public static final int Deliveryboy = 4;
     public static final int Salesman = 3;
     public static final int CollectionAgent=5;
@@ -18,6 +19,9 @@ public class Constants {
     public static String Transaction_No="Transaction_No";
     public static String sDate="sDate";
     public static String eDate="eDate";
+    public static String homeDelivery="homeDelivery";
+    public static String homePaymenClc="homePaymenClc";
+    public static String homeCstmrVisit="homeCstmrVisit";
 
 
     public static final String SCHEME_LIST = "scheme_list";

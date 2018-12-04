@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
 import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.model.Visitplanmodal;
@@ -27,7 +28,7 @@ import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
 
 public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Visitplan_Salesman.MyViewHolder> {
 
-    private List<SalesmanDashBoardModel> mList;
+    private List<CustomerVisitTable> mList;
     Context context;
     OnItemRecycleClickListener onItemRecycleClickListener;
 
@@ -46,7 +47,7 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
     }
 
 
-    public Adapter_Visitplan_Salesman(Context context,OnItemRecycleClickListener onItemRecycleClickListener, List<SalesmanDashBoardModel> mList) {
+    public Adapter_Visitplan_Salesman(Context context,OnItemRecycleClickListener onItemRecycleClickListener, List<CustomerVisitTable> mList) {
         this.context= context;
         this.mList = mList;
         this.onItemRecycleClickListener = onItemRecycleClickListener;
@@ -63,9 +64,9 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-     holder.id.setText(mList.get(position).getChemistErpCode());
-        holder.name.setText(mList.get(position).getChemistLegalName());
-        holder.address.setText(mList.get(position).getChemistAddress());
+     holder.id.setText(mList.get(position).getChemistERPCode());
+        holder.name.setText(mList.get(position).getChemist_Legal_Name());
+        holder.address.setText(mList.get(position).getAddress());
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,11 +95,11 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
                     mList = mList;
                 } else {
 
-                    ArrayList<SalesmanDashBoardModel> filteredList = new ArrayList<>();
+                    ArrayList<CustomerVisitTable> filteredList = new ArrayList<>();
 
-                    for (SalesmanDashBoardModel dashBoardModel : mList) {
+                    for (CustomerVisitTable dashBoardModel : mList) {
 
-                        if ((dashBoardModel.getChemistLegalName().toLowerCase().trim().contains(charString)) || (dashBoardModel.getChemistErpCode().trim().contains(charSequence))) {
+                        if ((dashBoardModel.getChemist_Legal_Name().toLowerCase().trim().contains(charString)) || (dashBoardModel.getChemistERPCode().trim().contains(charSequence))) {
 
                             filteredList.add(dashBoardModel);
                         }
@@ -114,7 +115,7 @@ public class Adapter_Visitplan_Salesman extends RecyclerView.Adapter<Adapter_Vis
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mList = (ArrayList<SalesmanDashBoardModel>) filterResults.values;
+                mList = (ArrayList<CustomerVisitTable>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

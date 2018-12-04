@@ -1,21 +1,35 @@
 package com.app.entero.direct.ui.activity.salesman;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
+import com.app.entero.direct.database.models.CustomerVisitTableDao;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.LocationTrack;
 import com.app.entero.direct.utils.SavePref;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Customer_TastActivity_Salesman extends BaseActivity implements View.OnClickListener {
 
@@ -23,13 +37,18 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
     TextView textView_profile;
     Toolbar mToolbar;
     Bundle bundle;
-    SalesmanDashBoardModel listSalesmanData;
+    String chemistId;
+    List<CustomerVisitTable> listProfile;
+    CustomerVisitTableDao customerDao;
+    LocationTrack locationTrack;
+   // CustomerVisitTable listSalesmanData;
     TextView txtHeader,txtCustId,txtDistrName,txtAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salesman_activity_customer__tast);
+        checkLocation();
         initLayout();
         setToolbar();
 //onVisiblityMode();
@@ -41,9 +60,9 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
 
     private void onSetText() {
         txtHeader.setText("Customer Task");
-    txtCustId.setText(listSalesmanData.getChemistErpCode());
-        txtAddress.setText(listSalesmanData.getChemistAddress());
-        txtDistrName.setText(listSalesmanData.getChemistLegalName());
+        txtCustId.setText(listProfile.get(0).getChemistERPCode());
+        txtAddress.setText(listProfile.get(0).getAddress());
+        txtDistrName.setText(listProfile.get(0).getChemist_Legal_Name());
        /* txtAddress.setText(listSalesmanData.getChemistAddress());
         txtDistrName.setText(listSalesmanData.getChemistLegalName());*/
     }
@@ -71,9 +90,13 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
 
     private void initLayout() {
         bundle = getIntent().getExtras();
-        listSalesmanData = (SalesmanDashBoardModel) bundle.getSerializable("array_list");
-
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        chemistId=bundle.getString("chemistId");
+      //  Log.i("Chemist Id",""+chemistId);
+        customerDao = ((EnteroApp) getApplication()).getDaoSession().getCustomerVisitTableDao();
+        listProfile = getProfileData(chemistId);
+        //Log.i("ListProfile",""+listProfile.get(0).getChemistERPCode());
+        locationTrack = new LocationTrack(this);
+         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
         btn_takeOrder = (RelativeLayout) findViewById(R.id.btn_take_order);
         btn_collectpayment = (RelativeLayout) findViewById(R.id.btn_collectpayment);
@@ -88,32 +111,57 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_view_profile :
-                Intent i = new Intent(Customer_TastActivity_Salesman.this,ProfileActivity_Salesman.class);
-                i.putExtra("array_list",listSalesmanData);
-                startActivity(i);
+
+                    Intent i = new Intent(Customer_TastActivity_Salesman.this, ProfileActivity_Salesman.class);
+                   // i.putExtra("array_list", (Serializable) listSalesmanData);
+                i.putExtra("chemistId",listProfile.get(0).getChemistID());
+                    startActivity(i);
+
                 break;
 
             case R.id.btn_collectpayment:
              //   Toast.makeText(getApplicationContext(),"Coll",Toast.LENGTH_LONG).show();
                // if(SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getRoleID().equals(Constants.Salesman)) {
+                if(locationTrack.get_location()) {
                     Intent i2 = new Intent(Customer_TastActivity_Salesman.this, CollectPaymentActivity_Salesman.class);
                     startActivity(i2);
+                }else {
+                    Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
+
+                }
              /*   }else {
                     Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
                 }*/
                 break;
 
             case R.id.btn_take_order :
-                Intent i3 = new Intent(Customer_TastActivity_Salesman.this,TakeOrderActivity_Salesman.class);
-                startActivity(i3);
+                if(locationTrack.get_location()) {
+                    Intent i3 = new Intent(Customer_TastActivity_Salesman.this, TakeOrderActivity_Salesman.class);
+                    startActivity(i3);
+                }else {
+                    Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
+
+                }
                 break;
 
             case R.id.btn_take_delivery :
-                Intent i4 = new Intent(Customer_TastActivity_Salesman.this,DeliveryActivity_Salesman.class);
-                startActivity(i4);
+                if(locationTrack.get_location()) {
+                    Intent i4 = new Intent(Customer_TastActivity_Salesman.this, DeliveryActivity_Salesman.class);
+                    startActivity(i4);
+                }else {
+                    Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
+
+                }
                 break;
         }
 
+    }
+
+    public void checkLocation(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION }, 1);
+        }
     }
     /*private void onVisiblityMode() {
 
@@ -130,4 +178,11 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
 
         }
     }*/
+    public List<CustomerVisitTable> getProfileData(String chemistId) {
+        QueryBuilder<CustomerVisitTable> qb = customerDao.queryBuilder();
+       /* qb.where(qb.and(Properties.ChemistID.eq(clientId)));
+        QueryBuilder<MasterPlacedOrder> qb = this.queryBuilder();*/
+        qb.where(CustomerVisitTableDao.Properties.ChemistID.eq(chemistId));
+        return qb.list();
+    }
 }
