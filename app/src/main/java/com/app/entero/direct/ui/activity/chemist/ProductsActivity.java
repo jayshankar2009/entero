@@ -104,10 +104,10 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         super.onResume();
         if(mStockistModel.getClientID()!=null)
         {
-            if(!isProductAdded(mStockistModel.getClientID()))
+            if(!isStockistAdded(mStockistModel.getClientID()))
             {
                 orderTableMasterDao.insert(new OrderTableMaster(null,mStockistModel.getClientID(),
-                        "X"+(String.valueOf(Math.random())).replace(".",""),"test","30-11-2018","no","no"
+                        ""+(String.valueOf(Math.random())).replace(".",""),"test","30-11-2018","no","no"
                 ));
             }
         }
@@ -412,7 +412,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    public boolean isProductAdded(String stockistID) {
+    public boolean isStockistAdded(String stockistID) {
         if(orderTableMasterDao.loadAll().size()>0)
         {
             QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();

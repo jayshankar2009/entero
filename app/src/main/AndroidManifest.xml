@@ -97,6 +97,15 @@
                 android:resource="@xml/searchable" />
 
         </activity>
+
+        <activity
+            android:name=".ui.activity.chemist.ConfirmOrderActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            android:screenOrientation="portrait"
+            android:label="Home Activity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+
         <activity
             android:name=".ui.activity.chemist.OrderDeatilsChemistActivity"
             android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"

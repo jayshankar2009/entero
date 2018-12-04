@@ -53,7 +53,6 @@ import com.app.entero.direct.ui.activity.salesman.Product_Search_Activity_Salesm
 
 import com.app.entero.direct.ui.adapter.salesman.Products_Adapter_Salesman;
 import com.app.entero.direct.utils.Constants;
-import com.app.entero.direct.utils.SaveJsonFile;
 import com.app.entero.direct.utils.SavePref;
 
 
@@ -64,7 +63,6 @@ import static android.support.constraint.Constraints.TAG;
 
 public class ProductsFragment_Salesman extends Fragment {
     private MainActivity activity;
-    SaveJsonFile saveJsonFile;
     private BaseActivity baseActivity;
     boolean saveBoolean;
 

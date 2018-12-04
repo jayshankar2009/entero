@@ -68,10 +68,9 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
     private ArrayList<ProductListModel> mProductList;
     private Context mContext;
     private StockistModel mStockistModel;
-    private ProductListModel mStockListModelData;
-    OrderDetailTableDao orderDetailTableDao;
-    OrderTableMasterDao orderTableMasterDao;
-    List<OrderDetailTable> productListModelDaos;
+    private OrderDetailTableDao orderDetailTableDao;
+    private OrderTableMasterDao orderTableMasterDao;
+    private List<OrderDetailTable> productListModelDaos;
     private  RelativeLayout relativemain;
     private  LinearLayout confirm_linear, cancel_linear;
 
@@ -90,14 +89,14 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         mStockistModel = new StockistModel();
         productListModelDaos = new ArrayList<>();
         orderDetailTableDao = ((EnteroApp) getApplication()).getDaoSession().getOrderDetailTableDao();
-        productListModelDaos = orderDetailTableDao.loadAll();
         orderTableMasterDao = ((EnteroApp) getApplication()).getDaoSession().getOrderTableMasterDao();
-        Log.d("productListModelDaos",""+productListModelDaos);
         mStockistModel = new StockistModel();
         Intent i = getIntent();
         if (i.hasExtra(Constants.STOCKISTDATA)) {
             mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
         }
+        productListModelDaos = cartItems(getDocId(mStockistModel.getClientID()));
+
         confirm_linear = (LinearLayout) findViewById(R.id.confirm_linear);
         cancel_linear = (LinearLayout) findViewById(R.id.cancel_linear);
         mProductList = new ArrayList<>();
@@ -106,10 +105,15 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         relativemain = (RelativeLayout) findViewById(R.id.relative);
         text_name_take_order.setText(mStockistModel.getClient_LegalName());
         rv_offers.setLayoutManager(new LinearLayoutManager(this));
+        if(productListModelDaos!=null)
         mViewCartAdapter = new ViewCartAdapter(this, this, productListModelDaos);
+        else
+        {
+            productListModelDaos = new ArrayList<>();
+            mViewCartAdapter = new ViewCartAdapter(this, this, productListModelDaos);
+        }
         rv_offers.setAdapter(mViewCartAdapter);
         rv_offers.addItemDecoration(new SimpleDividerItemDecoration(this));
-
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rv_offers);
 
@@ -139,14 +143,12 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         }*/
 
        initListener();
-
     }
 
     private void initListener() {
         confirm_linear.setOnClickListener(this);
         cancel_linear.setOnClickListener(this);
     }
-
 
     private void setToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -220,7 +222,9 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         }
         if(view == confirm_linear)
         {
-
+            Intent mIntent = new Intent(ViewCartActivityChemist.this, ViewCartActivityChemist.class);
+            mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
+            startActivity(mIntent);
         }
 
     }
@@ -282,6 +286,34 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         QueryBuilder<OrderTableMaster> where = qb.where(OrderTableMasterDao.Properties.Stockiest_id.eq(stockistID));
         if(where.list().size()>0)
             return where.list().get(0).getId();
+        else
+            return null;
+    }
+
+    private void placeOrder()
+    {
+
+    }
+
+    public List<OrderDetailTable> cartItems(String docno) {
+        if(orderDetailTableDao.loadAll().size()>0)
+        {
+            QueryBuilder<OrderDetailTable> qb = orderDetailTableDao.queryBuilder();
+            QueryBuilder<OrderDetailTable> where = qb.where(OrderDetailTableDao.Properties.Doc_no.eq(docno));
+            if(where.list().size()>0)
+                return where.list();
+            else
+                return null;
+        }
+        return null;
+
+    }
+
+    public String getDocId(String stockistID) {
+        QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();
+        QueryBuilder<OrderTableMaster> where = qb.where(OrderTableMasterDao.Properties.Stockiest_id.eq(stockistID));
+        if(where.list().size()>0)
+            return where.list().get(0).getDoc_no();
         else
             return null;
     }

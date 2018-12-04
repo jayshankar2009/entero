@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/appBarLayout"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            android:background="@android:color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/txtHeader"
+                android:layout_width="match_parent"
+                android:text="Title"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_weight="1"
+                app:fonts="Lato-Regular.ttf"
+                android:drawablePadding="5dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:padding="1dp"
+                android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:layout_width="wrap_content"
+            android:text="Order ID : "
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            app:fonts="Lato-Regular.ttf"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_height="wrap_content" />
+
+
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/doc_id_tv"
+            android:layout_width="wrap_content"
+            android:text="388352"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:fonts="Lato-bold.ttf"
+            android:drawablePadding="5dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/btn_color"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="1dp"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="wrap_content"
+        android:text="Delivery option:"
+        android:ellipsize="end"
+        app:fonts="Lato-Regular.ttf"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+
+
+    <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+        android:layout_width="wrap_content"
+        android:text="Comment(if any)"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        app:fonts="Lato-Regular.ttf"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+
+
+    <LinearLayout
+        android:id="@+id/comment_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/comment_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:maxLines="4"
+            android:minLines="6"
+            android:paddingBottom="5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/rectanglular_background"
+            android:textColor="@color/btn_color"
+            android:textSize="@dimen/twelvedp"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/save_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+         android:orientation="horizontal"
+        >
+        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+            android:id="@+id/save_Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Save"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/rectanglular_background"
+            android:textColor="@color/btn_color"
+            android:textSize="@dimen/twelvedp"
+            app:fonts="Lato-Bold.ttf" />
+
+    </LinearLayout>
+
+</LinearLayout>

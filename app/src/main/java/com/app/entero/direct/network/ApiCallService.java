@@ -78,12 +78,6 @@ public interface ApiCallService {
     @FormUrlEncoded
     Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
 
-
-
-    @POST
-    Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
-    @POST
-    Observable<AllOrderSecondModel> getAllOrderSecond(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
 }
 
 
