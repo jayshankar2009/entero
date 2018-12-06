@@ -44,6 +44,7 @@ public class OrderDetailTableDao extends AbstractDao<OrderDetailTable, Long> {
         public final static Property MaxQty = new Property(19, String.class, "MaxQty", false, "MaxQty");
         public final static Property BoxSize = new Property(20, String.class, "BoxSize", false, "BoxSize");
         public final static Property Quantity = new Property(21, String.class, "Quantity", false, "Quantity");
+        public final static Property Stk_id = new Property(22, String.class, "Stk_id", false, "Stk_id");
     }
 
 
@@ -80,7 +81,8 @@ public class OrderDetailTableDao extends AbstractDao<OrderDetailTable, Long> {
                 "\"MinQty\" TEXT," + // 18: MinQty
                 "\"MaxQty\" TEXT," + // 19: MaxQty
                 "\"BoxSize\" TEXT," + // 20: BoxSize
-                "\"Quantity\" TEXT);"); // 21: Quantity
+                "\"Quantity\" TEXT," + // 21: Quantity
+                "\"Stk_id\" TEXT);"); // 22: Stk_id
     }
 
     /** Drops the underlying database table. */
@@ -202,6 +204,11 @@ public class OrderDetailTableDao extends AbstractDao<OrderDetailTable, Long> {
         if (Quantity != null) {
             stmt.bindString(22, Quantity);
         }
+ 
+        String Stk_id = entity.getStk_id();
+        if (Stk_id != null) {
+            stmt.bindString(23, Stk_id);
+        }
     }
 
     @Override
@@ -317,6 +324,11 @@ public class OrderDetailTableDao extends AbstractDao<OrderDetailTable, Long> {
         if (Quantity != null) {
             stmt.bindString(22, Quantity);
         }
+ 
+        String Stk_id = entity.getStk_id();
+        if (Stk_id != null) {
+            stmt.bindString(23, Stk_id);
+        }
     }
 
     @Override
@@ -348,7 +360,8 @@ public class OrderDetailTableDao extends AbstractDao<OrderDetailTable, Long> {
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // MinQty
             cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // MaxQty
             cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // BoxSize
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // Quantity
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // Quantity
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22) // Stk_id
         );
         return entity;
     }
@@ -377,6 +390,7 @@ public class OrderDetailTableDao extends AbstractDao<OrderDetailTable, Long> {
         entity.setMaxQty(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
         entity.setBoxSize(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
         entity.setQuantity(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setStk_id(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
      }
     
     @Override

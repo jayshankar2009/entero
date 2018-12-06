@@ -403,7 +403,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
                                mSelectedProductList.getPercentScheme(), mSelectedProductList.getLegendMode(),
                                mSelectedProductList.getColorCode(),
                                mSelectedProductList.getHalfScheme(), mSelectedProductList.getMinQty(),
-                               mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(),""+itemCount)
+                               mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(),""+itemCount,mSelectedProductList.getStk_id())
                 );
                 sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 //int productQty = Integer.parseInt(text_take_order_count.getText()+"");

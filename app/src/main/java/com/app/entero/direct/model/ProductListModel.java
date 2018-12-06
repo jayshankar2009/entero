@@ -95,6 +95,17 @@ public class ProductListModel implements Serializable {
     @Expose
     private String BoxSize;
 
+    @SerializedName("Stk_id")
+    @Expose
+    private String Stk_id;
+
+    public String getStk_id() {
+        return Stk_id;
+    }
+
+    public void setStk_id(String stk_id) {
+        Stk_id = stk_id;
+    }
 
     public String getStatus() {
         return status;

@@ -222,9 +222,13 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         }
         if(view == confirm_linear)
         {
-            Intent mIntent = new Intent(ViewCartActivityChemist.this, ViewCartActivityChemist.class);
-            mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
-            startActivity(mIntent);
+            if(productListModelDaos!=null && productListModelDaos.size()>0)
+            {
+                Intent mIntent = new Intent(ViewCartActivityChemist.this, ConfirmOrderActivity.class);
+                mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
+                startActivity(mIntent);
+            }
+
         }
 
     }
@@ -234,7 +238,8 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
     }
 
     public void addItem(OrderDetailTable deletedItem) {
-        orderDetailTableDao.insert( new  OrderDetailTable(deletedItem.getId(), mStockistModel.getClientID(),
+        orderDetailTableDao.insert( new  OrderDetailTable(deletedItem.getId(),
+                mStockistModel.getClientID(),
                 deletedItem.getDoc_no(),
                 deletedItem.getProduct_ID(),
                 deletedItem.getItemcode(),
@@ -246,7 +251,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
                 deletedItem.getPercentScheme(), deletedItem.getLegendMode(),
                 deletedItem.getColorCode(),
                 deletedItem.getHalfScheme(), deletedItem.getMinQty(),
-                deletedItem.getMaxQty(), deletedItem.getBoxSize(),deletedItem.getQuantity()));
+                deletedItem.getMaxQty(), deletedItem.getBoxSize(),deletedItem.getQuantity(),deletedItem.getStk_id()));
 
     }
 
@@ -259,6 +264,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         deleteDataFromDb(getId(mStockistModel.getClientID()));
+                        deletecartItems(productListModelDaos);
                         dialog.dismiss();
                         finish();
                     }
@@ -277,7 +283,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
     private void deleteDataFromDb(Long stockistID)
     {
         orderTableMasterDao.deleteByKey(stockistID);
-        orderDetailTableDao.deleteAll();
+        //orderDetailTableDao.deleteAll();
     }
 
 
@@ -289,10 +295,8 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         else
             return null;
     }
-
     private void placeOrder()
     {
-
     }
 
     public List<OrderDetailTable> cartItems(String docno) {
@@ -307,6 +311,12 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         }
         return null;
 
+    }
+    public void deletecartItems(List<OrderDetailTable> productListModelDaos) {
+        if(orderDetailTableDao.loadAll().size()>0)
+        {
+            orderDetailTableDao.deleteInTx(productListModelDaos);
+        }
     }
 
     public String getDocId(String stockistID) {

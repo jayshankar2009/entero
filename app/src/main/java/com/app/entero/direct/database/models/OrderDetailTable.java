@@ -75,13 +75,16 @@ public class OrderDetailTable {
     @Property(nameInDb = "Quantity")
     private String Quantity;
 
-    @Generated(hash = 1679166436)
+    @Property(nameInDb = "Stk_id")
+    private String Stk_id;
+
+    @Generated(hash = 393866322)
     public OrderDetailTable(Long id, String stockiest_id, String doc_no,
             String Product_ID, String Itemcode, String Itemname, String Mrp,
             String Rate, String Stock, String MfgCode, String MfgName,
             String Image_path, String Packsize, String Scheme, String PercentScheme,
             String LegendMode, String ColorCode, String HalfScheme, String MinQty,
-            String MaxQty, String BoxSize, String Quantity) {
+            String MaxQty, String BoxSize, String Quantity, String Stk_id) {
         this.id = id;
         this.stockiest_id = stockiest_id;
         this.doc_no = doc_no;
@@ -104,6 +107,7 @@ public class OrderDetailTable {
         this.MaxQty = MaxQty;
         this.BoxSize = BoxSize;
         this.Quantity = Quantity;
+        this.Stk_id = Stk_id;
     }
 
     @Generated(hash = 1953615676)
@@ -284,6 +288,14 @@ public class OrderDetailTable {
 
     public void setQuantity(String Quantity) {
         this.Quantity = Quantity;
+    }
+
+    public String getStk_id() {
+        return this.Stk_id;
+    }
+
+    public void setStk_id(String Stk_id) {
+        this.Stk_id = Stk_id;
     }
 
 

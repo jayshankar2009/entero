@@ -32,6 +32,8 @@ public class ApiConstants {
     public static final String OTP = "Otp";
     public static final String GETAPPLOGIN = "api/customers/GetAppLogin";
     public static final String Get_OrdersAll = "api/orders/Get_OrdersAll";
-
+    public static final String PLACE_ORDER = "api/orders/app_place_order";
+    public static final String GETCHEMISTOUTSTANDING = "api/salesmans/app_GetChemistOutstanding";
+    public static final String GETALLORDERS = "api/orders/Get_OrdersAll";
 
 }

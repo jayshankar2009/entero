@@ -19,9 +19,11 @@ import java.util.LinkedHashMap;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
 
@@ -77,6 +79,10 @@ public interface ApiCallService {
     @POST
     @FormUrlEncoded
     Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
+
+    @POST
+    Observable<Object> app_place_order(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject linkedHashMap);
+
 
 }
 

@@ -173,11 +173,16 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void handleResponse(SalesmanModel mSalesmanModel) {
-        Log.e(TAG, " res: " + mSalesmanModel.getSalesmanInfo().get(0).getRoleName());
+        //Log.e(TAG, " res: " + mSalesmanModel.getSalesmanInfo().get(0).getRoleName());
       //  Log.e(TAG, " res: " + raw.);
         isShowProgress(false);
         if(mSalesmanModel.getStatus().equals("success")) {
-            if (mSalesmanModel.getMessage().equals("Record found")) {
+
+            Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
+            startActivity(i);
+            finish();
+
+           /* if (mSalesmanModel.getMessage().equals("Record found")) {
                 SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
 
                 //   SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
@@ -192,13 +197,13 @@ public class SplashActivity extends BaseActivity {
                     Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
                     startActivity(i);
                     finish();
-                }
+                }*/
 
             } else
             {
                 Toast.makeText(this,mSalesmanModel.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }
+       // }
 
     }
 
