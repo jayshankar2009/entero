@@ -25,6 +25,8 @@ import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.StockistModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
+import com.app.entero.direct.ui.activity.main.HomeActivity;
+import com.app.entero.direct.ui.activity.main.ProfessionalDetailActivity;
 import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
@@ -39,12 +41,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import static com.app.entero.direct.utils.Utils.create;
 
@@ -144,8 +149,11 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
     private void placeOrder ()
     {
-        LinkedHashMap<String, String> mPostMapData = new LinkedHashMap<>();
-        LinkedHashMap<String, String> mPostData = new LinkedHashMap<>();
+
+
+
+        LinkedHashMap<String, Object> mPostMapData = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> mPostData = new LinkedHashMap<>();
         LinkedHashMap<String, Object> mOrderData = new LinkedHashMap<>();
         JsonObject postJsonData = new JsonObject();
         JsonObject postData = new JsonObject();
@@ -179,13 +187,14 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             postJsonData.add("Orders",postData);
             //Log.d("postJsonData",""+postJsonData);
            // mOrderData.put("Orders",postData.toString());
-            callPlaceOrder(mOrderData,postJsonData);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postJsonData.toString());
+        callPlaceOrder(mOrderData,body);
 
     }
-    private void callPlaceOrder(LinkedHashMap<String, Object> mPostMapData,JsonObject mPostData) {
+    private void callPlaceOrder(LinkedHashMap<String, Object> mPostMapData,RequestBody mPostData) {
         isShowProgress(true);
         //"application/json"
         mCompositeDisposable.add(getApiCallService().app_place_order(SavePref.getInstance(getApplicationContext()).getToken(), ApiConstants.PLACE_ORDER, mPostData)
@@ -200,23 +209,27 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         isShowProgress(false);
     }
 
-    private void handleResponse(Object mObject) {
+    private void handleResponse(DataModel mObject) {
         Log.e(TAG, " res: " + mObject);
         isShowProgress(false);
-        Gson gson = new Gson();
-        String jsonOutput = mObject.toString();
-        Type listType = new TypeToken<DataModel>() {
-        }.getType();
-        DataModel responseData = gson.fromJson(jsonOutput, listType);
+        //Gson gson = new Gson();
+       // String jsonOutput = mObject.toString();
+        //JSONParser parser = new JSONParser();
+        //JSONObject json = (JSONObject) parser.parse(stringToParse);
+       /* Type listType = new TypeToken<DataModel>() {
+        }.getType();*/
+      //  DataModel responseData = gson.fromJson(jsonOutput, DataModel.class);
 
-        if(responseData.getStatus().equals(""))
+        if(mObject.getStatus().equals("success"))
         {
             deleteDataFromDb(getId(mStockistModel.getClientID()));
             deletecartItems(productListModelDaos);
+            Intent login =new Intent(ConfirmOrderActivity.this,HomeActivity.class);
+            startActivity(login);
         }
         else
         {
-            Toast.makeText(this, responseData.getMsg(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, mObject.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
     }

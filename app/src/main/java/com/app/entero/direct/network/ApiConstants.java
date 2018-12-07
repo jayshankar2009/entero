@@ -35,5 +35,9 @@ public class ApiConstants {
     public static final String PLACE_ORDER = "api/orders/app_place_order";
     public static final String GETCHEMISTOUTSTANDING = "api/salesmans/app_GetChemistOutstanding";
     public static final String GETALLORDERS = "api/orders/Get_OrdersAll";
+    public static final String GETOFFERLIST = "/api/customers/APP_GetOfferList";
+    public static final String PINCODE = "Pincode";
+    public static final String CLIENTTYPE = "ClientType";
+
 
 }

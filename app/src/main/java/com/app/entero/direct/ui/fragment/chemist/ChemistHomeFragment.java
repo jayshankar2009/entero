@@ -61,8 +61,11 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
     private RelativeLayout toplayout;
     WCViewPagerIndicator wcViewPagerIndicator;
     private LinkedHashMap<String, String> hashMap;
+    private LinkedHashMap<String, String> hashMapOffer;
     private SchemeListModel mModel;
+    private OffersModel mOffersModel;
     private OffersAdapter mAdapterScheme;
+    ArrayList<OffersModel> mOffersModelList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,6 +117,9 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
 
     public void initview(View view) {
         hashMap = new LinkedHashMap<>();
+        hashMapOffer = new LinkedHashMap<>();
+        mOffersModelList = new ArrayList<>();
+
         hashMap.put(ApiConstants.Chemist_ID,"1115");
         // hashMap.put(ApiConstants.ClientID, SavePref.getInstance(getActivity()).getUserId());
         if(activity.isNetworkAvailable())
@@ -121,9 +127,15 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
             callApi(hashMap);
         }
 
+        hashMapOffer.put(ApiConstants.PINCODE,"400001");
+        hashMapOffer.put(ApiConstants.CLIENTTYPE,""+Constants.Salesman);
+
+        if(activity.isNetworkAvailable())
+        {
+            callApiForSlider(hashMapOffer);
+        }
+
         wcViewPagerIndicator = (WCViewPagerIndicator) view.findViewById(R.id.wcviewpager);
-        MyCustomePager viewPagerAdapter = new MyCustomePager(activity, image);
-        wcViewPagerIndicator.setAdapter(viewPagerAdapter);
         wcViewPagerIndicator.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -182,6 +194,24 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError));
+    }
+
+    public void callApiForSlider(LinkedHashMap<String, String> linkedHashMap) {
+        activity.mCompositeDisposable.add(activity.getApiCallService().getOfferList(SavePref.getInstance(getContext()).getToken(),ApiConstants.GETOFFERLIST, linkedHashMap)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponseSlider, this::handleError));
+    }
+
+    private void handleResponseSlider(OffersModel offersModel) {
+        Log.e(TAG, " error: " + offersModel);
+        activity.isShowProgress(false);
+        this.mOffersModel = offersModel;
+        if(mOffersModel.getStatus().equals("success"))
+        {
+            MyCustomePager viewPagerAdapter = new MyCustomePager(activity, image,offersModel.getEntityOfferList());
+            wcViewPagerIndicator.setAdapter(viewPagerAdapter);
+        }
     }
 
 

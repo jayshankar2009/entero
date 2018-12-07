@@ -3,7 +3,9 @@ package com.app.entero.direct.network;
 
 import com.app.entero.direct.model.AllOrderModel;
 import com.app.entero.direct.model.AllOrderSecondModel;
+import com.app.entero.direct.model.DataModel;
 import com.app.entero.direct.model.LoginModel;
+import com.app.entero.direct.model.OffersModel;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 import java.util.LinkedHashMap;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -81,8 +84,13 @@ public interface ApiCallService {
     Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
 
     @POST
-    Observable<Object> app_place_order(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject linkedHashMap);
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Observable<DataModel> app_place_order(@Header("Authorization") String token, @Url String url, @Body RequestBody linkedHashMap);
 
+
+    @POST
+    @FormUrlEncoded
+    Observable<OffersModel> getOfferList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
 }
 

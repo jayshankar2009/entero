@@ -9,13 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.OutstandingModel;
+import com.app.entero.direct.model.SchemeListModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.HomeActivity;
 import com.app.entero.direct.ui.adapter.chemist.OutStandingAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
+import com.app.entero.direct.utils.SavePref;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -183,26 +187,40 @@ public class OutStandingFragment extends Fragment implements View.OnClickListene
 
     }
 
-    public void callApi(LinkedHashMap<String, String> linkedHashMap) {
-        activity.mCompositeDisposable.add(activity.getApiCallService().getHomeData(ApiConstants.type, linkedHashMap)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError));
-    }
-
 
     private void handleError(Throwable throwable) {
         Log.e(TAG, " error: " + throwable.getMessage());
         activity.isShowProgress(false);
     }
 
-    private void handleResponse(Object mObject) {
-
+    private void handleResponse(SchemeListModel mSchemeListModel) {
+        Log.e(TAG, " error: " + mSchemeListModel);
+        activity.isShowProgress(false);
+        /*this.mModel = mSchemeListModel;
+        if(mModel.getStatus().equals("success"))
+        {
+            if(mModel.getschemeList()!=null &&mModel.getschemeList().size()>0)
+                mSchemeList = mModel.getschemeList();
+            mAdapterScheme.refreshadapter(mModel.getschemeList());
+            create(getActivity(), Constants.SCHEME_LIST,mSchemeListModel);
+        }
+        else
+        {
+            Toast.makeText(getActivity(),mModel.getMessage(), Toast.LENGTH_SHORT).show();
+        }*/
 
     }
+
 
     @Override
     public void onItemClick(View view, int position) {
 
+    }
+
+    public void callApi(LinkedHashMap<String, String> linkedHashMap) {
+        activity.mCompositeDisposable.add(activity.getApiCallService().getAPP_SchemeforChemist(SavePref.getInstance(getContext()).getToken(),ApiConstants.GETCHEMISTOUTSTANDING, linkedHashMap)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError));
     }
 }
