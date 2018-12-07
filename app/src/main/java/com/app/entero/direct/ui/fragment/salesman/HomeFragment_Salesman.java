@@ -23,6 +23,8 @@ import com.app.entero.direct.database.models.CustomerVisitTable;
 import com.app.entero.direct.database.models.CustomerVisitTableDao;
 import com.app.entero.direct.database.models.OrderTableMaster;
 import com.app.entero.direct.database.models.OrderTableMasterDao;
+import com.app.entero.direct.model.ProductListModel;
+import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
@@ -41,6 +43,10 @@ import com.app.entero.direct.utils.getLocation;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -56,6 +62,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     LinearLayout lnrCustomer;
     LocationTrack locationTrack;
     SavePref savePref;
+    ArrayList<ProductsModel> allProductList = new ArrayList<ProductsModel>();
     CustomerVisitTableDao customerVisitTableDao;
     ArrayList<CustomerVisitTable> listCustomerVisit;
     ArrayList<SalesmanDashBoardModel> listDashBoard;
@@ -63,6 +70,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     LinkedHashMap<String, String> linkRequest;
     RecyclerView recyclerView;
     String strSalesmanId, strStockisId;
+    LinkedHashMap<String, String> hashMap;
     private String TAG = "HomeFragment_Salesman";
     CardView btnOutSta, btnAllOrder, btnViewRe;
 
@@ -91,9 +99,12 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         linkRequest = new LinkedHashMap<>();
         linkRequest.put(Constants.StockistID, "1");
         linkRequest.put(Constants.SalesmanID, "2");
+        hashMap = new LinkedHashMap<>();
+        hashMap.put(Constants.StockistID, "1");
+        hashMap.put(Constants.legendType, "2");
         if(baseActivity.isNetworkAvailable()) {
-
-            if (customerVisitTableDao.loadAll().size() < 0) {
+            callProductListApi(ApiConstants.Get_productList, hashMap);
+            if (customerVisitTableDao.loadAll().size() <= 0) {
                 callSalesmanDashBoard(ApiConstants.Get_SalesmanDashboard, linkRequest);
             } else {
                 setOnText();
@@ -102,25 +113,26 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         }
         activity.imgToolbar.setVisibility(View.VISIBLE);
         activity.txtToolbar.setVisibility(View.GONE);
+
         setOnClick();
         return view;
 
     }
 
     private void setOnText() {
-        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,"").equals("null")){
+        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,"")==null){
             txtDlvryNo.setText("0");
                     }else {
             txtDlvryNo.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,""));
 
         }
-        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,"").equals("null")){
+        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,"")==null){
             txtCstmrVisit.setText("0");
                    }else {
             txtCstmrVisit.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,""));
 
         }
-        if(SavePref.getInstance(getContext()).getStringValue(Constants.homePaymenClc,"").equals("null")){
+        if(SavePref.getInstance(getContext()).getStringValue(Constants.homePaymenClc,"")==null){
             txtPymntCol.setText("0");
         }else {
             txtPymntCol.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homePaymenClc,""));
@@ -198,6 +210,17 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                 .subscribe(this::handleResponse, this::handleError));
 
     }
+    private void callProductListApi(String url, LinkedHashMap<String, String> hashMap) {
+
+      //  baseActivity.isShowProgress(true);
+        baseActivity.mCompositeDisposable.add(baseActivity.getApiCallService().getProductList(SavePref.getInstance(getContext()).getToken(), url, hashMap)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleProductResponse, this::handleError));
+
+
+    }
+
 
     private void handleError(Throwable throwable) {
         Log.e(TAG, " error: " + throwable.getMessage());
@@ -208,9 +231,9 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         baseActivity.isShowProgress(false);
         if (mSalesmanDashBoard.getStatus().equals("success")) {
             if (mSalesmanDashBoard.getEntityCountSalesmanData().size() > 0) {
-                SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedcustomerCount());
-                SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedDeliveryCount());
-                SavePref.getInstance(getContext()).getStringValue(Constants.homePaymenClc,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getTotalPaymentCollection());
+                SavePref.getInstance(getContext()).setValue(Constants.homeCstmrVisit,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedcustomerCount());
+                SavePref.getInstance(getContext()).setValue(Constants.homeDelivery,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getAssignedDeliveryCount());
+                SavePref.getInstance(getContext()).setValue(Constants.homePaymenClc,mSalesmanDashBoard.getEntityCountSalesmanData().get(0).getTotalPaymentCollection());
 
 
             }else {
@@ -231,6 +254,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                    }
 
                 }
+                setOnText();
              fetchData();
 
             }else {
@@ -238,6 +262,33 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                 }
         }
     }
+    private void handleProductResponse(ProductListModel productsModel) {
+
+      //  baseActivity.isShowProgress(false);
+        if (productsModel.getStatus().equals("success")) {
+            if (productsModel.getMessage().equals("Record found")) {
+               /* for (int i = 0; i < productsModel.getProductList().size(); i++) {
+                    allProductList.add(productsModel.getProductList().get(i));
+
+                }*/
+
+                if  (create(activity,Constants.PRODUCT_LIST,productsModel)){
+                //    SavePref.getInstance(getContext()).setValue("productSave","1");
+                    //    read(activity,Constants.Salesman_PRODUCT_LIST);
+
+                }
+
+              //  fetchProductList();
+              /*  txtProductCount.setText(allProductList.size() + "");
+                Toast.makeText(mContext, allProductList.size() + "Products", Toast.LENGTH_LONG).show();
+*/            } else {
+
+               // Toast.makeText(mContext, productsModel.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
 
     private void fetchData() {
         listCustomerVisit= (ArrayList<CustomerVisitTable>) customerVisitTableDao.loadAll();
@@ -271,5 +322,26 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
             return true;
         else
             return false;
+    }
+
+    private boolean create(Context context, String fileName, ProductListModel jsonString){
+        try {
+            //File file = null;
+            //   File file = new File(Environment.getExternalStorageDirectory()+"/", "MyCache"); // Pass getFilesDir() and "MyFile" to read file
+            FileOutputStream fos = activity.openFileOutput(fileName,Context.MODE_PRIVATE);
+
+            if (jsonString != null) {
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(jsonString);
+                oos.close();
+            }
+            fos.close();
+            return true;
+        } catch (FileNotFoundException fileNotFound) {
+            return false;
+        } catch (IOException ioException) {
+            return false;
+        }
+
     }
 }

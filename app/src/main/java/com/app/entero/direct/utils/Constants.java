@@ -13,6 +13,11 @@ public class Constants {
     public static final int CollectionAgent=5;
     public static final String StockistID = "StockistID";
     public static final String SalesmanID = "SalesmanID";
+    public static final String StartDate="StartDate";
+    public static final String EndDate="EndDate";
+    public static final String fromDate="fromDate";
+    public static final String todate="todate";
+
     public static String legendType="legendType";
     public static String ChemistID="ChemistID";
     public static String salesmanId = "salesmanId";
@@ -25,4 +30,6 @@ public class Constants {
 
 
     public static final String SCHEME_LIST = "scheme_list";
+    public static String screen="Screen";
+    public static String cmstErp="cmstErp";
 }

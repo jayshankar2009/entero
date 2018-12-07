@@ -74,7 +74,7 @@
                 android:gravity="right" />
 
             <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-                android:id="@+id/text_order_details_name"
+                android:id="@+id/text_order_details_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:text="Rs. 45000"

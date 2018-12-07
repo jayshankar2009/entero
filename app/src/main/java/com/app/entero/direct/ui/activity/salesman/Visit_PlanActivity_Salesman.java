@@ -46,6 +46,7 @@ public class Visit_PlanActivity_Salesman extends BaseActivity implements View.On
     TextView txtHeader;
    LocationManager mLocationManager;
     Bundle bundle;
+
     LocationTrack locationTrack;
     public static   ArrayList<SalesmanDashBoardModel> listChemist;
     CustomerVisitTableDao customerVisitTableDao;

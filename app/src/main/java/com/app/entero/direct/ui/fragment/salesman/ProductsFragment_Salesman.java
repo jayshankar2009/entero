@@ -45,6 +45,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
@@ -53,6 +54,7 @@ import com.app.entero.direct.ui.activity.salesman.Product_Search_Activity_Salesm
 
 import com.app.entero.direct.ui.adapter.salesman.Products_Adapter_Salesman;
 import com.app.entero.direct.utils.Constants;
+
 import com.app.entero.direct.utils.SavePref;
 
 
@@ -68,7 +70,7 @@ public class ProductsFragment_Salesman extends Fragment {
 
 
     ProductsModel productsModel;
-    ArrayList<ProductsModel> allProductList = new ArrayList<ProductsModel>();
+    ArrayList<ProductListModel> allProductList = new ArrayList<ProductListModel>();
     public static Products_Adapter_Salesman adapterProducts;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
@@ -150,8 +152,9 @@ public class ProductsFragment_Salesman extends Fragment {
         hashMap = new LinkedHashMap<>();
         hashMap.put(Constants.StockistID, "1");
         hashMap.put(Constants.legendType, "2");
-
-        if (baseActivity.isNetworkAvailable()) {
+        read(activity,Constants.PRODUCT_LIST);
+        txtProductCount.setText(allProductList.size() + "");
+       /* if (baseActivity.isNetworkAvailable()) {
 
             baseActivity.isShowProgress(true);
 
@@ -161,12 +164,12 @@ public class ProductsFragment_Salesman extends Fragment {
             Toast.makeText(mContext, "No internet connection available", Toast.LENGTH_SHORT).show();
 
             if(SavePref.getInstance(getContext()).getStringValue("productSave","").equals("1")){
-                read(activity,Constants.Salesman_PRODUCT_LIST);
+
             }else {
 
             }
               }
-
+*/
 
         closeProductDiscription = (ImageView) view.findViewById(R.id.ingCross);
         txtPrdctName = (TextView) view.findViewById(R.id.txtPrdctName);
@@ -178,7 +181,7 @@ public class ProductsFragment_Salesman extends Fragment {
 
     }
 
-    private void callProductListApi(String url, LinkedHashMap<String, String> hashMap) {
+    /*private void callProductListApi(String url, LinkedHashMap<String, String> hashMap) {
 
         baseActivity.isShowProgress(true);
         baseActivity.mCompositeDisposable.add(baseActivity.getApiCallService().getProductList(SavePref.getInstance(getContext()).getToken(), url, hashMap)
@@ -187,14 +190,14 @@ public class ProductsFragment_Salesman extends Fragment {
                 .subscribe(this::handleResponse, this::handleError));
 
 
-    }
+    }*/
 
-    private void handleError(Throwable throwable) {
+   /* private void handleError(Throwable throwable) {
         Log.e(TAG, " error: " + throwable.getMessage());
         baseActivity.isShowProgress(false);
     }
-
-    private void handleResponse(ProductsModel productsModel) {
+*/
+   /* private void handleResponse(ProductsModel productsModel) {
 
         baseActivity.isShowProgress(false);
         if (productsModel.getStatus().equals("success")) {
@@ -220,7 +223,7 @@ public class ProductsFragment_Salesman extends Fragment {
         }
 
     }
-
+*/
    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
 
         inflater = activity.getMenuInflater();
@@ -276,9 +279,9 @@ public class ProductsFragment_Salesman extends Fragment {
     }
 
     private void fetchProductList() {
-        Collections.sort(allProductList, new Comparator<ProductsModel>() {
+        Collections.sort(allProductList, new Comparator<ProductListModel>() {
             @Override
-            public int compare(ProductsModel u1, ProductsModel u2) {
+            public int compare(ProductListModel u1, ProductListModel u2) {
                 return u1.getItemname().compareToIgnoreCase(u2.getItemname());
             }
         });
@@ -383,7 +386,7 @@ public class ProductsFragment_Salesman extends Fragment {
             int selectedItemPosition = recyclerView.getChildPosition(v);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             txtPrdctName.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getItemname());
-            txtPrdctId.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getProductID());
+            txtPrdctId.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getProduct_ID());
             txtPact.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getPacksize());
             txtMfg.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getMfgName());
             txtProductMrp.setText(Products_Adapter_Salesman.data.get(selectedItemPosition).getMrp() + "");
@@ -392,12 +395,12 @@ public class ProductsFragment_Salesman extends Fragment {
         }
 
     }
-    private ProductsModel read(Context context, String fileName) {
+    private ProductListModel read(Context context, String fileName) {
         try {
 
             FileInputStream fis = context.openFileInput(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ProductsModel mProductModel  = (ProductsModel) ois.readObject();
+            ProductListModel mProductModel  = (ProductListModel) ois.readObject();
             for (int i = 0; i < mProductModel.getProductList().size(); i++) {
                 allProductList.add(mProductModel.getProductList().get(i));
 

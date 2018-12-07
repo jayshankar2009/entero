@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.CustomerVisitTable;
 import com.app.entero.direct.database.models.OrderDetailTable;
 import com.app.entero.direct.database.models.OrderDetailTableDao;
 import com.app.entero.direct.database.models.OrderTableMaster;
@@ -23,8 +24,12 @@ import com.app.entero.direct.database.models.OrderTableMasterDao;
 import com.app.entero.direct.model.DataModel;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.StockistModel;
+import com.app.entero.direct.model.Visitplanmodal;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
+import com.app.entero.direct.ui.activity.main.HomeActivity;
+import com.app.entero.direct.ui.activity.main.ProfessionalDetailActivity;
+import com.app.entero.direct.ui.activity.salesman.Customer_TastActivity_Salesman;
 import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
@@ -39,12 +44,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import static com.app.entero.direct.utils.Utils.create;
 
@@ -54,6 +62,8 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     private  Toolbar mToolbar;
     private SearchView searchView;
     private Context mContext;
+    String screen,chmstErp;
+    Bundle bundle;
     private CustomTextView_Salesman doc_id_tv,save_Tv,txtHeader;
     EditText comment_editText;
     private StockistModel mStockistModel;
@@ -73,6 +83,9 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
+        bundle = getIntent().getExtras();
+        screen = bundle.getString(Constants.screen);
+
         mStockistModel = new StockistModel();
         mOrderTableMaster = new OrderTableMaster();
         productListModelDaos = new ArrayList<>();
@@ -82,10 +95,20 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         Log.d("productListModelDaos",""+productListModelDaos);
         mStockistModel = new StockistModel();
         Intent i = getIntent();
-        if (i.hasExtra(Constants.STOCKISTDATA)) {
-            mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
+        if(screen.equals("Chemist")) {
+            if (i.hasExtra(Constants.STOCKISTDATA)) {
+                mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
+                mOrderTableMaster = getStockistData(mStockistModel.getClientID());
+            }
+
+        } else if (screen.equals("Salesman")) {
+            chmstErp= bundle.getString(Constants.cmstErp);
+            mOrderTableMaster = getStockistData(chmstErp);
         }
-        mOrderTableMaster = getStockistData(mStockistModel.getClientID());
+      /*  if (i.hasExtra(Constants.STOCKISTDATA)) {
+            mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
+        }*/
+
         doc_id_tv = (CustomTextView_Salesman) findViewById(R.id.doc_id_tv);
         save_Tv = (CustomTextView_Salesman) findViewById(R.id.save_Tv);
         comment_editText = (EditText) findViewById(R.id.comment_editText);
@@ -144,14 +167,21 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
     private void placeOrder ()
     {
-        LinkedHashMap<String, String> mPostMapData = new LinkedHashMap<>();
-        LinkedHashMap<String, String> mPostData = new LinkedHashMap<>();
+
+
+
+        LinkedHashMap<String, Object> mPostMapData = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> mPostData = new LinkedHashMap<>();
         LinkedHashMap<String, Object> mOrderData = new LinkedHashMap<>();
         JsonObject postJsonData = new JsonObject();
         JsonObject postData = new JsonObject();
         JsonArray mOrderDeatils = new JsonArray();
         try {
-            postData.addProperty("StockistID", mStockistModel.getClientID());
+            if(screen.equals("Chemist")) {
+                postData.addProperty("StockistID", mStockistModel.getClientID());
+            }else if(screen.equals("Salesman")) {
+                postData.addProperty("StockistID", chmstErp);
+            }
             postData.addProperty("ChemistID", "9");
             postData.addProperty("Doc_no", mOrderTableMaster.getDoc_no());
             postData.addProperty("ERP_Code", "1100");
@@ -164,7 +194,11 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             for(int i =0; i < productListModelDaos.size();i++ )
             {
                 JsonObject orderDetail = new JsonObject();
-                orderDetail.addProperty("StockistID", mStockistModel.getClientID());
+                if(screen.equals("Chemist")) {
+                    postData.addProperty("StockistID", mStockistModel.getClientID());
+                }else if(screen.equals("Salesman")) {
+                    postData.addProperty("StockistID", chmstErp);
+                }
                 orderDetail.addProperty("ChemistID", "9");
                 orderDetail.addProperty("Doc_no", mOrderTableMaster.getDoc_no());
                 orderDetail.addProperty("Product_StockistID", productListModelDaos.get(i).getStk_id());
@@ -179,13 +213,14 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             postJsonData.add("Orders",postData);
             //Log.d("postJsonData",""+postJsonData);
            // mOrderData.put("Orders",postData.toString());
-            callPlaceOrder(mOrderData,postJsonData);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postJsonData.toString());
+        callPlaceOrder(mOrderData,body);
 
     }
-    private void callPlaceOrder(LinkedHashMap<String, Object> mPostMapData,JsonObject mPostData) {
+    private void callPlaceOrder(LinkedHashMap<String, Object> mPostMapData,RequestBody mPostData) {
         isShowProgress(true);
         //"application/json"
         mCompositeDisposable.add(getApiCallService().app_place_order(SavePref.getInstance(getApplicationContext()).getToken(), ApiConstants.PLACE_ORDER, mPostData)
@@ -200,23 +235,39 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
         isShowProgress(false);
     }
 
-    private void handleResponse(Object mObject) {
+    private void handleResponse(DataModel mObject) {
         Log.e(TAG, " res: " + mObject);
         isShowProgress(false);
-        Gson gson = new Gson();
-        String jsonOutput = mObject.toString();
-        Type listType = new TypeToken<DataModel>() {
-        }.getType();
-        DataModel responseData = gson.fromJson(jsonOutput, listType);
+        //Gson gson = new Gson();
+       // String jsonOutput = mObject.toString();
+        //JSONParser parser = new JSONParser();
+        //JSONObject json = (JSONObject) parser.parse(stringToParse);
+       /* Type listType = new TypeToken<DataModel>() {
+        }.getType();*/
+      //  DataModel responseData = gson.fromJson(jsonOutput, DataModel.class);
 
-        if(responseData.getStatus().equals(""))
+        if(mObject.getStatus().equals("success"))
         {
-            deleteDataFromDb(getId(mStockistModel.getClientID()));
+            if(screen.equals("Chemist")) {
+                deleteDataFromDb(getId(mStockistModel.getClientID()));
+                Intent login =new Intent(ConfirmOrderActivity.this,HomeActivity.class);
+               login.putExtra(Constants.screen,"Chemist");
+                startActivity(login);
+            }else if(screen.equals("Salesman")){
+                deleteDataFromDb(getId(chmstErp));
+                Intent i = new Intent(getApplicationContext(), ProductsActivity.class);
+                i.putExtra(Constants.screen,"Salesman");
+                i.putExtra(Constants.cmstErp,chmstErp);
+
+                startActivity(i);
+                finish();
+            }
             deletecartItems(productListModelDaos);
+
         }
         else
         {
-            Toast.makeText(this, responseData.getMsg(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, mObject.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -241,4 +292,5 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             orderDetailTableDao.deleteInTx(productListModelDaos);
         }
     }
+
 }

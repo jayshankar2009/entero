@@ -23,7 +23,7 @@ Context context;
 OnItemRecycleClickListener onItemRecycleClickListener;
 
     public HomeCustomerAdapter_Salesman(Context context,OnItemRecycleClickListener onItemRecycleClickListener, ArrayList<CustomerVisitTable> salesmanDashBoardModel) {
-this.context=context;
+    this.context=context;
    this.salesmanDashBoardModel=salesmanDashBoardModel;
    this.onItemRecycleClickListener = onItemRecycleClickListener;
 

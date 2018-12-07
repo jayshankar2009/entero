@@ -12,6 +12,7 @@ public class DataModel implements Serializable {
     @Expose
     private String status;
 
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -19,6 +20,10 @@ public class DataModel implements Serializable {
     @SerializedName("msg")
     @Expose
     private String msg;
+
+    @SerializedName("message")
+    @Expose
+    private String message;
 
 
     public String getStatus() {
@@ -43,5 +48,13 @@ public class DataModel implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

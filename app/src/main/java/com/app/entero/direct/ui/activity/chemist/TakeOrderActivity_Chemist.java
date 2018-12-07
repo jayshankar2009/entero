@@ -177,6 +177,7 @@ public class TakeOrderActivity_Chemist extends BaseActivity implements View.OnCl
             case R.id.ry_cart_take_order:
                 if(text_products_count_take_order.getVisibility()== View.VISIBLE) {
                     Intent in = new Intent(this, AllOrderActivity_Salesman.class);
+                    in.putExtra("takeOrderSale","take");
                     startActivity(in);
                 }
                 break;
@@ -217,7 +218,13 @@ public class TakeOrderActivity_Chemist extends BaseActivity implements View.OnCl
             public boolean onQueryTextChange(String newText) {
                 //setDataToRecyclerView();
                 //lnrBottom.setVisibility(View.VISIBLE);
-                adapter_take_order.getFilter().filter(newText);
+                   if (newText != null || !newText.trim().isEmpty()) {
+                       adapter_take_order.getFilter().filter(newText);
+                  //  fetchProductList();
+                    return false;
+                }
+
+
                 return false;
             }
 

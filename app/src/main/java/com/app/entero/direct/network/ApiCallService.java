@@ -3,6 +3,8 @@ package com.app.entero.direct.network;
 
 import com.app.entero.direct.model.AllOrderModel;
 import com.app.entero.direct.model.AllOrderSecondModel;
+import com.app.entero.direct.model.DailyCollection_Report_Model;
+import com.app.entero.direct.model.DataModel;
 import com.app.entero.direct.model.LoginModel;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.ProductsModel;
@@ -18,8 +20,8 @@ import org.json.JSONObject;
 import java.util.LinkedHashMap;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -62,7 +64,7 @@ public interface ApiCallService {
     Observable<Salesman_CustomerList_Model> getSalesmanCustomerList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String,String> linkedHashMap);
     @POST
     @FormUrlEncoded
-    Observable<ProductsModel> getProductList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
+    Observable<ProductListModel> getProductList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
     @POST
     @FormUrlEncoded
@@ -73,17 +75,19 @@ public interface ApiCallService {
     Observable<SalesmanModel> getOTPCode(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
     @POST
-    @FormUrlEncoded
-    Observable<AllOrderSecondModel> getAllOrderSecond(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Observable<DataModel> app_place_order(@Header("Authorization") String token, @Url String url, @Body RequestBody linkedHashMap);
 
     @POST
-    @FormUrlEncoded
-    Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
+    Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
+    @POST
+    Observable<AllOrderSecondModel> getAllOrderSecond(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
 
     @POST
-    Observable<Object> app_place_order(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject linkedHashMap);
-
+    Observable<DailyCollection_Report_Model> getDailyCollection(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
 
 }
+
+
 
 

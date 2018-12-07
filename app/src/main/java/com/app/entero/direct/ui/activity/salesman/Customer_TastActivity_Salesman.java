@@ -20,6 +20,8 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.database.models.CustomerVisitTable;
 import com.app.entero.direct.database.models.CustomerVisitTableDao;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
+import com.app.entero.direct.ui.activity.chemist.ProductsActivity;
+import com.app.entero.direct.ui.activity.chemist.TakeOrderActivity_Chemist;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.LocationTrack;
@@ -136,7 +138,9 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
 
             case R.id.btn_take_order :
                 if(locationTrack.get_location()) {
-                    Intent i3 = new Intent(Customer_TastActivity_Salesman.this, TakeOrderActivity_Salesman.class);
+                    Intent i3 = new Intent(Customer_TastActivity_Salesman.this, ProductsActivity.class);
+                    i3.putExtra(Constants.screen,"Salesman");
+                    i3.putExtra(Constants.cmstErp,listProfile.get(0).getChemistERPCode());
                     startActivity(i3);
                 }else {
                     Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();

@@ -46,7 +46,7 @@ public class SplashActivity extends BaseActivity {
         initObjects();
         intView();
         if(SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo","").length()>0){
-       //  Toast.makeText(getApplicationContext(),"Check1--"+SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo",""),Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(getApplicationContext(),"Check1--"+SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo",""),Toast.LENGTH_SHORT).show();
             isShowProgress(true);
             hashMap = new LinkedHashMap<>();
             hashMap.put(ApiConstants.IMEIno, SavePref.getInstance(getApplicationContext()).getStringValue("ImeiNo",""));
@@ -54,7 +54,7 @@ public class SplashActivity extends BaseActivity {
             callIMIApi(ApiConstants.Get_SalesmandetailsByIMEI,hashMap);
 
         }else {
-          //  Toast.makeText(getApplicationContext(),"Check2",Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(getApplicationContext(),"Check2",Toast.LENGTH_SHORT).show();
         }
         IMEI = new get_imie_number().check_imie_permission(this);
 
@@ -173,16 +173,11 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void handleResponse(SalesmanModel mSalesmanModel) {
-        //Log.e(TAG, " res: " + mSalesmanModel.getSalesmanInfo().get(0).getRoleName());
-      //  Log.e(TAG, " res: " + raw.);
+        Log.e(TAG, " res: " + mSalesmanModel.getSalesmanInfo().get(0).getRoleName());
+        //  Log.e(TAG, " res: " + raw.);
         isShowProgress(false);
         if(mSalesmanModel.getStatus().equals("success")) {
-
-            Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
-            startActivity(i);
-            finish();
-
-           /* if (mSalesmanModel.getMessage().equals("Record found")) {
+            if (mSalesmanModel.getMessage().equals("Record found")) {
                 SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
 
                 //   SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
@@ -197,13 +192,13 @@ public class SplashActivity extends BaseActivity {
                     Intent i = new Intent(SplashActivity.this, ChemistLoginActivity.class);
                     startActivity(i);
                     finish();
-                }*/
+                }
 
             } else
             {
                 Toast.makeText(this,mSalesmanModel.getMessage(), Toast.LENGTH_SHORT).show();
             }
-       // }
+        }
 
     }
 

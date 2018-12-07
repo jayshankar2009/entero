@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/product_bottom_bar"
-        android:padding="10dp">
+        android:padding="@dimen/fivedp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 app:fonts="Lato-Regular.ttf"
-                android:text="5489"
+                android:text=""
                 android:textColor="@color/stroke_color"
                 android:textSize="@dimen/text_size"
                 />

@@ -22,10 +22,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.DaoSession;
 import com.app.entero.direct.database.models.OrderDetailTable;
 import com.app.entero.direct.database.models.OrderDetailTableDao;
 import com.app.entero.direct.database.models.OrderTableMaster;
@@ -42,6 +44,7 @@ import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.SimpleDividerItemDecoration;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
 
+import org.greenrobot.greendao.query.DeleteQuery;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.io.File;
@@ -67,6 +70,11 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
     private ViewCartAdapter mViewCartAdapter;
     private ArrayList<ProductListModel> mProductList;
     private Context mContext;
+    String screen,chmstErp;
+    Bundle bundle;
+    TextView text_cart_count_take_order;
+
+
     private StockistModel mStockistModel;
     private OrderDetailTableDao orderDetailTableDao;
     private OrderTableMasterDao orderTableMasterDao;
@@ -86,30 +94,40 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
     }
 
     private void initView() {
+        bundle = getIntent().getExtras();
+        screen = bundle.getString(Constants.screen);
         mStockistModel = new StockistModel();
         productListModelDaos = new ArrayList<>();
         orderDetailTableDao = ((EnteroApp) getApplication()).getDaoSession().getOrderDetailTableDao();
         orderTableMasterDao = ((EnteroApp) getApplication()).getDaoSession().getOrderTableMasterDao();
         mStockistModel = new StockistModel();
         Intent i = getIntent();
-        if (i.hasExtra(Constants.STOCKISTDATA)) {
-            mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
+        if(screen.equals("Chemist")) {
+            if (i.hasExtra(Constants.STOCKISTDATA)) {
+                mStockistModel = (StockistModel) i.getSerializableExtra(Constants.STOCKISTDATA);
+            }
+            productListModelDaos = cartItems(getDocId(mStockistModel.getClientID()));
+        } else if (screen.equals("Salesman")) {
+            chmstErp= bundle.getString(Constants.cmstErp);
+            productListModelDaos=cartItems(getDocId(chmstErp));
         }
-        productListModelDaos = cartItems(getDocId(mStockistModel.getClientID()));
-
         confirm_linear = (LinearLayout) findViewById(R.id.confirm_linear);
         cancel_linear = (LinearLayout) findViewById(R.id.cancel_linear);
         mProductList = new ArrayList<>();
+        text_cart_count_take_order=(TextView)findViewById(R.id.text_cart_count_take_order);
         rv_offers = (RecyclerView) findViewById(R.id.rv_navigation);
         text_name_take_order = (CustomTextView_Salesman) findViewById(R.id.text_name_take_order);
         relativemain = (RelativeLayout) findViewById(R.id.relative);
         text_name_take_order.setText(mStockistModel.getClient_LegalName());
         rv_offers.setLayoutManager(new LinearLayoutManager(this));
-        if(productListModelDaos!=null)
-        mViewCartAdapter = new ViewCartAdapter(this, this, productListModelDaos);
-        else
+        if(productListModelDaos!=null) {
+            text_cart_count_take_order.setText(String.valueOf(productListModelDaos.size()));
+            mViewCartAdapter = new ViewCartAdapter(this, this, productListModelDaos);
+
+        } else
         {
             productListModelDaos = new ArrayList<>();
+            text_cart_count_take_order.setText("0");
             mViewCartAdapter = new ViewCartAdapter(this, this, productListModelDaos);
         }
         rv_offers.setAdapter(mViewCartAdapter);
@@ -136,6 +154,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         };
         // attaching the touch helper to recycler view
         new ItemTouchHelper(itemTouchHelperCallback1).attachToRecyclerView(rv_offers);
+      //  rv_offers.notify();
        /* hashMap.put(ApiConstants.StockistID, mStockistModel.getClientID());
         hashMap.put(ApiConstants.legendType, mStockistModel.getClientTypeID());
         if (isNetworkAvailable()) {
@@ -225,8 +244,17 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
             if(productListModelDaos!=null && productListModelDaos.size()>0)
             {
                 Intent mIntent = new Intent(ViewCartActivityChemist.this, ConfirmOrderActivity.class);
+              mIntent.putExtra(Constants.screen,screen);
+                if(screen.equals("Salesman")) {
+                    Log.i("Salesman",""+chmstErp);
+                    mIntent.putExtra(Constants.cmstErp, chmstErp);
+                }else if(screen.equals("Chemist")){
+                    mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
+                }
+
                 mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
                 startActivity(mIntent);
+                finish();
             }
 
         }
@@ -263,7 +291,12 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         builder.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteDataFromDb(getId(mStockistModel.getClientID()));
+                        if(screen.equals("Chemist")) {
+                            deleteDataFromDb(getId(mStockistModel.getClientID()));
+                        }else if(screen.equals("Salesman")){
+                            Log.i("Salesman",""+chmstErp);
+                            deleteDataFromDb(getId(chmstErp));
+                        }
                         deletecartItems(productListModelDaos);
                         dialog.dismiss();
                         finish();
@@ -282,8 +315,10 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
 
     private void deleteDataFromDb(Long stockistID)
     {
-        orderTableMasterDao.deleteByKey(stockistID);
+        Log.i("Salesman1",""+stockistID);
+      orderTableMasterDao.deleteByKey(stockistID);
         //orderDetailTableDao.deleteAll();
+
     }
 
 
@@ -295,9 +330,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         else
             return null;
     }
-    private void placeOrder()
-    {
-    }
+
 
     public List<OrderDetailTable> cartItems(String docno) {
         if(orderDetailTableDao.loadAll().size()>0)
@@ -327,6 +360,14 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
         else
             return null;
     }
+     /*  public void orderMaster(String stokist) {
+           DaoSession daoSession;
 
+           final DeleteQuery<OrderTableMaster> tableDeleteQuery = daoSession.queryBuilder(Table.class)
+                   .where(TableDao.Properties.Name.eq("Value"))
+                   .buildDelete();
+           tableDeleteQuery.executeDeleteWithoutDetachingEntities();
+           daoSession.clear();
+         }*/
 
 }

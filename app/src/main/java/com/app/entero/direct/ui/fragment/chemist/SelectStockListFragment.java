@@ -105,6 +105,7 @@ public class SelectStockListFragment extends Fragment implements OnItemRecycleCl
     public void onItemClick(View view, int position) {
 
         Intent mIntent = new Intent(getActivity(), ProductsActivity.class);
+        mIntent.putExtra(Constants.screen,"Chemist");
         mIntent.putExtra(Constants.STOCKISTDATA,mModel.getEntityStockistList().get(position));
         startActivity(mIntent);
 

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +54,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
@@ -73,6 +76,8 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     private ArrayList<ProductListModel> mProductList;
     private Context mContext;
     private SearchView searchView;
+    String screen,chmstErp;
+    TextView tab_Tv;
     ProductListModel mSelectedProductList;
     private BottomSheetBehavior sheetBehavior;
     private LinearLayout layoutBottomSheet;
@@ -80,7 +85,11 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     OrderDetailTableDao orderListModelDao;
     OrderTableMasterDao orderTableMasterDao;
     int itemCount=1;
+    Bundle bundle;
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy ");
     private ProductListModel mStockListModelData;
+    String strCrntDate;
     private ImageView img_cross,img_viewcart;
     private CustomTextView_Salesman item_name_tv, product_id_tv, sale_rate_tv, mrp_tv, mfg_tv, pack_tv;
 
@@ -93,27 +102,45 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_chemist);
         mContext = this;
+        Log.i("Check4","Check4");
         initObjects();
-        setToolbar();
         initView();
+        setToolbar();
+
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(mStockistModel.getClientID()!=null)
-        {
-            if(!isStockistAdded(mStockistModel.getClientID()))
-            {
-                orderTableMasterDao.insert(new OrderTableMaster(null,mStockistModel.getClientID(),
-                        ""+(String.valueOf(Math.random())).replace(".",""),"test","30-11-2018","no","no"
-                ));
+        Log.i("Check3","Check3");
+        strCrntDate = mdformat.format(calendar.getTime());
+        Log.i("StrCrntDate---"+chmstErp,"---"+strCrntDate);
+        if(screen.equals("Chemist")) {
+            if (mStockistModel.getClientID() != null) {
+                if (!isStockistAdded(mStockistModel.getClientID())) {
+                    orderTableMasterDao.insert(new OrderTableMaster(null, mStockistModel.getClientID(),
+                            "" + (String.valueOf(Math.random())).replace(".", ""), "test", strCrntDate, "no", "no"
+                    ));
+                }
             }
+        }
+        else if(screen.equals("Salesman")){
+            if(!isStockistAdded(chmstErp)){
+                orderTableMasterDao.insert(new OrderTableMaster(null, chmstErp,
+                        "" + (String.valueOf(Math.random())).replace(".", ""), "test", strCrntDate, "yes", "no"));
+
+            }
+
         }
     }
 
     private void initView() {
+        bundle = getIntent().getExtras();
+    //    if(bundle!=null) {
+            screen = bundle.getString(Constants.screen);
+            chmstErp = bundle.getString(Constants.cmstErp);
+   //     }
         mSelectedProductList = new ProductListModel();
         mStockistModel  = new StockistModel();
         Intent i = getIntent();
@@ -157,7 +184,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         mProductList = new ArrayList<>();
         //mOfferList = setOfferListData();
         rv_offers = (RecyclerView) findViewById(R.id.rv_navigation);
-
+        tab_Tv=(TextView)findViewById(R.id.tab_Tv);
         item_name_tv = (CustomTextView_Salesman) findViewById(R.id.item_name_tv);
         product_id_tv = (CustomTextView_Salesman) findViewById(R.id.product_id_tv);
         sale_rate_tv = (CustomTextView_Salesman) findViewById(R.id.sale_rate_tv);
@@ -171,14 +198,25 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         btn_take_order_add_to_cart = (CustomTextView_Salesman) findViewById(R.id.btn_take_order_add_to_cart);
         img_viewcart = (ImageView) findViewById(R.id.img_viewcart);
         rv_offers.setLayoutManager(new LinearLayoutManager(this));
-        mProductsAdapter = new ProductsAdapter(this, this, mProductList);
+
+          if(screen.equals("Salesman")) {
+           mSelectedProductList= read(getApplicationContext(),Constants.PRODUCT_LIST);
+           rv_offers.setVisibility(View.GONE);
+             // ArrayList<ProductListModel> productList = mSelectedProductList.getProductList();
+              Log.i("ProductList",""+mSelectedProductList.getProductList().size());
+        }
+       else if(screen.equals("Chemist")) {
+            hashMap.put(ApiConstants.StockistID, mStockistModel.getClientID());
+            hashMap.put(ApiConstants.legendType, mStockistModel.getClientTypeID());
+            if (isNetworkAvailable()) {
+                callApi(ApiConstants.GETPRODUCTLIST, hashMap);
+            }
+        }
+        tab_Tv.setText(""+mSelectedProductList.getProductList().size());
+        mProductsAdapter = new ProductsAdapter(this, this, mSelectedProductList.getProductList());
         rv_offers.setAdapter(mProductsAdapter);
         rv_offers.addItemDecoration(new SimpleDividerItemDecoration(this));
-        hashMap.put(ApiConstants.StockistID, mStockistModel.getClientID());
-        hashMap.put(ApiConstants.legendType, mStockistModel.getClientTypeID());
-        if (isNetworkAvailable()) {
-            callApi(ApiConstants.GETPRODUCTLIST, hashMap);
-        }
+
         inItListener();
 
     }
@@ -206,16 +244,20 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
             }
         });
         setTitle("");
-        tv_title.setText(R.string.products);
+        if(screen.equals("Chemist")) {
+            tv_title.setText(R.string.products);
+        }else  if(screen.equals("Salesman")) {
+            tv_title.setText("Take Order");
+        }
 
     }
 
     @Override
     public void onItemClick(View view, int position,ProductListModel productListModel) {
 
-        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+      /*  if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
 
-            mSelectedProductList = productListModel;
+       */     mSelectedProductList = productListModel;
             item_name_tv.setText(mSelectedProductList.getItemname());
             product_id_tv.setText(mSelectedProductList.getProduct_ID());
             sale_rate_tv.setText(mSelectedProductList.getRate());
@@ -223,9 +265,9 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
             mfg_tv.setText(mSelectedProductList.getMfgName());
             pack_tv.setText(mSelectedProductList.getPacksize());
             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        } else {
+       /* } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }
+        }*/
 
     }
 
@@ -233,10 +275,12 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
+       /* MenuItem action_search = menu.findItem(R.id.action_search);
+        action_search.setVisible(true);*/
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+     SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName());
 
         searchView.setSearchableInfo(searchableInfo);
@@ -247,6 +291,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         searchEditText.setHintTextColor(getResources().getColor(R.color.btn_color));
 
         ImageView searchMagIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_button);
+        //searchMagIcon.setVisibility(View.VISIBLE);
         searchMagIcon.setImageResource(R.drawable.ic_nav_search);
         searchView.setQueryHint("Search Products");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -254,7 +299,8 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
             public boolean onQueryTextChange(String newText) {
                 //setDataToRecyclerView();
                 //lnrBottom.setVisibility(View.VISIBLE);
-                mProductsAdapter.getFilter().filter(newText);
+                rv_offers.setVisibility(View.VISIBLE);
+                mProductsAdapter.getFilter().filter(newText.toLowerCase());
                 return false;
             }
 
@@ -269,6 +315,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
             public boolean onClose() {
                 img_viewcart.setVisibility(View.VISIBLE);
                 tv_title.setVisibility(View.VISIBLE);
+                rv_offers.setVisibility(View.GONE);
                /* ly_indicator_arrow_take_order.setVisibility(View.VISIBLE);
                 lnrBottom.setVisibility(View.GONE);
                 recycler_view_take_order.setVisibility(View.GONE);*/
@@ -279,7 +326,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_viewcart.setVisibility(View.GONE);
+               // img_viewcart.setVisibility(View.GONE);
                 tv_title.setVisibility(View.GONE);
                /* ly_indicator_arrow_take_order.setVisibility(View.GONE);
                 ly_indicater.setVisibility(View.VISIBLE);
@@ -370,7 +417,15 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.img_viewcart:
                 Intent mIntent = new Intent(ProductsActivity.this, ViewCartActivityChemist.class);
-                mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
+           mIntent.putExtra(Constants.screen,screen);
+           //     Log.i("Salesman---",""+screen);
+                if(screen.equals("Salesman")) {
+                    Log.i("Salesman",""+chmstErp);
+                    mIntent.putExtra(Constants.cmstErp, chmstErp);
+                }else if(screen.equals("Chemist")){
+                    mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
+                }
+
                 startActivity(mIntent);
                 break;
             case R.id.img_cross:
@@ -390,22 +445,46 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.btn_take_order_add_to_cart:
-                orderListModelDao.insert(
-                       new  OrderDetailTable(null, mStockistModel.getClientID(),
-                               getDocId(mStockistModel.getClientID()),
-                               mSelectedProductList.getProduct_ID(),
-                               mSelectedProductList.getItemcode(),
-                               mSelectedProductList.getItemname(), mSelectedProductList.getMrp(),
-                               mSelectedProductList.getRate(), mSelectedProductList.getStock(),
-                               mSelectedProductList.getMfgCode(),  mSelectedProductList.getMfgName(),
-                               mSelectedProductList.getImage_path(), mSelectedProductList.getPacksize(),
-                               mSelectedProductList.getScheme(),
-                               mSelectedProductList.getPercentScheme(), mSelectedProductList.getLegendMode(),
-                               mSelectedProductList.getColorCode(),
-                               mSelectedProductList.getHalfScheme(), mSelectedProductList.getMinQty(),
-                               mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(),""+itemCount,mSelectedProductList.getStk_id())
-                );
+                if(screen.equals("Chemist")) {
+                    orderListModelDao.insert(
+                            new OrderDetailTable(null, mStockistModel.getClientID(),
+                                    getDocId(mStockistModel.getClientID()),
+                                    mSelectedProductList.getProduct_ID(),
+                                    mSelectedProductList.getItemcode(),
+                                    mSelectedProductList.getItemname(), mSelectedProductList.getMrp(),
+                                    mSelectedProductList.getRate(), mSelectedProductList.getStock(),
+                                    mSelectedProductList.getMfgCode(), mSelectedProductList.getMfgName(),
+                                    mSelectedProductList.getImage_path(), mSelectedProductList.getPacksize(),
+                                    mSelectedProductList.getScheme(),
+                                    mSelectedProductList.getPercentScheme(), mSelectedProductList.getLegendMode(),
+                                    mSelectedProductList.getColorCode(),
+                                    mSelectedProductList.getHalfScheme(), mSelectedProductList.getMinQty(),
+                                    mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(), "" + itemCount, mSelectedProductList.getStk_id())
+                    );
+                }else if(screen.equals("Salesman")) {
+                    orderListModelDao.insert(
+                            new OrderDetailTable(null, chmstErp,
+                                    getDocId(chmstErp),
+                                    mSelectedProductList.getProduct_ID(),
+                                    mSelectedProductList.getItemcode(),
+                                    mSelectedProductList.getItemname(), mSelectedProductList.getMrp(),
+                                    mSelectedProductList.getRate(), mSelectedProductList.getStock(),
+                                    mSelectedProductList.getMfgCode(), mSelectedProductList.getMfgName(),
+                                    mSelectedProductList.getImage_path(), mSelectedProductList.getPacksize(),
+                                    mSelectedProductList.getScheme(),
+                                    mSelectedProductList.getPercentScheme(), mSelectedProductList.getLegendMode(),
+                                    mSelectedProductList.getColorCode(),
+                                    mSelectedProductList.getHalfScheme(), mSelectedProductList.getMinQty(),
+                                    mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(), "" + itemCount, mSelectedProductList.getStk_id()));
+
+                }
                 sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                text_take_order_count.setText("1");
+                if (searchView != null) {
+                    searchView.setQuery("", false);
+                    searchView.clearFocus();
+                    searchView.onActionViewCollapsed();
+                }
                 //int productQty = Integer.parseInt(text_take_order_count.getText()+"");
                 break;
         }
@@ -413,6 +492,8 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     }
 
     public boolean isStockistAdded(String stockistID) {
+        try {
+
         if(orderTableMasterDao.loadAll().size()>0)
         {
             QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();
@@ -421,6 +502,10 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
                 return true;
             else
                 return false;
+        }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return false;
 
@@ -434,5 +519,16 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
             return where.list().get(0).getDoc_no();
         else
             return null;
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("Check","Check");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("Check1","Check1");
     }
 }

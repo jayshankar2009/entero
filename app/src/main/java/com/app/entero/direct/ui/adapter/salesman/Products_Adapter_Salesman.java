@@ -15,13 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.ui.activity.salesman.AllOrderActivity_Salesman;
 import com.app.entero.direct.ui.fragment.salesman.ProductsFragment_Salesman;
 
 public class Products_Adapter_Salesman extends RecyclerView.Adapter<Products_Adapter_Salesman.MyViewHolder> {
 
-    public static ArrayList<ProductsModel>  data;
+    public static ArrayList<ProductListModel>  data;
     //Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -40,7 +41,7 @@ public class Products_Adapter_Salesman extends RecyclerView.Adapter<Products_Ada
 
         }
     }
-    public Products_Adapter_Salesman(ArrayList<ProductsModel> data) {
+    public Products_Adapter_Salesman(ArrayList<ProductListModel> data) {
         this.data = data;
     }
     @Override
@@ -67,9 +68,9 @@ public class Products_Adapter_Salesman extends RecyclerView.Adapter<Products_Ada
                     data = data;
                 } else {
 
-                    ArrayList<ProductsModel> filteredList = new ArrayList<>();
+                    ArrayList<ProductListModel> filteredList = new ArrayList<>();
 
-                    for (ProductsModel productsModel : data) {
+                    for (ProductListModel productsModel : data) {
 
                         if (productsModel.getItemname().toLowerCase().contains(charString) ) {
 
@@ -87,7 +88,7 @@ public class Products_Adapter_Salesman extends RecyclerView.Adapter<Products_Ada
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                data = (ArrayList<ProductsModel>) filterResults.values;
+                data = (ArrayList<ProductListModel>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
