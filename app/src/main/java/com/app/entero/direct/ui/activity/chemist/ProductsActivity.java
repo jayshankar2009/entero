@@ -53,7 +53,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
@@ -107,7 +110,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
             if(!isStockistAdded(mStockistModel.getClientID()))
             {
                 orderTableMasterDao.insert(new OrderTableMaster(null,mStockistModel.getClientID(),
-                        ""+(String.valueOf(Math.random())).replace(".",""),"test","30-11-2018","no","no"
+                        ""+(String.valueOf(Math.random())).replace(".",""),"test",getDate(),"no","yes"
                 ));
             }
         }
@@ -435,4 +438,15 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
         else
             return null;
     }
+
+    private String getDate()
+    {
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c);
+        return formattedDate;
+    }
+
 }
