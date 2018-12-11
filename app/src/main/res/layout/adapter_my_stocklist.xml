@@ -71,16 +71,27 @@
             android:layout_width="wrap_content"
             android:text="2500"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             app:fonts="Lato-Regular.ttf"
+            android:layout_toLeftOf="@+id/img_ri"
             android:textSize="@dimen/text_size"
             android:textColor="@color/textColorBlue" />
+
+
+        <ImageView
+            android:id="@+id/img_ri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right" />
 
     </RelativeLayout>
 

@@ -248,26 +248,12 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
         if(mObject.getStatus().equals("success"))
         {
-            if(screen.equals("Chemist")) {
-                deleteDataFromDb(getId(mStockistModel.getClientID()));
-                Intent login =new Intent(ConfirmOrderActivity.this,HomeActivity.class);
-               login.putExtra(Constants.screen,"Chemist");
-                startActivity(login);
-            }else if(screen.equals("Salesman")){
-                deleteDataFromDb(getId(chmstErp));
-                Intent i = new Intent(getApplicationContext(), ProductsActivity.class);
-                i.putExtra(Constants.screen,"Salesman");
-                i.putExtra(Constants.cmstErp,chmstErp);
-
-                startActivity(i);
-                finish();
-            }
+            deleteDataFromDb(getId(mStockistModel.getClientID()));
             deletecartItems(productListModelDaos);
-
         }
         else
         {
-            Toast.makeText(this, mObject.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, responseData.getMsg(), Toast.LENGTH_SHORT).show();
 
         }
     }

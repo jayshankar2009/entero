@@ -10,13 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.StockListModel;
+import com.app.entero.direct.model.StockistModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.HomeActivity;
 import com.app.entero.direct.ui.adapter.chemist.MyStockListAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -26,16 +29,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MyStockListFragment extends Fragment implements OnItemRecycleClickListener {
-
     private RecyclerView rv_stocklist;
     private ArrayList<StockListModel> mOfferList;
     private Context mContext;
     private MyStockListAdapter mStockListAdapter;
     private HomeActivity activity;
     private String TAG ="SelectStockListFragment";
-    private TabLayout tabLayout;
-
-
+    private LinkedHashMap<String, String> hashMap;
+    private StockistModel mModel;
+    private ArrayList<StockistModel> stocklist;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,6 @@ public class MyStockListFragment extends Fragment implements OnItemRecycleClickL
         activity.initObjects();
         initview(view);
         return view;
-
     }
 
     @Override
@@ -62,7 +63,6 @@ public class MyStockListFragment extends Fragment implements OnItemRecycleClickL
         activity.isVisibleAdd(false);
         activity.isVisibleAddTocart(false);
         activity.isVisibleFilter(false);
-        //activity.isVisibleSearch(false);
     }
 
     @Override
@@ -72,97 +72,54 @@ public class MyStockListFragment extends Fragment implements OnItemRecycleClickL
     }
 
     public void initview(View view) {
-        mOfferList = new ArrayList<>();
-        mOfferList = setOfferListData();
+        stocklist = new ArrayList<>();
+        hashMap = new LinkedHashMap<>();
+        hashMap.put(ApiConstants.ClientID,"9");
+        if(activity.isNetworkAvailable())
+        {
+            callApi(ApiConstants.GETSTOCKISTLIST,hashMap);
+        }
+
         rv_stocklist = (RecyclerView) view.findViewById(R.id.rv_navigation);
         rv_stocklist.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mStockListAdapter = new MyStockListAdapter(getActivity(),this,mOfferList);
+        mStockListAdapter = new MyStockListAdapter(getActivity(),this,stocklist);
         rv_stocklist.setAdapter(mStockListAdapter);
         rv_stocklist.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
-
-
-
     }
 
-    public void callApi(LinkedHashMap<String, String> linkedHashMap) {
-        activity.mCompositeDisposable.add(activity.getApiCallService().getHomeData(ApiConstants.type, linkedHashMap)
+    private void callApi(String url, LinkedHashMap<String, String> linkedHashMap) {
+       // activity.isShowProgress(true);
+        activity.mCompositeDisposable.add(activity.getApiCallService().getStockistList(SavePref.getInstance(getActivity()).getToken(),url, linkedHashMap)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError));
+
     }
-
-
 
     private void handleError(Throwable throwable) {
         Log.e(TAG, " error: " + throwable.getMessage());
         activity.isShowProgress(false);
     }
 
-    private void handleResponse(Object mObject) {
+    private void handleResponse(StockistModel mStockListModel) {
+        Log.e(TAG, " res: " + mStockListModel);
+        activity.isShowProgress(false);
+        this.mModel = mStockListModel;
+        if(mModel.getStatus().equals("success"))
+        {
+            if(mModel.getEntityStockistList()!=null &&mModel.getEntityStockistList().size()>0)
+                mStockListAdapter.refreshData(mModel.getEntityStockistList());
 
-
+        }
+        else
+        {
+            Toast.makeText(getActivity(),mModel.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onItemClick(View view, int position) {
 
 
-    }
-
-
-    private ArrayList<StockListModel> setOfferListData() {
-
-        StockListModel model = new StockListModel();
-        model.setStockListquantitly("23");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("12354");
-        model.setStockListAddress("Malad");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("5");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("1127");
-        model.setStockListAddress("Agipada");
-        mOfferList.add(model);
-
-
-        model = new StockListModel();
-        model.setStockListquantitly("33");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("1425");
-        model.setStockListAddress("Agipada");
-        mOfferList.add(model);
-
-
-        model = new StockListModel();
-        model.setStockListquantitly("41");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("3032");
-        model.setStockListAddress("Goregaon");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("51");
-        model.setStockListName("New Life Enterprise");
-        model.setStockListPrice("1004");
-        model.setStockListAddress("Malad");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("15");
-        model.setStockListName("Golden Healthcare");
-        model.setStockListPrice("2004");
-        model.setStockListAddress("Agipada");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("23");
-        model.setStockListName("New Life Enterprise");
-        model.setStockListPrice("115");
-        model.setStockListAddress("Goregaon");
-        mOfferList.add(model);
-
-        return mOfferList;
     }
 }

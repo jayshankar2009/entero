@@ -9,22 +9,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.OffersModel;
+import com.app.entero.direct.network.ApiConstants;
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 public class MyCustomePager extends PagerAdapter {
     Context context;
     int images[];
     LayoutInflater layoutInflater;
+    private ArrayList<OffersModel> mOffersModelList;
 
 
-    public MyCustomePager(Context context, int images[]) {
+    public MyCustomePager(Context context, int images[],ArrayList<OffersModel> mList) {
         this.context = context;
         this.images = images;
+        this.mOffersModelList = mList;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        return mOffersModelList.size();
     }
 
     @Override
@@ -37,7 +44,8 @@ public class MyCustomePager extends PagerAdapter {
         View itemView = layoutInflater.inflate(R.layout.viewpager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        imageView.setImageResource(images[position]);
+        Glide.with(context).load(ApiConstants.BASE_URL+mOffersModelList.get(position).getOffer_image()).into(imageView);
+        //imageView.setImageResource(images[position]);
 
         container.addView(itemView);
 

@@ -25,6 +25,9 @@ public class SchemeListModel implements Serializable {
     @Expose
     private String Product_ID;
 
+    @SerializedName("StockistID")
+    @Expose
+    private String StockistID;
 
     @SerializedName("StcokistName")
     @Expose
@@ -128,6 +131,21 @@ public class SchemeListModel implements Serializable {
         Product_ID = product_ID;
     }
 
+    public ArrayList<SchemeListModel> getSchemeList() {
+        return schemeList;
+    }
+
+    public void setSchemeList(ArrayList<SchemeListModel> schemeList) {
+        this.schemeList = schemeList;
+    }
+
+    public String getStockistID() {
+        return StockistID;
+    }
+
+    public void setStockistID(String stockistID) {
+        StockistID = stockistID;
+    }
 
     public String getStock() {
         return Stock;

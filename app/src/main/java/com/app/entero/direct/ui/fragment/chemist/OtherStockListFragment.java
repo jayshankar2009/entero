@@ -13,13 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.app.entero.direct.R;
 import com.app.entero.direct.model.StockListModel;
+import com.app.entero.direct.model.StockistModel;
 import com.app.entero.direct.network.ApiConstants;
 import com.app.entero.direct.ui.activity.main.HomeActivity;
 import com.app.entero.direct.ui.adapter.chemist.OtherStockListAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -39,6 +42,9 @@ public class OtherStockListFragment extends Fragment implements OnItemRecycleCli
     private TabLayout tabLayout;
     BottomSheetBehavior sheetBehavior;
     LinearLayout layoutBottomSheet;
+    private StockistModel mModel;
+    private ArrayList<StockistModel> stocklist;
+    private LinkedHashMap<String, String> hashMap;
 
 
     @Override
@@ -74,11 +80,17 @@ public class OtherStockListFragment extends Fragment implements OnItemRecycleCli
     }
 
     public void initview(View view) {
-        mOfferList = new ArrayList<>();
-        mOfferList = setOfferListData();
+        stocklist = new ArrayList<>();
+        hashMap = new LinkedHashMap<>();
+        hashMap.put(ApiConstants.ClientID,"9");
+        if(activity.isNetworkAvailable())
+        {
+            callApi(ApiConstants.GETSTOCKISTLIST,hashMap);
+        }
+
         rv_stocklist = (RecyclerView) view.findViewById(R.id.rv_navigation);
         rv_stocklist.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mStockListAdapter = new OtherStockListAdapter(getActivity(),this,mOfferList);
+        mStockListAdapter = new OtherStockListAdapter(getActivity(),this,stocklist);
         rv_stocklist.setAdapter(mStockListAdapter);
         rv_stocklist.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         layoutBottomSheet = view.findViewById(R.id.bottom_sheet);
@@ -110,23 +122,34 @@ public class OtherStockListFragment extends Fragment implements OnItemRecycleCli
         });
     }
 
-    public void callApi(LinkedHashMap<String, String> linkedHashMap) {
-        activity.mCompositeDisposable.add(activity.getApiCallService().getHomeData(ApiConstants.type, linkedHashMap)
+    private void callApi(String url, LinkedHashMap<String, String> linkedHashMap) {
+        activity.isShowProgress(true);
+        activity.mCompositeDisposable.add(activity.getApiCallService().getStockistList(SavePref.getInstance(getActivity()).getToken(),url, linkedHashMap)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError));
+
     }
-
-
 
     private void handleError(Throwable throwable) {
         Log.e(TAG, " error: " + throwable.getMessage());
         activity.isShowProgress(false);
     }
 
-    private void handleResponse(Object mObject) {
+    private void handleResponse(StockistModel mStockListModel) {
+        Log.e(TAG, " res: " + mStockListModel);
+        activity.isShowProgress(false);
+        this.mModel = mStockListModel;
+        if(mModel.getStatus().equals("success"))
+        {
+            if(mModel.getEntityStockistList()!=null &&mModel.getEntityStockistList().size()>0)
+                mStockListAdapter.refreshData(mModel.getEntityStockistList());
 
-
+        }
+        else
+        {
+            Toast.makeText(getActivity(),mModel.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -139,60 +162,4 @@ public class OtherStockListFragment extends Fragment implements OnItemRecycleCli
 
     }
 
-
-    private ArrayList<StockListModel> setOfferListData() {
-
-        StockListModel model = new StockListModel();
-        model.setStockListquantitly("23");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("12354");
-        model.setStockListAddress("Malad");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("5");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("1127");
-        model.setStockListAddress("Agipada");
-        mOfferList.add(model);
-
-
-        model = new StockListModel();
-        model.setStockListquantitly("33");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("1425");
-        model.setStockListAddress("Agipada");
-        mOfferList.add(model);
-
-
-        model = new StockListModel();
-        model.setStockListquantitly("41");
-        model.setStockListName("Visu Pharma Enterprise");
-        model.setStockListPrice("3032");
-        model.setStockListAddress("Goregaon");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("51");
-        model.setStockListName("New Life Enterprise");
-        model.setStockListPrice("1004");
-        model.setStockListAddress("Malad");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("15");
-        model.setStockListName("Golden Healthcare");
-        model.setStockListPrice("2004");
-        model.setStockListAddress("Agipada");
-        mOfferList.add(model);
-
-        model = new StockListModel();
-        model.setStockListquantitly("23");
-        model.setStockListName("New Life Enterprise");
-        model.setStockListPrice("115");
-        model.setStockListAddress("Goregaon");
-        mOfferList.add(model);
-
-        return mOfferList;
-    }
 }

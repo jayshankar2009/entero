@@ -15,7 +15,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.app.entero.EnteroApp;
 import com.app.entero.direct.R;
+import com.app.entero.direct.database.models.OrderDetailTable;
+import com.app.entero.direct.database.models.OrderDetailTableDao;
+import com.app.entero.direct.database.models.OrderTableMaster;
+import com.app.entero.direct.database.models.OrderTableMasterDao;
 import com.app.entero.direct.model.OffersModel;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.SchemeListModel;
@@ -36,6 +41,8 @@ import com.app.entero.direct.utils.Utils;
 import com.app.entero.direct.utils.custom.CustomTextView_Salesman;
 import com.app.entero.direct.viewpager.WCViewPagerIndicator;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,7 +50,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -61,8 +71,13 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
     private RelativeLayout toplayout;
     WCViewPagerIndicator wcViewPagerIndicator;
     private LinkedHashMap<String, String> hashMap;
+    private LinkedHashMap<String, String> hashMapOffer;
     private SchemeListModel mModel;
+    private OffersModel mOffersModel;
     private OffersAdapter mAdapterScheme;
+    ArrayList<OffersModel> mOffersModelList;
+    OrderTableMasterDao orderTableMasterDao;
+    OrderDetailTableDao orderListModelDao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,7 +128,13 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
     }
 
     public void initview(View view) {
+        orderListModelDao = ((EnteroApp) getActivity().getApplication()).getDaoSession().getOrderDetailTableDao();
+        orderTableMasterDao = ((EnteroApp) getActivity().getApplication()).getDaoSession().getOrderTableMasterDao();
+
         hashMap = new LinkedHashMap<>();
+        hashMapOffer = new LinkedHashMap<>();
+        mOffersModelList = new ArrayList<>();
+
         hashMap.put(ApiConstants.Chemist_ID,"1115");
         // hashMap.put(ApiConstants.ClientID, SavePref.getInstance(getActivity()).getUserId());
         if(activity.isNetworkAvailable())
@@ -121,9 +142,15 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
             callApi(hashMap);
         }
 
+        hashMapOffer.put(ApiConstants.PINCODE,"400001");
+        hashMapOffer.put(ApiConstants.CLIENTTYPE,""+Constants.Salesman);
+
+        if(activity.isNetworkAvailable())
+        {
+            callApiForSlider(hashMapOffer);
+        }
+
         wcViewPagerIndicator = (WCViewPagerIndicator) view.findViewById(R.id.wcviewpager);
-        MyCustomePager viewPagerAdapter = new MyCustomePager(activity, image);
-        wcViewPagerIndicator.setAdapter(viewPagerAdapter);
         wcViewPagerIndicator.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -182,6 +209,24 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError));
+    }
+
+    public void callApiForSlider(LinkedHashMap<String, String> linkedHashMap) {
+        activity.mCompositeDisposable.add(activity.getApiCallService().getOfferList(SavePref.getInstance(getContext()).getToken(),ApiConstants.GETOFFERLIST, linkedHashMap)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponseSlider, this::handleError));
+    }
+
+    private void handleResponseSlider(OffersModel offersModel) {
+        Log.e(TAG, " error: " + offersModel);
+        activity.isShowProgress(false);
+        this.mOffersModel = offersModel;
+        if(mOffersModel.getStatus().equals("success"))
+        {
+            MyCustomePager viewPagerAdapter = new MyCustomePager(activity, image,offersModel.getEntityOfferList());
+            wcViewPagerIndicator.setAdapter(viewPagerAdapter);
+        }
     }
 
 
@@ -258,6 +303,66 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onItemClick(View view, int position) {
+        if(mModel.getschemeList().get(position).getStockistID()!=null)
+        {
+            if(!isStockistAdded(mModel.getschemeList().get(position).getStockistID()))
+            {
+                orderTableMasterDao.insert(new OrderTableMaster(null,mModel.getschemeList().get(position).getStockistID(),
+                        ""+(String.valueOf(Math.random())).replace(".",""),"test",getDate(),"no","yes"
+                ));
+            }
+        }
+
+
+       /* orderListModelDao.insert(
+                new OrderDetailTable(null, mModel.getschemeList().get(position).getStockistID(),
+                        getDocId(mModel.getschemeList().get(position).getStockistID()),
+                        mModel.getschemeList().get(position).getProduct_ID(),
+                        mModel.getschemeList().get(position).getIt,
+                        mModel.getschemeList().get(position).getProdcutName(),
+                        mModel.getschemeList().get(position).getMrp(),
+                        mSelectedProductList.getRate(), mSelectedProductList.getStock(),
+                        mSelectedProductList.getMfgCode(),  mSelectedProductList.getMfgName(),
+                        mSelectedProductList.getImage_path(), mSelectedProductList.getPacksize(),
+                        mSelectedProductList.getScheme(),
+                        mSelectedProductList.getPercentScheme(), mSelectedProductList.getLegendMode(),
+                        mSelectedProductList.getColorCode(),
+                        mSelectedProductList.getHalfScheme(), mSelectedProductList.getMinQty(),
+                        mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(),""+itemCount,mSelectedProductList.getStk_id())
+        );*/
 
     }
+
+    public boolean isStockistAdded(String stockistID) {
+        if(orderTableMasterDao.loadAll().size()>0)
+        {
+            QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();
+            QueryBuilder<OrderTableMaster> where = qb.where(OrderTableMasterDao.Properties.Stockiest_id.eq(stockistID));
+            if(where.list().size()>0)
+                return true;
+            else
+                return false;
+        }
+        return false;
+
+    }
+
+    private String getDate()
+    {
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c);
+        return formattedDate;
+    }
+
+    public String getDocId(String stockistID) {
+        QueryBuilder<OrderTableMaster> qb = orderTableMasterDao.queryBuilder();
+        QueryBuilder<OrderTableMaster> where = qb.where(OrderTableMasterDao.Properties.Stockiest_id.eq(stockistID));
+        if(where.list().size()>0)
+            return where.list().get(0).getDoc_no();
+        else
+            return null;
+    }
+
 }
