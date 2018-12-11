@@ -1,62 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingRight="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="2"
+            android:layout_marginLeft="@dimen/fifteendp"
+            android:layout_marginRight="@dimen/fifteendp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
-            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-                android:id="@+id/text_daily_collection_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:fonts="Lato-Regular.ttf"
-                android:text="Crocin Pain Relief Tablet"
-                android:layout_weight="1.5"
-              android:textColor="@android:color/black"
-                android:textSize="14sp"/>
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="right"
-                android:layout_weight="0.5">
-            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+            <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                android:id="@+id/text_daily_collection_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:fonts="Lato-Regular.ttf"
+                android:text="Crocin Pain Relief Tabletrgtre dffgd"
+
+              android:textColor="@android:color/black"
+                android:textSize="12sp"/>
+                <com.app.entero.direct.utils.custom.CustomTextView_Salesman
+                    android:id="@+id/text_daily_collection_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="11:29 am"
+                    app:fonts="Lato-Regular.ttf"
+                    android:layout_weight="1.5"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+           <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:gravity="left"
+
+               >
+            <ImageView
+                android:id="@+id/chqImg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
                 android:layout_marginRight="5dp"
-                app:srcCompat="@drawable/ic_list_rupee_small"/>
+             />
 
             <com.app.entero.direct.utils.custom.CustomTextView_Salesman
                 android:id="@+id/text_daily_collection_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Rs. 500"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/tendp"
                 app:fonts="Lato-Bold.ttf"
                 android:textColor="@android:color/black"
-                android:gravity="right"
+
                 android:textSize="14sp"/>
-            </LinearLayout>
+     </LinearLayout>
 
         </LinearLayout>
-        <com.app.entero.direct.utils.custom.CustomTextView_Salesman
-            android:id="@+id/text_daily_collection_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="11:29 am"
-            app:fonts="Lato-Regular.ttf"
-            android:layout_weight="1.5"
-            android:layout_marginBottom="10dp"
-            android:textSize="12sp"/>
+
         <View
             android:layout_width="match_parent"
             android:background="@color/graybg"
@@ -64,4 +73,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+

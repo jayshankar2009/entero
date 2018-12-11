@@ -93,15 +93,15 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         initview(view);
 
         new getLocation(getActivity()).checkLocation(getActivity());
-       // savePref = new SavePref();
-       strStockisId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
+        // savePref = new SavePref();
+        strStockisId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
         strSalesmanId = SavePref.getInstance(getContext()).getUserDetail().getSalesmanInfo().get(0).getID();
         linkRequest = new LinkedHashMap<>();
-        linkRequest.put(Constants.StockistID, "1");
-        linkRequest.put(Constants.SalesmanID, "2");
+        linkRequest.put(Constants.StockistID, strStockisId);
+        linkRequest.put(Constants.SalesmanID, strSalesmanId);
         hashMap = new LinkedHashMap<>();
-        hashMap.put(Constants.StockistID, "1");
-        hashMap.put(Constants.legendType, "2");
+        hashMap.put(Constants.StockistID, strStockisId);
+        hashMap.put(Constants.legendType, strStockisId);
         if(baseActivity.isNetworkAvailable()) {
             callProductListApi(ApiConstants.Get_productList, hashMap);
             if (customerVisitTableDao.loadAll().size() <= 0) {
@@ -120,15 +120,16 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     }
 
     private void setOnText() {
+
         if(SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,"")==null){
             txtDlvryNo.setText("0");
-                    }else {
+        }else {
             txtDlvryNo.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homeDelivery,""));
 
         }
-        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,"")==null){
+        if(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,"").equals("null")){
             txtCstmrVisit.setText("0");
-                   }else {
+        }else {
             txtCstmrVisit.setText(SavePref.getInstance(getContext()).getStringValue(Constants.homeCstmrVisit,""));
 
         }
@@ -154,7 +155,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     }
 
     public void initview(View view) {
-         listCustomerVisit = new ArrayList<>();
+        listCustomerVisit = new ArrayList<>();
         customerVisitTableDao =((EnteroApp) activity.getApplication()).getDaoSession().getCustomerVisitTableDao();
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
@@ -169,8 +170,8 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         locationTrack = new LocationTrack(getActivity());
-       // fetchData();
-        }
+        // fetchData();
+    }
 
     @Override
     public void onClick(View v) {
@@ -189,11 +190,11 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                 break;
 
             case R.id.lnrCustomer:
-              //  if(listDashBoard.size()>0) {
-                    Intent i3 = new Intent(getActivity(), Visit_PlanActivity_Salesman.class);
-                  //  i3.putExtra("array_list", listDashBoard);
-                    this.startActivity(i3);
-             //   }
+                //  if(listDashBoard.size()>0) {
+                Intent i3 = new Intent(getActivity(), Visit_PlanActivity_Salesman.class);
+                //  i3.putExtra("array_list", listDashBoard);
+                this.startActivity(i3);
+                //   }
                 break;
 
         }
@@ -202,7 +203,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     }
 
 
-   private void callSalesmanDashBoard(String url, LinkedHashMap<String, String> linkedHashMap) {
+    private void callSalesmanDashBoard(String url, LinkedHashMap<String, String> linkedHashMap) {
         baseActivity.isShowProgress(true);
         baseActivity.mCompositeDisposable.add(baseActivity.getApiCallService().getSalesmanDashBoard(SavePref.getInstance(getContext()).getToken(), url, linkedHashMap)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -212,7 +213,7 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
     }
     private void callProductListApi(String url, LinkedHashMap<String, String> hashMap) {
 
-      //  baseActivity.isShowProgress(true);
+        //  baseActivity.isShowProgress(true);
         baseActivity.mCompositeDisposable.add(baseActivity.getApiCallService().getProductList(SavePref.getInstance(getContext()).getToken(), url, hashMap)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -240,31 +241,31 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                 Toast.makeText(getContext(),"Delivery , Customer Visit , Payment Collection Records are not found",Toast.LENGTH_SHORT).show();
             }
             if(mSalesmanDashBoard.getEntityChemListData().size()>0){
-            //    listDashBoard = new ArrayList<>();
+                //    listDashBoard = new ArrayList<>();
                 for (int i = 0;i<mSalesmanDashBoard.getEntityChemListData().size();i++) {
-                  //  listDashBoard.add(mSalesmanDashBoard.getEntityChemListData().get(i));
-                   if(!isCustomerAdded(mSalesmanDashBoard.getEntityChemListData().get(i).getEcid())) {
-                       customerVisitTableDao.insert(new CustomerVisitTable(null, mSalesmanDashBoard.getEntityChemListData().get(i).getEcid(), mSalesmanDashBoard.getEntityChemListData().get(i).getStokistID(), mSalesmanDashBoard.getEntityChemListData().get(i).getUserID(),
-                               mSalesmanDashBoard.getEntityChemListData().get(i).getRouteID(), mSalesmanDashBoard.getEntityChemListData().get(i).getChemistLegalName(),
-                               mSalesmanDashBoard.getEntityChemListData().get(i).getChemistAddress(), mSalesmanDashBoard.getEntityChemListData().get(i).getMobileNo(),
-                               mSalesmanDashBoard.getEntityChemListData().get(i).getEmail(), mSalesmanDashBoard.getEntityChemListData().get(i).getChemistCity(),
-                               mSalesmanDashBoard.getEntityChemListData().get(i).getChemistErpCode(), mSalesmanDashBoard.getEntityChemListData().get(i).getTotalAmnt(), mSalesmanDashBoard.getEntityChemListData().get(i).getOutStanding()));
-                   }else {
+                    //  listDashBoard.add(mSalesmanDashBoard.getEntityChemListData().get(i));
+                    if(!isCustomerAdded(mSalesmanDashBoard.getEntityChemListData().get(i).getEcid())) {
+                        customerVisitTableDao.insert(new CustomerVisitTable(null, mSalesmanDashBoard.getEntityChemListData().get(i).getEcid(), mSalesmanDashBoard.getEntityChemListData().get(i).getStokistID(), mSalesmanDashBoard.getEntityChemListData().get(i).getUserID(),
+                                mSalesmanDashBoard.getEntityChemListData().get(i).getRouteID(), mSalesmanDashBoard.getEntityChemListData().get(i).getChemistLegalName(),
+                                mSalesmanDashBoard.getEntityChemListData().get(i).getChemistAddress(), mSalesmanDashBoard.getEntityChemListData().get(i).getMobileNo(),
+                                mSalesmanDashBoard.getEntityChemListData().get(i).getEmail(), mSalesmanDashBoard.getEntityChemListData().get(i).getChemistCity(),
+                                mSalesmanDashBoard.getEntityChemListData().get(i).getChemistErpCode(), mSalesmanDashBoard.getEntityChemListData().get(i).getTotalAmnt(), mSalesmanDashBoard.getEntityChemListData().get(i).getOutStanding()));
+                    }else {
 
-                   }
+                    }
 
                 }
                 setOnText();
-             fetchData();
+                fetchData();
 
             }else {
                 Toast.makeText(getContext(), mSalesmanDashBoard.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            }
         }
     }
     private void handleProductResponse(ProductListModel productsModel) {
 
-      //  baseActivity.isShowProgress(false);
+        //  baseActivity.isShowProgress(false);
         if (productsModel.getStatus().equals("success")) {
             if (productsModel.getMessage().equals("Record found")) {
                /* for (int i = 0; i < productsModel.getProductList().size(); i++) {
@@ -273,17 +274,17 @@ public class HomeFragment_Salesman extends Fragment implements View.OnClickListe
                 }*/
 
                 if  (create(activity,Constants.PRODUCT_LIST,productsModel)){
-                //    SavePref.getInstance(getContext()).setValue("productSave","1");
+                    //    SavePref.getInstance(getContext()).setValue("productSave","1");
                     //    read(activity,Constants.Salesman_PRODUCT_LIST);
 
                 }
 
-              //  fetchProductList();
+                //  fetchProductList();
               /*  txtProductCount.setText(allProductList.size() + "");
                 Toast.makeText(mContext, allProductList.size() + "Products", Toast.LENGTH_LONG).show();
 */            } else {
 
-               // Toast.makeText(mContext, productsModel.getMessage(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, productsModel.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 

@@ -17,10 +17,10 @@ public class EnteroApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        File path = new File(Environment.getExternalStorageDirectory(), "entero-db");
-        path.getParentFile().mkdirs();
-    //    daoSession = new DaoMaster( new DbOpenHelper(this, "entero-db").getWritableDatabase()).newSession();
-        daoSession = new DaoMaster( new DbOpenHelper(this, path.getAbsolutePath()).getWritableDatabase()).newSession();
+     /*   File path = new File(Environment.getExternalStorageDirectory(), "entero-db");
+        path.getParentFile().mkdirs();*/
+       daoSession = new DaoMaster( new DbOpenHelper(this, "entero-db").getWritableDatabase()).newSession();
+       // daoSession = new DaoMaster( new DbOpenHelper(this, path.getAbsolutePath()).getWritableDatabase()).newSession();
 
     }
 

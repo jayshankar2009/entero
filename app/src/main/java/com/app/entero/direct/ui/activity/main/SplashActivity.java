@@ -182,7 +182,7 @@ public class SplashActivity extends BaseActivity {
 
                 //   SavePref.getInstance(SplashActivity.this).setUserDetail(new Gson().toJson(mSalesmanModel));
 
-                if (mSalesmanModel.getSalesmanInfo().get(0).getRoleID().equals(String.valueOf(Constants.Deliveryboy))) {
+                if (mSalesmanModel.getSalesmanInfo().get(0).getRoleID().equals(String.valueOf(Constants.Deliveryboy)) || mSalesmanModel.getSalesmanInfo().get(0).getRoleID().equals(String.valueOf(Constants.Salesman))) {
                     //    Toast.makeText(getApplicationContext(),"StockistId"+mSalesmanModel.getSalesmanInfo().get(0).getRole_ID(),Toast.LENGTH_LONG).show();
                     // Toast.makeText(getApplicationContext(),savePref.getUserDetail().getSalesmanInfo().get(0).getRole_ID(),Toast.LENGTH_LONG).show();
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);

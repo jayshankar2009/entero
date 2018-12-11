@@ -71,6 +71,7 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
     LinkedHashMap<String, String> linkRequest;
    public static ImageView imgToolbar;
     public static TextView txtToolbar;
+    TextView txtName,txtImeiNo,txtEmail,txtMobile;
     DrawerLayout drawer;
     String strSalesmanId, strStockisId;
     // public static ImageView imgFilter,imgSearch;
@@ -154,7 +155,10 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         strStockisId = SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID();
         strSalesmanId = SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getID();
-
+        txtName=(TextView)findViewById(R.id.txtName);
+        txtMobile=(TextView)findViewById(R.id.txtMobile);
+        txtEmail=(TextView)findViewById(R.id.txtEmail);
+        txtImeiNo=(TextView)findViewById(R.id.txtImeiNo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
         setUpDrawerToggle();
@@ -293,7 +297,10 @@ public class MainActivity extends BaseActivity implements OnItemRecycleClickList
     }
 
     public void setProfileData() {
-
+        txtImeiNo.setText("Imei:          "+SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getIMEI());
+        txtName.setText(SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getFullName());
+        txtEmail.setText("Email Id:    "+SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getEmail());
+        txtMobile.setText(SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getMobileNO());
     }
 
     public void replaceFragment(Fragment fragment) {

@@ -82,13 +82,13 @@ public class AllOrderActivity_Salesman extends BaseActivity implements OnItemRec
 
     private void callAllOrder(String fromDate, String toDate) {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(Constants.StockistID, "1");
+        jsonObject.addProperty(Constants.StockistID, SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getStockistID());
         jsonObject.addProperty(Constants.ChemistID, "0");
-        jsonObject.addProperty(Constants.salesmanId, "4");
+        jsonObject.addProperty(Constants.salesmanId, SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getID());
         jsonObject.addProperty(Constants.Transaction_No, "0");
         jsonObject.addProperty(Constants.sDate, fromDate);
         jsonObject.addProperty(Constants.eDate, toDate);
-
+        Log.i("Request All Order---",""+ApiConstants.Get_OrdersAll+jsonObject);
         mCompositeDisposable.add(getApiCallService().getAllOrder(SavePref.getInstance(getApplicationContext()).getToken(), ApiConstants.Get_OrdersAll, jsonObject)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

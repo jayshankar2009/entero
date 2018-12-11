@@ -61,7 +61,7 @@ public class DailyCollection_Report_Model {
     private String paymentTime;
     @SerializedName("Amount")
     @Expose
-    private Integer amount;
+    private String amount;
     @SerializedName("PaymentMode")
     @Expose
     private String paymentMode;
@@ -73,7 +73,7 @@ public class DailyCollection_Report_Model {
     private String chequeNo;
     @SerializedName("ChequeAmt")
     @Expose
-    private Integer chequeAmt;
+    private String chequeAmt;
     @SerializedName("ChequeDate")
     @Expose
     private String chequeDate;
@@ -141,11 +141,11 @@ public class DailyCollection_Report_Model {
         this.paymentTime = paymentTime;
     }
 
-    public Integer getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
@@ -173,11 +173,11 @@ public class DailyCollection_Report_Model {
         this.chequeNo = chequeNo;
     }
 
-    public Integer getChequeAmt() {
+    public String getChequeAmt() {
         return chequeAmt;
     }
 
-    public void setChequeAmt(Integer chequeAmt) {
+    public void setChequeAmt(String chequeAmt) {
         this.chequeAmt = chequeAmt;
     }
 

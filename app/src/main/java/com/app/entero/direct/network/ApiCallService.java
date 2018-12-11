@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.LinkedHashMap;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -66,7 +67,7 @@ public interface ApiCallService {
     Observable<Salesman_CustomerList_Model> getSalesmanCustomerList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String,String> linkedHashMap);
     @POST
     @FormUrlEncoded
-    Observable<ProductsModel> getProductList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
+    Observable<ProductListModel> getProductList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
     @POST
     @FormUrlEncoded
@@ -76,9 +77,6 @@ public interface ApiCallService {
     @FormUrlEncoded
     Observable<SalesmanModel> getOTPCode(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
 
-    @POST
-    @FormUrlEncoded
-    Observable<AllOrderSecondModel> getAllOrderSecond(@Header("Authorization") String token, @Url String url, @FieldMap JsonObject jsonObject);
 
     @POST
     Observable<AllOrderModel> getAllOrder(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
@@ -98,6 +96,6 @@ public interface ApiCallService {
 }
 
 
-}
+
 
 

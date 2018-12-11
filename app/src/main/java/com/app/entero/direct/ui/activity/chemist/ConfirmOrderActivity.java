@@ -182,9 +182,20 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             }else if(screen.equals("Salesman")) {
                 postData.addProperty("StockistID", chmstErp);
             }
+            if(screen.equals("Chemist")) {
+                postData.addProperty("ChemistID", "9");
+            }else if(screen.equals("Salesman")) {
+                postData.addProperty("ChemistID", SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getID());
+            }
             postData.addProperty("ChemistID", "9");
             postData.addProperty("Doc_no", mOrderTableMaster.getDoc_no());
-            postData.addProperty("ERP_Code", "1100");
+            if(screen.equals("Chemist")) {
+                postData.addProperty("ERP_Code", "9");
+
+            }else if(screen.equals("Salesman")) {
+                postData.addProperty("ERP_Code", SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).geteRPSalesmanID());
+
+            }
             postData.addProperty("CreatedBy", "9");
             postData.addProperty("Role_ID", Constants.CollectionAgent);
             postData.addProperty("Description", "");
@@ -199,7 +210,11 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 }else if(screen.equals("Salesman")) {
                     postData.addProperty("StockistID", chmstErp);
                 }
-                orderDetail.addProperty("ChemistID", "9");
+                if(screen.equals("Chemist")) {
+                    postData.addProperty("ChemistID", "9");
+                }else if(screen.equals("Salesman")) {
+                    postData.addProperty("ChemistID", SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getID());
+                }
                 orderDetail.addProperty("Doc_no", mOrderTableMaster.getDoc_no());
                 orderDetail.addProperty("Product_StockistID", productListModelDaos.get(i).getStk_id());
                 orderDetail.addProperty("Product_ID",  productListModelDaos.get(i).getProduct_ID());
@@ -248,12 +263,27 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
         if(mObject.getStatus().equals("success"))
         {
-            deleteDataFromDb(getId(mStockistModel.getClientID()));
+            Toast.makeText(getApplicationContext(),mObject.getMessage(),Toast.LENGTH_LONG).show();
+            if(screen.equals("Chemist")) {
+                deleteDataFromDb(getId(mStockistModel.getClientID()));
+                Intent login =new Intent(ConfirmOrderActivity.this,HomeActivity.class);
+               login.putExtra(Constants.screen,"Chemist");
+                startActivity(login);
+            }else if(screen.equals("Salesman")){
+                deleteDataFromDb(getId(chmstErp));
+                Intent i = new Intent(getApplicationContext(), ProductsActivity.class);
+                i.putExtra(Constants.screen,"Salesman");
+                i.putExtra(Constants.cmstErp,chmstErp);
+
+                startActivity(i);
+                finish();
+            }
             deletecartItems(productListModelDaos);
+
         }
         else
         {
-            Toast.makeText(this, responseData.getMsg(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, mObject.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
     }

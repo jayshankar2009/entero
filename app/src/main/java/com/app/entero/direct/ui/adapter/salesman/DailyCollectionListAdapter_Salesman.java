@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -48,6 +49,7 @@ public class DailyCollectionListAdapter_Salesman extends BaseExpandableListAdapt
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.salesman_child_expand_daily_collections_item, null);
         }
+        ImageView chqImg = (ImageView)convertView.findViewById(R.id.chqImg);
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.text_daily_collection_name);
         TextView text_daily_collection_time = (TextView) convertView
@@ -56,7 +58,15 @@ public class DailyCollectionListAdapter_Salesman extends BaseExpandableListAdapt
                 .findViewById(R.id.text_daily_collection_amount);
         expandedListTextView.setText(expandableListDetail.get(listPosition).getPaymentDetails().get(expandedListPosition).getChemistLegalName());
         text_daily_collection_time.setText(expandableListDetail.get(listPosition).getPaymentDetails().get(expandedListPosition).getPaymentTime());
-        text_daily_collection_amount.setText(expandableListDetail.get(listPosition).getAmount());
+        text_daily_collection_amount.setText(expandableListDetail.get(listPosition).getPaymentDetails().get(expandedListPosition).getAmount());
+       if(expandableListDetail.get(listPosition).getPaymentDetails().get(expandedListPosition).getPaymentMode().equals("Cash")) {
+           chqImg.setBackgroundResource(R.drawable.ic_list_rupee_small);
+           text_daily_collection_amount.setText(expandableListDetail.get(listPosition).getPaymentDetails().get(expandedListPosition).getAmount());
+       }else {
+           chqImg.setBackgroundResource(R.drawable.ic_card_cheque);
+           text_daily_collection_amount.setText(expandableListDetail.get(listPosition).getPaymentDetails().get(expandedListPosition).getChequeAmt());
+
+       }
         return convertView;
     }
 
