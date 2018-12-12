@@ -1,6 +1,7 @@
 package com.app.entero.direct.ui.fragment.chemist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,9 +17,11 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.StockListModel;
 import com.app.entero.direct.model.StockistModel;
 import com.app.entero.direct.network.ApiConstants;
+import com.app.entero.direct.ui.activity.chemist.ProductsActivity;
 import com.app.entero.direct.ui.activity.main.HomeActivity;
 import com.app.entero.direct.ui.adapter.chemist.MyStockListAdapter;
 import com.app.entero.direct.ui.listener.OnItemRecycleClickListener;
+import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.SimpleDividerItemDecoration;
 
@@ -108,7 +111,7 @@ public class MyStockListFragment extends Fragment implements OnItemRecycleClickL
         if(mModel.getStatus().equals("success"))
         {
             if(mModel.getEntityStockistList()!=null &&mModel.getEntityStockistList().size()>0)
-                mStockListAdapter.refreshData(mModel.getEntityStockistList());
+                mStockListAdapter.refreshData(getMyStockistList(mModel.getEntityStockistList()));
 
         }
         else
@@ -119,7 +122,22 @@ public class MyStockListFragment extends Fragment implements OnItemRecycleClickL
 
     @Override
     public void onItemClick(View view, int position) {
+        Intent mIntent = new Intent(getActivity(), ProductsActivity.class);
+        mIntent.putExtra(Constants.STOCKISTDATA,getMyStockistList(mModel.getEntityStockistList()).get(position));
+        startActivity(mIntent);
+
+    }
 
 
+    private  ArrayList<StockistModel> getMyStockistList(ArrayList<StockistModel> mList)
+    {
+        ArrayList<StockistModel> filteredList = new ArrayList<>();
+        for (StockistModel row : mList) {
+            //.getIs_Locked().equals("Locked")
+            if (row.getIs_Locked().equalsIgnoreCase("unlocked")) {
+                filteredList.add(row);
+            }
+        }
+        return filteredList;
     }
 }

@@ -43,8 +43,11 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.HolderNavi
         SchemeListModel mOfferModel = mList.get(position);
         holderNavigation.tab_Tv.setText(mOfferModel.getProdcutName());
         holderNavigation.distributor_name.setText(mOfferModel.getStcokistName());
-        holderNavigation.count_Tv.setText(mOfferModel.getScheme());
+        holderNavigation.count_Tv.setText(mOfferModel.getPacksize());
       //  Glide.with(activity).load(mOfferModel.getImg()).into(holderNavigation.img_icon);
+        holderNavigation.des_Tv.setText(mOfferModel.getScheme());
+
+
         holderNavigation.ll_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

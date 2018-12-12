@@ -49,6 +49,119 @@ public class StockistModel implements Serializable {
     @Expose
     private String lockunlock;
 
+
+    @SerializedName("Client_Address")
+    @Expose
+    private String Client_Address;
+
+    @SerializedName("StateID")
+    @Expose
+    private String StateID;
+
+
+    @SerializedName("CityID")
+    @Expose
+    private String CityID;
+
+
+    @SerializedName("country")
+    @Expose
+    private String country;
+
+    @SerializedName("PinCode")
+    @Expose
+    private String PinCode;
+
+
+    @SerializedName("URL")
+    @Expose
+    private String URL;
+
+
+    @SerializedName("MobileNo")
+    @Expose
+    private String MobileNo;
+
+    @SerializedName("Product_Count")
+    @Expose
+    private String Product_Count;
+
+    @SerializedName("Outstanding")
+    @Expose
+    private String Outstanding;
+
+    public String getClient_Address() {
+        return Client_Address;
+    }
+
+    public void setClient_Address(String client_Address) {
+        Client_Address = client_Address;
+    }
+
+    public String getStateID() {
+        return StateID;
+    }
+
+    public void setStateID(String stateID) {
+        StateID = stateID;
+    }
+
+    public String getCityID() {
+        return CityID;
+    }
+
+    public void setCityID(String cityID) {
+        CityID = cityID;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPinCode() {
+        return PinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        PinCode = pinCode;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
+    }
+
+    public String getMobileNo() {
+        return MobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        MobileNo = mobileNo;
+    }
+
+    public String getProduct_Count() {
+        return Product_Count;
+    }
+
+    public void setProduct_Count(String product_Count) {
+        Product_Count = product_Count;
+    }
+
+    public String getOutstanding() {
+        return Outstanding;
+    }
+
+    public void setOutstanding(String outstanding) {
+        Outstanding = outstanding;
+    }
+
     public String getStatus() {
         return status;
     }

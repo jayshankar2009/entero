@@ -106,7 +106,7 @@ public class SelectStockListFragment extends Fragment implements OnItemRecycleCl
 
         Intent mIntent = new Intent(getActivity(), ProductsActivity.class);
         mIntent.putExtra(Constants.screen,"Chemist");
-        mIntent.putExtra(Constants.STOCKISTDATA,mModel.getEntityStockistList().get(position));
+        mIntent.putExtra(Constants.STOCKISTDATA,getMystockistList(mModel.getEntityStockistList()).get(position));
         startActivity(mIntent);
 
     }
@@ -132,7 +132,7 @@ public class SelectStockListFragment extends Fragment implements OnItemRecycleCl
         if(mModel.getStatus().equals("success"))
         {
             if(mModel.getEntityStockistList()!=null &&mModel.getEntityStockistList().size()>0)
-                mStockListAdapter.refreshData(mModel.getEntityStockistList());
+                mStockListAdapter.refreshData(getMystockistList(mModel.getEntityStockistList()));
 
         }
         else
@@ -141,6 +141,16 @@ public class SelectStockListFragment extends Fragment implements OnItemRecycleCl
         }
     }
 
-
+    private  ArrayList<StockistModel> getMystockistList(ArrayList<StockistModel> mList)
+    {
+        ArrayList<StockistModel> filteredList = new ArrayList<>();
+        for (StockistModel row : mList) {
+            //.getIs_Locked().equals("Locked")
+            if (row.getIs_Locked().equalsIgnoreCase("unlocked")) {
+                filteredList.add(row);
+            }
+        }
+        return filteredList;
+    }
 
 }

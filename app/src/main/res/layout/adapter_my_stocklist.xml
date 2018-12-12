@@ -79,7 +79,7 @@
             android:gravity="center"
             app:fonts="Lato-Regular.ttf"
             android:layout_toLeftOf="@+id/img_ri"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/textColorBlue" />
 
 

@@ -43,7 +43,7 @@ public class StockListAdapter extends RecyclerView.Adapter<StockListAdapter.Hold
         StockistModel mStockListModel = mList.get(position);
         holderNavigation.stocklistId_Tv.setText(mStockListModel.getAccepted_id());
         holderNavigation.stocklistName_Tv.setText(mStockListModel.getClient_LegalName());
-        holderNavigation.count_Tv.setText(mStockListModel.getClientID());
+        holderNavigation.count_Tv.setText(mStockListModel.getProduct_Count());
         holderNavigation.ll_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

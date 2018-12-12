@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.app.entero.direct.R;
+import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.StockListModel;
 import com.app.entero.direct.model.StockistModel;
 import com.app.entero.direct.network.ApiConstants;
@@ -26,6 +27,7 @@ import com.app.entero.direct.utils.SavePref;
 import com.app.entero.direct.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -143,7 +145,7 @@ public class OtherStockListFragment extends Fragment implements OnItemRecycleCli
         if(mModel.getStatus().equals("success"))
         {
             if(mModel.getEntityStockistList()!=null &&mModel.getEntityStockistList().size()>0)
-                mStockListAdapter.refreshData(mModel.getEntityStockistList());
+                mStockListAdapter.refreshData(getmOfferList(mModel.getEntityStockistList()));
 
         }
         else
@@ -160,6 +162,18 @@ public class OtherStockListFragment extends Fragment implements OnItemRecycleCli
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
 
+    }
+
+    private  ArrayList<StockistModel> getmOfferList(ArrayList<StockistModel> mList)
+    {
+        ArrayList<StockistModel> filteredList = new ArrayList<>();
+        for (StockistModel row : mList) {
+            //.getIs_Locked().equals("Locked")
+            if (row.getIs_Locked().equalsIgnoreCase("Locked")) {
+                filteredList.add(row);
+            }
+        }
+        return filteredList;
     }
 
 }

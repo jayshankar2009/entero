@@ -40,9 +40,7 @@ public class OtherStockListAdapter extends RecyclerView.Adapter<OtherStockListAd
     @Override
     public void onBindViewHolder(@NonNull HolderNavigation holderNavigation, int position) {
         StockistModel mStockListModel = mList.get(position);
-        if(mStockListModel.getIs_Locked().equals("Locked"))
-        {
-            holderNavigation.stocklistId_Tv.setText(mStockListModel.getAccepted_id());
+            holderNavigation.stocklistId_Tv.setText(mStockListModel.getClient_Address());
             holderNavigation.stocklistName_Tv.setText(mStockListModel.getClient_LegalName());
             holderNavigation.ll_main.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,7 +51,6 @@ public class OtherStockListAdapter extends RecyclerView.Adapter<OtherStockListAd
 //                ((HomeActivity) activity).onNavItemClick(v, position);
                 }
             });
-        }
     }
 
     public void refreshadapter(int menu_position) {

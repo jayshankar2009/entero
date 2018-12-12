@@ -311,26 +311,30 @@ public class ChemistHomeFragment extends Fragment implements View.OnClickListene
                         ""+(String.valueOf(Math.random())).replace(".",""),"test",getDate(),"no","yes"
                 ));
             }
+            orderListModelDao.insert(
+                    new  OrderDetailTable(null, mModel.getschemeList().get(position).getStockistID(),
+                            getDocId(mModel.getschemeList().get(position).getStockistID()),
+                            mModel.getschemeList().get(position).getProduct_ID(),
+                            mModel.getschemeList().get(position).getProduct_Code(),
+                            mModel.getschemeList().get(position).getProdcutName(),
+                            mModel.getschemeList().get(position).getMRP(),
+                            mModel.getschemeList().get(position).getRate(),
+                            mModel.getschemeList().get(position).getStock(),
+                            mModel.getschemeList().get(position).getMfgCode(),
+                            mModel.getschemeList().get(position).getMfgName(),
+                            mModel.getschemeList().get(position).getImage_path(),
+                            mModel.getschemeList().get(position).getPacksize(),
+                            mModel.getschemeList().get(position).getScheme(),
+                            mModel.getschemeList().get(position).getPercentScheme(),
+                            mModel.getschemeList().get(position).getLegendMode(),
+                            mModel.getschemeList().get(position).getColorCode(),
+                            mModel.getschemeList().get(position).getHalfScheme(),
+                            mModel.getschemeList().get(position).getMinQty(),
+                            mModel.getschemeList().get(position).getMaxQty(),
+                            mModel.getschemeList().get(position).getBoxSize(),""+1
+                            ,mModel.getschemeList().get(position).getStockistID()));
+
         }
-
-
-       /* orderListModelDao.insert(
-                new OrderDetailTable(null, mModel.getschemeList().get(position).getStockistID(),
-                        getDocId(mModel.getschemeList().get(position).getStockistID()),
-                        mModel.getschemeList().get(position).getProduct_ID(),
-                        mModel.getschemeList().get(position).getIt,
-                        mModel.getschemeList().get(position).getProdcutName(),
-                        mModel.getschemeList().get(position).getMrp(),
-                        mSelectedProductList.getRate(), mSelectedProductList.getStock(),
-                        mSelectedProductList.getMfgCode(),  mSelectedProductList.getMfgName(),
-                        mSelectedProductList.getImage_path(), mSelectedProductList.getPacksize(),
-                        mSelectedProductList.getScheme(),
-                        mSelectedProductList.getPercentScheme(), mSelectedProductList.getLegendMode(),
-                        mSelectedProductList.getColorCode(),
-                        mSelectedProductList.getHalfScheme(), mSelectedProductList.getMinQty(),
-                        mSelectedProductList.getMaxQty(), mSelectedProductList.getBoxSize(),""+itemCount,mSelectedProductList.getStk_id())
-        );*/
-
     }
 
     public boolean isStockistAdded(String stockistID) {
