@@ -76,7 +76,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     private ArrayList<ProductListModel> mProductList;
     private Context mContext;
     private SearchView searchView;
-    String screen,chmstErp;
+    String screen,chmstErp,cmstId;
     TextView tab_Tv;
     ProductListModel mSelectedProductList;
     private BottomSheetBehavior sheetBehavior;
@@ -87,7 +87,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     int itemCount=1;
     Bundle bundle;
     Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy ");
+    SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd ");
     private ProductListModel mStockListModelData;
     String strCrntDate;
     private ImageView img_cross,img_viewcart;
@@ -140,6 +140,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
     //    if(bundle!=null) {
             screen = bundle.getString(Constants.screen);
             chmstErp = bundle.getString(Constants.cmstErp);
+            cmstId=bundle.getString(Constants.cmstId);
    //     }
         mSelectedProductList = new ProductListModel();
         mStockistModel  = new StockistModel();
@@ -422,6 +423,7 @@ public class ProductsActivity extends BaseActivity implements View.OnClickListen
                 if(screen.equals("Salesman")) {
                     Log.i("Salesman",""+chmstErp);
                     mIntent.putExtra(Constants.cmstErp, chmstErp);
+                    mIntent.putExtra(Constants.cmstId,cmstId);
                 }else if(screen.equals("Chemist")){
                     mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
                 }

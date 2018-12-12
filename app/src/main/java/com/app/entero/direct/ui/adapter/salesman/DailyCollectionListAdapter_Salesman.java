@@ -72,7 +72,7 @@ public class DailyCollectionListAdapter_Salesman extends BaseExpandableListAdapt
 
     @Override
     public int getChildrenCount(int listPosition) {
-        int size = expandableListDetail.get(listPosition).getPaymentDetails().size();
+        int size = this.expandableListDetail.get(listPosition).getPaymentDetails().size();
         return size;
     }
 
@@ -116,4 +116,8 @@ public class DailyCollectionListAdapter_Salesman extends BaseExpandableListAdapt
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
+
+    public int getItemViewType (int position){
+        return position;
+}
 }

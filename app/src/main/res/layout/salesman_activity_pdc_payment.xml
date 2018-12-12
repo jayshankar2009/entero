@@ -25,7 +25,7 @@
             android:text="Wellcare Medical And Gen Stores"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/black"
-            app:fonts="Lato_Bold.ttf" />
+            app:fonts="Lato-Bold.ttf" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_pdc_payment"

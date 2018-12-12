@@ -8,6 +8,7 @@ import com.app.entero.direct.model.DataModel;
 import com.app.entero.direct.model.DataModel;
 import com.app.entero.direct.model.LoginModel;
 import com.app.entero.direct.model.OffersModel;
+import com.app.entero.direct.model.PDCModel;
 import com.app.entero.direct.model.ProductListModel;
 import com.app.entero.direct.model.ProductsModel;
 import com.app.entero.direct.model.SalesmanDashBoardModel;
@@ -91,7 +92,12 @@ public interface ApiCallService {
     @POST
     @FormUrlEncoded
     Observable<OffersModel> getOfferList(@Header("Authorization") String token, @Url String url, @FieldMap LinkedHashMap<String, String> linkedHashMap);
+
+    @POST
     Observable<DailyCollection_Report_Model> getDailyCollection(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
+
+    @POST
+    Observable<PDCModel> getPDCModel(@Header("Authorization") String token, @Url String url, @Body JsonObject jsonObject);
 
 }
 

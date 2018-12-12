@@ -70,7 +70,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
     private ViewCartAdapter mViewCartAdapter;
     private ArrayList<ProductListModel> mProductList;
     private Context mContext;
-    String screen,chmstErp;
+    String screen,chmstErp,cmstId;
     Bundle bundle;
     TextView text_cart_count_take_order;
 
@@ -109,6 +109,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
             productListModelDaos = cartItems(getDocId(mStockistModel.getClientID()));
         } else if (screen.equals("Salesman")) {
             chmstErp= bundle.getString(Constants.cmstErp);
+            cmstId=bundle.getString(Constants.cmstId);
             productListModelDaos=cartItems(getDocId(chmstErp));
         }
         confirm_linear = (LinearLayout) findViewById(R.id.confirm_linear);
@@ -248,6 +249,7 @@ public class ViewCartActivityChemist extends BaseActivity implements OnItemRecyc
                 if(screen.equals("Salesman")) {
                     Log.i("Salesman",""+chmstErp);
                     mIntent.putExtra(Constants.cmstErp, chmstErp);
+                    mIntent.putExtra(Constants.cmstId,cmstId);
                 }else if(screen.equals("Chemist")){
                     mIntent.putExtra(Constants.STOCKISTDATA,mStockistModel);
                 }

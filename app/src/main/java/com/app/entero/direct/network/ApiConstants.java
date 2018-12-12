@@ -33,7 +33,7 @@ public class ApiConstants {
     public static final String GETAPPLOGIN = "api/customers/GetAppLogin";
     public static final String Get_OrdersAll = "api/orders/Get_OrdersAll";
     public static final String PLACE_ORDER = "api/orders/app_place_order";
-
+    public static final String getPdc = "api/salesmans/App_Get_PDCReport";
     public static final String App_GetDailyCollection_Report = "api/salesmans/App_GetDailyCollection_Report";
     public static final String GETCHEMISTOUTSTANDING = "api/salesmans/app_GetChemistOutstanding";
     public static final String GETALLORDERS = "api/orders/Get_OrdersAll";

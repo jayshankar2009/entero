@@ -183,9 +183,15 @@ public class DailyCollectionReportActivity_Salesman extends BaseActivity impleme
 
                     @Override
                     public void onGroupExpand(int groupPosition) {
-               Toast.makeText(getApplicationContext(),
+               /*Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
+                      /*  int height = 0;
+                        for (int i = 0; i < expandableListView.getChildCount(); i++) {
+                            height += expandableListView.getChildAt(i).getMeasuredHeight();
+                            height += expandableListView.getDividerHeight();
+                        }
+                        expandableListView.getLayoutParams().height = (height+6)*10;*/
                     }
                 });
 
@@ -194,10 +200,10 @@ public class DailyCollectionReportActivity_Salesman extends BaseActivity impleme
                     @Override
                     public void onGroupCollapse(int groupPosition) {
                         expandableListView.expandGroup(groupPosition);
-               Toast.makeText(getApplicationContext(),
+              /* Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
-
+                        Toast.LENGTH_SHORT).show();*/
+                       // expandableListView.getLayoutParams().height = 61;
                     }
                 });
 
@@ -205,29 +211,32 @@ public class DailyCollectionReportActivity_Salesman extends BaseActivity impleme
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v,
                                                 int groupPosition, int childPosition, long id) {
-                        Toast.makeText(
+                     /*   Toast.makeText(
                                 getApplicationContext(),
                                 expandableListTitle.get(groupPosition)
                                         + " -> "
                                         + expandableListDetail.get(
                                         expandableListTitle.get(groupPosition)).get(
                                         childPosition), Toast.LENGTH_SHORT
-                        ).show();
+                        ).show();*/
                         return false;
                     }
                 });
-                if(report_model.getResult().size()>0){
+               if(report_model.getResult().size()>0){
                     int grand_total = 0;
+                    int chequeTotal=0;
+                    int cashTotal=0;
                     for(int i=0;i<report_model.getResult().size();i++){
-                        for(int j=0;j<report_model.getResult().get(i).getPaymentDetails().size();i++) {
+                        if(report_model.getResult().get(i).getPaymentDetails().size()>0){
+                            for(int j =0;j<report_model.getResult().get(i).getPaymentDetails().size();i++){
+                                if(report_model.getResult().get(i).getPaymentDetails().get(j).getPaymentMode().equals("cheque")) {
 
-                            grand_total = grand_total + Integer.parseInt(report_model.getResult().get(i).getPaymentDetails().get(j).getAmount());
-if(report_model.getResult().get(i).getPaymentDetails().get(j).getPaymentMode().equals("cheque")) {
-
-}
+                                }
+                            }
                         }
-                        Log.i("Ampount",""+grand_total);
-                    }
+                                        }
+
+
 
 
                 }
@@ -238,7 +247,7 @@ if(report_model.getResult().get(i).getPaymentDetails().get(j).getPaymentMode().e
 
     private void handleError(Throwable t) {
         Log.i("Response","t"+t.getMessage());
-isShowProgress(false);
+            isShowProgress(false);
     }
 
     private void setTextFilter() {

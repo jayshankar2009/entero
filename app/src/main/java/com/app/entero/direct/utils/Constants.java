@@ -32,4 +32,5 @@ public class Constants {
     public static final String SCHEME_LIST = "scheme_list";
     public static String screen="Screen";
     public static String cmstErp="cmstErp";
+    public static String cmstId="cmstId";
 }

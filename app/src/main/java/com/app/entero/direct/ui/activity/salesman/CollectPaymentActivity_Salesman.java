@@ -41,6 +41,7 @@ import com.app.entero.direct.R;
 import com.app.entero.direct.model.Paymentmodel;
 import com.app.entero.direct.ui.activity.main.BaseActivity;
 import com.app.entero.direct.ui.adapter.salesman.Adapter_payment_Salesman;
+import com.app.entero.direct.utils.Constants;
 import com.app.entero.direct.utils.LocationTrack;
 import com.app.entero.direct.utils.getLocation;
 
@@ -59,6 +60,8 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
     private List<Paymentmodel> mList = new ArrayList<>();
     public static Button btn_makePayment;
     TextView txtHeader;
+    Bundle bundle;
+    String chmstErp;
     int paidAmnt=0;
     private int mYear, mMonth, mDay;
     RecyclerView.LayoutManager mLayoutManager;
@@ -122,6 +125,10 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
     }
 
     private void initView() {
+        bundle = getIntent().getExtras();
+        //    if(bundle!=null) {
+
+        chmstErp = bundle.getString(Constants.cmstErp);
         locationTrack = new LocationTrack(getApplicationContext());
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtHeader=(TextView)findViewById(R.id.txtHeader);
@@ -167,6 +174,7 @@ public class CollectPaymentActivity_Salesman extends BaseActivity implements Vie
         {
             case R.id.txtPdc :
                 Intent i = new Intent(getApplicationContext(),PDCPaymentActivity_Salesman.class);
+              i.putExtra(Constants.cmstErp,chmstErp);
                 startActivity(i);
                 break;
             case R.id.txtCreditNote:

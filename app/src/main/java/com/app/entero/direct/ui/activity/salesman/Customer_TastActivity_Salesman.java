@@ -126,6 +126,8 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
                // if(SavePref.getInstance(getApplicationContext()).getUserDetail().getSalesmanInfo().get(0).getRoleID().equals(Constants.Salesman)) {
                 if(locationTrack.get_location()) {
                     Intent i2 = new Intent(Customer_TastActivity_Salesman.this, CollectPaymentActivity_Salesman.class);
+                   i2.putExtra(Constants.cmstErp,listProfile.get(0).getChemistERPCode());
+
                     startActivity(i2);
                 }else {
                     Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
@@ -141,6 +143,7 @@ public class Customer_TastActivity_Salesman extends BaseActivity implements View
                     Intent i3 = new Intent(Customer_TastActivity_Salesman.this, ProductsActivity.class);
                     i3.putExtra(Constants.screen,"Salesman");
                     i3.putExtra(Constants.cmstErp,listProfile.get(0).getChemistERPCode());
+                    i3.putExtra(Constants.cmstId,listProfile.get(0).getChemistID());
                     startActivity(i3);
                 }else {
                     Toast.makeText(getApplicationContext(),"You have not a permmision to this job",Toast.LENGTH_SHORT).show();
